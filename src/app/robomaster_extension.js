@@ -12,7 +12,7 @@ class CustomExtension {
                 {
                     opcode: 'connectRobot',
                     blockType: Scratch.BlockType.COMMAND, // Bloc "action"
-                    text: 'Exécuter une fonction Python'
+                    text: 'Connection au robot'
                 }
             ]
         };

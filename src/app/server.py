@@ -1,10 +1,11 @@
+# python server.py
 # https://turbowarp.org/editor
 # Ajouter une extension
 # Extension customisée
 # URL
-# http://localhost:8000/load_robomaster_extension
+# http://localhost:8000/
 # Load
-#
+
 
 from flask import Flask, send_from_directory
 from robomaster import robot
@@ -18,10 +19,9 @@ FILE_DIR = str(Path(__file__).resolve().parent)
 FILE_NAME = "robomaster_extension.js"
 
 
-@app.route('/load_robomaster_extension')
+@app.route('/')
 def serve_extension():
     return send_from_directory(FILE_DIR, FILE_NAME)
-
 
 @app.route('/connectRobot', methods=['POST'])
 def connect_robot():

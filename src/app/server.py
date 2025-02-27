@@ -6,14 +6,15 @@
 # Load
 #
 
-
 from flask import Flask, send_from_directory
 from robomaster import robot
+from pathlib import Path
+
 
 app = Flask(__name__)
 
 # Chemin du dossier contenant ton fichier
-FILE_DIR = r"C:\Users\nico2\Documents\isep\i2_2024-2025\cours\s4\robotique\projet_robotique\src\app"
+FILE_DIR = str(Path(__file__).resolve().parent)
 FILE_NAME = "robomaster_extension.js"
 
 

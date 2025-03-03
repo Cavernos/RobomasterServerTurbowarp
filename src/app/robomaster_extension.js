@@ -6,35 +6,54 @@ class CustomExtension {
     getInfo() {
         return {
             id: 'customExtension',
-            name: 'Extension Robomaster',
-            color1: '#4C97FF', // Couleur principale
-            color2: '#3373CC', // Couleur secondaire
+            name: 'Robomaster Extension',
+            color1: '#4C97FF',
+            color2: '#3373CC',
             blocks: [
                 {
-                    // Connection avec le robot
-                    opcode: 'connection',
+                    // Start the connection with the robot.
+                    opcode: 'start',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'Connection'
+                    text: 'Start'
                 },
                 {
-                    // Stop la connection avec le robot
+                    // Stop the connection with the robot.
                     opcode: 'stop',
                     blockType: Scratch.BlockType.COMMAND,
                     text: 'Stop'
                 },
                 {
-                    // Avancer
+                    // Move the robot with user-defined parameters.
                     opcode: 'move',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'Avancer'
+                    text: 'Move x: [X] y: [Y] z: [Z] speed: [SPEED]',
+                    arguments: {
+                        X: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 1
+                        },
+                        Y: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                        },
+                        Z: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                        },
+                        SPEED: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0.5
+                        }
+                    }
                 }
             ]
         };
     }
 
-    // Fonctions associées
-    async connection() {
-        const url = 'http://localhost:8000/connection';
+    // -------------------- Functions -------------------- //
+
+    async start() {
+        const url = 'http://localhost:8000/start';
         try {
             const response = await fetch(url, { method: 'POST' });
             await response.json(); // Attend la réponse du serveur
@@ -53,10 +72,20 @@ class CustomExtension {
         }
     }
 
-    async move() {
+    async move(args) {
         const url = 'http://localhost:8000/move';
+        const data = {
+            x: args.X,
+            y: args.Y,
+            z: args.Z,
+            speed: args.SPEED
+        };
         try {
-            const response = await fetch(url, { method: 'POST' });
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
             await response.json();
         } catch (error) {
             console.error('Erreur lors du déplacement:', error);

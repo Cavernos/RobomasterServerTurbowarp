@@ -11,85 +11,114 @@ class CustomExtension {
             color2: '#3373CC',
             blocks: [
                 {
-                    // Start the connection with the robot.
                     opcode: 'start',
                     blockType: Scratch.BlockType.COMMAND,
                     text: 'Start'
                 },
                 {
-                    // Stop the connection with the robot.
                     opcode: 'stop',
                     blockType: Scratch.BlockType.COMMAND,
                     text: 'Stop'
                 },
                 {
-                    // Move the robot with user-defined parameters.
                     opcode: 'move',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'Move x: [X] y: [Y] z: [Z] speed: [SPEED]',
+                    text: 'Move x: [x] y: [y] z: [z] speed: [speed]',
                     arguments: {
-                        X: {
-                            type: Scratch.ArgumentType.NUMBER,
-                            defaultValue: 1
-                        },
-                        Y: {
-                            type: Scratch.ArgumentType.NUMBER,
-                            defaultValue: 0
-                        },
-                        Z: {
-                            type: Scratch.ArgumentType.NUMBER,
-                            defaultValue: 0
-                        },
-                        SPEED: {
-                            type: Scratch.ArgumentType.NUMBER,
-                            defaultValue: 0.5
-                        }
+                        x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                        y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        z: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        speed: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
                     }
+                },
+                {
+                    opcode: 'rotate',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Rotate angle: [angle]',
+                    arguments: {
+                        angle: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
+                    }
+                },
+                {
+                    opcode: 'gimbal',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Move gimbal pitch: [pitch] yaw: [yaw]',
+                    arguments: {
+                        pitch: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        yaw: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                    }
+                },
+                {
+                    opcode: 'arm',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Move arm to [position]',
+                    arguments: {
+                        position: { type: Scratch.ArgumentType.STRING, menu: 'armPositions' }
+                    }
+                },
+                {
+                    opcode: 'grabber',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Grabber [action]',
+                    arguments: {
+                        action: { type: Scratch.ArgumentType.STRING, menu: 'grabberActions' }
+                    }
+                },
+                {
+                    opcode: 'status',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Battery level'
                 }
-            ]
+            ],
+            menus: {
+                armPositions: ['up', 'down'],
+                grabberActions: ['open', 'close']
+            }
         };
     }
 
-    // -------------------- Functions -------------------- //
+    async requestHandler(url, method = 'POST', body = null) {
+        try {
+            const options = { method, headers: { 'Content-Type': 'application/json' } };
+            if (body) options.body = JSON.stringify(body);
+            const response = await fetch(`http://localhost:8000/${url}`, options);
+            return await response.json();
+        } catch (error) {
+            console.error(`Erreur lors de la requête ${url}:`, error);
+        }
+    }
 
     async start() {
-        const url = 'http://localhost:8000/start';
-        try {
-            const response = await fetch(url, { method: 'POST' });
-            await response.json(); // Attend la réponse du serveur
-        } catch (error) {
-            console.error('Erreur lors de la connexion:', error);
-        }
+        await this.requestHandler('start');
     }
 
     async stop() {
-        const url = 'http://localhost:8000/stop';
-        try {
-            const response = await fetch(url, { method: 'POST' });
-            await response.json();
-        } catch (error) {
-            console.error('Erreur lors de l’arrêt:', error);
-        }
+        await this.requestHandler('stop');
     }
 
     async move(args) {
-        const url = 'http://localhost:8000/move';
-        const data = {
-            x: args.X,
-            y: args.Y,
-            z: args.Z,
-            speed: args.SPEED
-        };
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            await response.json();
-        } catch (error) {
-            console.error('Erreur lors du déplacement:', error);
-        }
+        await this.requestHandler('move', 'POST', args);
+    }
+
+    async rotate(args) {
+        await this.requestHandler('rotate', 'POST', args);
+    }
+
+    async gimbal(args) {
+        await this.requestHandler('gimbal', 'POST', args);
+    }
+
+    async arm(args) {
+        await this.requestHandler('arm', 'POST', args);
+    }
+
+    async grabber(args) {
+        await this.requestHandler('grabber', 'POST', args);
+    }
+
+    async status() {
+        const data = await this.requestHandler('status', 'GET');
+        return data ? data.battery : 'Error';
     }
 }
 

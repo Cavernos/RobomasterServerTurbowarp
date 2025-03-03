@@ -33,25 +33,34 @@ class CustomExtension {
     }
 
     // Fonctions associées
-    connection() {
-        const url = 'http://localhost:8000/connection'; // URL du serveur Flask
-
-        fetch(url, { method: 'POST' })  // Envoie la requête sans attendre de réponse
-            .catch(error => console.error('Erreur lors de l’appel à Python:', error));
+    async connection() {
+        const url = 'http://localhost:8000/connection';
+        try {
+            const response = await fetch(url, { method: 'POST' });
+            await response.json(); // Attend la réponse du serveur
+        } catch (error) {
+            console.error('Erreur lors de la connexion:', error);
+        }
     }
 
-    move() {
-        const url = 'http://localhost:8000/move'; // URL du serveur Flask
-
-        fetch(url, { method: 'POST' })  // Envoie la requête sans attendre de réponse
-            .catch(error => console.error('Erreur lors de l’appel à Python:', error));
+    async stop() {
+        const url = 'http://localhost:8000/stop';
+        try {
+            const response = await fetch(url, { method: 'POST' });
+            await response.json();
+        } catch (error) {
+            console.error('Erreur lors de l’arrêt:', error);
+        }
     }
 
-    stop() {
-        const url = 'http://localhost:8000/stop'; // URL du serveur Flask
-
-        fetch(url, { method: 'POST' })  // Envoie la requête sans attendre de réponse
-            .catch(error => console.error('Erreur lors de l’appel à Python:', error));
+    async move() {
+        const url = 'http://localhost:8000/move';
+        try {
+            const response = await fetch(url, { method: 'POST' });
+            await response.json();
+        } catch (error) {
+            console.error('Erreur lors du déplacement:', error);
+        }
     }
 }
 

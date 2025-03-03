@@ -49,10 +49,7 @@ class RoboMasterServer:
         
         :return: Message de confirmation
         """
-        self.ep_robot = robot.Robot()
-        self.ep_robot.initialize(conn_type="ap")
         self.ep_robot.chassis.move(x=x, y=y, z=z, xy_speed=speed).wait_for_completed()
-        self.ep_robot.close()
         return jsonify({"move": True})
 
     def run(self):

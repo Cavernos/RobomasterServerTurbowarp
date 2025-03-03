@@ -29,7 +29,6 @@ class RoboMasterServer:
         self.app.add_url_rule('/rotate', 'rotate', self.rotate, methods=['POST'])
         self.app.add_url_rule('/arm', 'arm', self.arm, methods=['POST'])
         self.app.add_url_rule('/grabber', 'grabber', self.grabber, methods=['POST'])
-        self.app.add_url_rule('/status', 'status', self.status, methods=['GET'])
         self.app.add_url_rule('/gimbal', 'gimbal', self.gimbal, methods=['POST'])
 
     def run(self):
@@ -63,45 +62,45 @@ class RoboMasterServer:
         except Exception as e:
             print(f"{error_message}: {e}")
             return jsonify({"error": error_message, "details": str(e)})
+        
+    # -------------------- BLOC FUNCTIONS -------------------- #
 
     def start(self):
         """
-        Initialize the connection with the robot.
+        Initialize connection with the RoboMaster robot.
 
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._start(), "Failed to start robot")
+        return self.safe_execute(lambda: self._start(), "Failed to start connection")
 
     def _start(self):
         """
-        Internal method to start the robot.
+        Internal method to initialize connection.
         """
         self.ep_robot = robot.Robot()
         self.ep_robot.initialize(conn_type="ap")
-        self.ep_robot.gimbal.recenter().wait_for_completed()
         return jsonify({"start": True})
     
     def stop(self):
         """
-        Stop the robot connection.
+        Stop the connection with the RoboMaster robot.
 
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._stop(), "Failed to stop robot")
+        return self.safe_execute(lambda: self._stop(), "Failed to stop connection")
 
     def _stop(self):
         """
-        Internal method to stop the robot.
+        Internal method to stop connection.
         """
-        if self.ep_robot:
-            self.ep_robot.close()
+        self.ep_robot.close()
         return jsonify({"stop": True})
     
     def move(self):
         """
-        Move the robot based on given parameters.
+        Move the robot.
 
         Returns:
             Response: JSON indicating success.
@@ -113,7 +112,7 @@ class RoboMasterServer:
         Internal method to move the robot.
         """
         data = request.get_json()
-        x = float(data.get("x", 1))
+        x = float(data.get("x", 0))
         y = float(data.get("y", 0))
         z = float(data.get("z", 0))
         speed = float(data.get("speed", 0.5))
@@ -134,25 +133,68 @@ class RoboMasterServer:
         Internal method to rotate the robot.
         """
         data = request.get_json()
-        angle = float(data.get("angle", 90))
-        self.ep_robot.chassis.move(z=angle).wait_for_completed()
+        angle = float(data.get("angle", 0))
+        speed = float(data.get("speed", 30))
+        self.ep_robot.chassis.move(z=angle, xy_speed=speed).wait_for_completed()
         return jsonify({"rotate": True})
     
-    def status(self):
+    def arm(self):
         """
-        Get the robot's battery status.
+        Control the robotic arm.
 
         Returns:
-            Response: JSON containing battery percentage.
+            Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._status(), "Failed to get status")
+        return self.safe_execute(lambda: self._arm(), "Failed to control arm")
     
-    def _status(self):
+    def _arm(self):
         """
-        Internal method to get battery status.
+        Internal method to control the arm.
         """
-        battery = self.ep_robot.battery.get_percentage()
-        return jsonify({"battery": battery})
+        data = request.get_json()
+        position = int(data.get("position", 1))
+        self.ep_robot.robotic_arm.move_to(position).wait_for_completed()
+        return jsonify({"arm": True})
+    
+    def grabber(self):
+        """
+        Control the grabber.
+
+        Returns:
+            Response: JSON indicating success.
+        """
+        return self.safe_execute(lambda: self._grabber(), "Failed to control grabber")
+    
+    def _grabber(self):
+        """
+        Internal method to control the grabber.
+        """
+        data = request.get_json()
+        action = data.get("action", "open")
+        if action == "open":
+            self.ep_robot.grabber.open().wait_for_completed()
+        else:
+            self.ep_robot.grabber.close().wait_for_completed()
+        return jsonify({"grabber": True})
+    
+    def gimbal(self):
+        """
+        Control the gimbal movement.
+
+        Returns:
+            Response: JSON indicating success.
+        """
+        return self.safe_execute(lambda: self._gimbal(), "Failed to control gimbal")
+    
+    def _gimbal(self):
+        """
+        Internal method to control the gimbal.
+        """
+        data = request.get_json()
+        pitch = float(data.get("pitch", 0))
+        yaw = float(data.get("yaw", 0))
+        self.ep_robot.gimbal.move(pitch=pitch, yaw=yaw).wait_for_completed()
+        return jsonify({"gimbal": True})
 
 # ==================== if __name__ == '__main__' ==================== #
 

@@ -63,11 +63,6 @@ class CustomExtension {
                     arguments: {
                         action: { type: Scratch.ArgumentType.STRING, menu: 'grabberActions' }
                     }
-                },
-                {
-                    opcode: 'status',
-                    blockType: Scratch.BlockType.REPORTER,
-                    text: 'Battery level'
                 }
             ],
             menus: {
@@ -114,11 +109,6 @@ class CustomExtension {
 
     async grabber(args) {
         await this.requestHandler('grabber', 'POST', args);
-    }
-
-    async status() {
-        const data = await this.requestHandler('status', 'GET');
-        return data ? data.battery : 'Error';
     }
 }
 

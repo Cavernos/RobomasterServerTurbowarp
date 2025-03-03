@@ -7,19 +7,48 @@ class CustomExtension {
         return {
             id: 'customExtension',
             name: 'Extension Robomaster',
-            color1: '#4C97FF',
+            color1: '#4C97FF', // Couleur principale
+            color2: '#3373CC', // Couleur secondaire
             blocks: [
                 {
-                    opcode: 'connectRobot',
-                    blockType: Scratch.BlockType.COMMAND, // Bloc "action"
-                    text: 'Connection au robot'
+                    // Connection avec le robot
+                    opcode: 'connection',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Connection'
+                },
+                {
+                    // Stop la connection avec le robot
+                    opcode: 'stop',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Stop'
+                },
+                {
+                    // Avancer
+                    opcode: 'move',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Avancer'
                 }
             ]
         };
     }
 
-    connectRobot() {
-        const url = 'http://localhost:8000/connectRobot'; // URL du serveur Flask
+    // Fonctions associées
+    connection() {
+        const url = 'http://localhost:8000/connection'; // URL du serveur Flask
+
+        fetch(url, { method: 'POST' })  // Envoie la requête sans attendre de réponse
+            .catch(error => console.error('Erreur lors de l’appel à Python:', error));
+    }
+
+    move() {
+        const url = 'http://localhost:8000/move'; // URL du serveur Flask
+
+        fetch(url, { method: 'POST' })  // Envoie la requête sans attendre de réponse
+            .catch(error => console.error('Erreur lors de l’appel à Python:', error));
+    }
+
+    stop() {
+        const url = 'http://localhost:8000/stop'; // URL du serveur Flask
 
         fetch(url, { method: 'POST' })  // Envoie la requête sans attendre de réponse
             .catch(error => console.error('Erreur lors de l’appel à Python:', error));

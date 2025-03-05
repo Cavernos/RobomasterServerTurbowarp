@@ -1,3 +1,5 @@
+import re
+
 from flask import Flask, send_from_directory, jsonify, request
 from robomaster import robot
 from pathlib import Path
@@ -6,7 +8,8 @@ class RoboMasterServer:
     """
     Server Flask for controlling the RoboMaster EP.
     """
-    
+    routes = []
+
     def __init__(self, file_name="robomaster_extension.js", port=8000):
         """
         Initialize the RoboMaster Flask server.
@@ -22,20 +25,23 @@ class RoboMasterServer:
         self.ep_robot = None
 
         # Define routes
-        self.app.add_url_rule('/robomaster_extension', 'robomaster_extension', self.robomaster_extension)
-        self.app.add_url_rule('/start', 'start', self.start, methods=['POST'])
-        self.app.add_url_rule('/stop', 'stop', self.stop, methods=['POST'])
-        self.app.add_url_rule('/move', 'move', self.move, methods=['POST'])
-        self.app.add_url_rule('/rotate', 'rotate', self.rotate, methods=['POST'])
-        self.app.add_url_rule('/arm', 'arm', self.arm, methods=['POST'])
-        self.app.add_url_rule('/grabber', 'grabber', self.grabber, methods=['POST'])
-        self.app.add_url_rule('/gimbal', 'gimbal', self.gimbal, methods=['POST'])
+        self.generate_route_list(self)
+        for route in self.routes:
+            self.app.add_url_rule(route['url'], route['name'], route['method'])
 
     def run(self):
         """
         Start the RoboMaster Flask server.
         """
         self.app.run(debug=True, port=self.port)
+
+    @classmethod
+    def generate_route_list(cls, instance):
+        cls.routes.append({'name': "robomaster_extension", "url": "/robomaster_extension", "method": getattr(instance, "robomaster_extension")})
+        for method_name in cls.__dict__.keys():
+            if re.match('_[A-Za-z]', method_name):
+                method_name = method_name.split('_')[1]
+                cls.routes.append({'name': method_name, 'url': f"/{method_name}", "method": getattr(instance, method_name)})
 
     def robomaster_extension(self):
         """

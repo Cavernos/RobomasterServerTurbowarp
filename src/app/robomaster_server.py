@@ -1,10 +1,15 @@
-from flask import Flask, send_from_directory, jsonify, request
-from robomaster import robot
 from pathlib import Path
+from os import path
+from flask import Flask, send_from_directory, jsonify, request
+from flask_cors import CORS
+from robomaster import robot
+
+DIR_PATH = str(Path(__file__).resolve().parent)
+
 
 class RoboMasterServer:
     """
-    Server Flask for controlling the RoboMaster EP.
+    Server Flask for controlling the RoboMaster EP Core.
     """
     
     def __init__(self, file_name="robomaster_extension.js", port=8000):
@@ -12,17 +17,18 @@ class RoboMasterServer:
         Initialize the RoboMaster Flask server.
 
         Args:
-            file_name (str): JavaScript extension file name.
-            port (int): Port for the local server.
+            file_name (str, optional): JavaScript extension file name.
+            port (int, optional): Port for the local server.
         """
         self.app = Flask(__name__)
-        self.file_dir = str(Path(__file__).resolve().parent)
+        CORS(self.app)
+        
         self.file_name = file_name
         self.port = port
         self.ep_robot = None
 
         # Define routes
-        self.app.add_url_rule('/robomaster_extension', 'robomaster_extension', self.robomaster_extension)
+        self.app.add_url_rule('/robomaster_extension', 'robomaster_extension', self.robomaster_extension, methods=['GET'])
         self.app.add_url_rule('/start', 'start', self.start, methods=['POST'])
         self.app.add_url_rule('/stop', 'stop', self.stop, methods=['POST'])
         self.app.add_url_rule('/move', 'move', self.move, methods=['POST'])
@@ -44,7 +50,7 @@ class RoboMasterServer:
         Returns:
             Response: The requested file.
         """
-        return send_from_directory(self.file_dir, self.file_name)
+        return send_from_directory(DIR_PATH, self.file_name)
     
     def safe_execute(self, func, error_message):
         """
@@ -72,7 +78,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._start(), "Failed to start connection")
+        return self.safe_execute(self._start, "Failed to start connection")
 
     def _start(self):
         """
@@ -89,7 +95,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._stop(), "Failed to stop connection")
+        return self.safe_execute(self._stop, "Failed to stop connection")
 
     def _stop(self):
         """
@@ -105,7 +111,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._move(), "Failed to move robot")
+        return self.safe_execute(self._move, "Failed to move robot")
     
     def _move(self):
         """
@@ -126,7 +132,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._rotate(), "Failed to rotate robot")
+        return self.safe_execute(self._rotate, "Failed to rotate robot")
     
     def _rotate(self):
         """
@@ -145,7 +151,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._arm(), "Failed to control arm")
+        return self.safe_execute(self._arm, "Failed to control arm")
     
     def _arm(self):
         """
@@ -163,7 +169,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._grabber(), "Failed to control grabber")
+        return self.safe_execute(self._grabber, "Failed to control grabber")
     
     def _grabber(self):
         """
@@ -184,7 +190,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._gimbal(), "Failed to control gimbal")
+        return self.safe_execute(self._gimbal, "Failed to control gimbal")
     
     def _gimbal(self):
         """
@@ -200,7 +206,7 @@ class RoboMasterServer:
 
 def main() -> int:
     server = RoboMasterServer()
-    server.run()
+    server.run()  # http://localhost:8000/robomaster_extension
     return 0
 
 if __name__ == '__main__':

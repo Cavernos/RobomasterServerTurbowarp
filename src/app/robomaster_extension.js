@@ -53,7 +53,7 @@ class CustomExtension {
                     blockType: Scratch.BlockType.COMMAND,
                     text: 'Move arm to [position]',
                     arguments: {
-                        position: { type: Scratch.ArgumentType.STRING, menu: 'armPositions' }
+                        position: { type: Scratch.ArgumentType.STRING, menu: 'armPositions', defaultValue: 'up' }
                     }
                 },
                 {
@@ -61,7 +61,7 @@ class CustomExtension {
                     blockType: Scratch.BlockType.COMMAND,
                     text: 'Grabber [action]',
                     arguments: {
-                        action: { type: Scratch.ArgumentType.STRING, menu: 'grabberActions' }
+                        action: { type: Scratch.ArgumentType.STRING, menu: 'grabberActions', defaultValue: 'open' }
                     }
                 }
             ],
@@ -71,6 +71,8 @@ class CustomExtension {
             }
         };
     }
+
+    // -------------------- Functions -------------------- //
 
     async requestHandler(url, method = 'POST', body = null) {
         try {
@@ -84,31 +86,31 @@ class CustomExtension {
     }
 
     async start() {
-        await this.requestHandler('start');
+        return await this.requestHandler('start');
     }
 
     async stop() {
-        await this.requestHandler('stop');
+        return await this.requestHandler('stop');
     }
 
     async move(args) {
-        await this.requestHandler('move', 'POST', args);
+        return await this.requestHandler('move', 'POST', args);
     }
 
     async rotate(args) {
-        await this.requestHandler('rotate', 'POST', args);
+        return await this.requestHandler('rotate', 'POST', args);
     }
 
     async gimbal(args) {
-        await this.requestHandler('gimbal', 'POST', args);
+        return await this.requestHandler('gimbal', 'POST', args);
     }
 
     async arm(args) {
-        await this.requestHandler('arm', 'POST', args);
+        return await this.requestHandler('arm', 'POST', args);
     }
 
     async grabber(args) {
-        await this.requestHandler('grabber', 'POST', args);
+        return await this.requestHandler('grabber', 'POST', args);
     }
 }
 

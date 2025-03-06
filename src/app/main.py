@@ -3,7 +3,7 @@ from robomaster_server import RoboMasterServer
 
 def main() -> int:
     server = RoboMasterServer()
-    server.run()  # http://localhost:8000
+    server.run()
     return 0
 
 if __name__ == '__main__':

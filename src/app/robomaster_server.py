@@ -205,11 +205,12 @@ class RoboMasterServer:
             self.ep_robot.grabber.close().wait_for_completed()
         return jsonify({"grabber": True})
 
+
 # ==================== if __name__ == '__main__' ==================== #
 
 def main() -> int:
     server = RoboMasterServer()
-    server.run()
+    server.run()  # http://localhost:8000/robomaster_extension
     return 0
 
 if __name__ == '__main__':

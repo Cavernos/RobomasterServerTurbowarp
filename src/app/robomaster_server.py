@@ -35,7 +35,6 @@ class RoboMasterServer:
         self.app.add_url_rule('/rotate', 'rotate', self.rotate, methods=['POST'])
         self.app.add_url_rule('/arm', 'arm', self.arm, methods=['POST'])
         self.app.add_url_rule('/grabber', 'grabber', self.grabber, methods=['POST'])
-        self.app.add_url_rule('/gimbal', 'gimbal', self.gimbal, methods=['POST'])
 
     def run(self):
         """
@@ -182,25 +181,7 @@ class RoboMasterServer:
         else:
             self.ep_robot.grabber.close().wait_for_completed()
         return jsonify({"grabber": True})
-    
-    def gimbal(self):
-        """
-        Control the gimbal movement.
 
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(self._gimbal, "Failed to control gimbal")
-    
-    def _gimbal(self):
-        """
-        Internal method to control the gimbal.
-        """
-        data = request.get_json()
-        pitch = float(data.get("pitch", 0))
-        yaw = float(data.get("yaw", 0))
-        self.ep_robot.gimbal.move(pitch=pitch, yaw=yaw).wait_for_completed()
-        return jsonify({"gimbal": True})
 
 # ==================== if __name__ == '__main__' ==================== #
 

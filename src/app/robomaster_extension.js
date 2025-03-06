@@ -27,7 +27,7 @@ class CustomExtension {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 }
@@ -73,7 +73,7 @@ class RobomasterBasics {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 
@@ -113,7 +113,7 @@ class LedEffects {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 }
@@ -164,7 +164,7 @@ class Chassis {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 
@@ -224,7 +224,7 @@ class ExtensionModule {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 
@@ -264,7 +264,7 @@ class Smart {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 }
@@ -296,7 +296,7 @@ class Armor {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 }
@@ -328,7 +328,7 @@ class Sensor {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 }
@@ -360,7 +360,7 @@ class SensorAdapter {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 }
@@ -392,7 +392,7 @@ class Media {
             const response = await fetch(`http://localhost:8000/${url}`, options);
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
+            console.error(`Error on request ${url}:`, error);
         }
     }
 }

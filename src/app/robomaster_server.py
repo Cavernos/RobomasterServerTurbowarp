@@ -1,5 +1,5 @@
 import re
-
+import socket
 from flask import Flask, send_from_directory, jsonify, request
 from robomaster import robot
 from pathlib import Path
@@ -27,7 +27,7 @@ class RoboMasterServer:
         # Define routes
         self.generate_route_list(self)
         for route in self.routes:
-            self.app.add_url_rule(route['url'], route['name'], route['method'])
+            self.app.add_url_rule(route['url'], route['name'], route['method'], methods=['GET', 'POST'])
 
     def run(self):
         """
@@ -38,11 +38,41 @@ class RoboMasterServer:
     @classmethod
     def generate_route_list(cls, instance):
         cls.routes.append({'name': "robomaster_extension", "url": "/robomaster_extension", "method": getattr(instance, "robomaster_extension")})
+        cls.routes.append({"name": "index", "url": "/", "method": getattr(instance, "index")})
         for method_name in cls.__dict__.keys():
             if re.match('_[A-Za-z]', method_name):
                 method_name = method_name.split('_')[1]
                 cls.routes.append({'name': method_name, 'url': f"/{method_name}", "method": getattr(instance, method_name)})
 
+    def index(self):
+        ip_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        ip_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        port = 40926
+        ip_sock.bind(('0.0.0.0', port))
+        ip_str = ip_sock.recv(1024).decode('utf-8')
+        ip_addr = ip_str.split()[-1]
+        del ip_sock
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        print("Connecting...")
+        try:
+            sock.connect((ip_addr, int(port)))
+        except ConnectionRefusedError as e:
+            return jsonify({"robot_ip":ip_addr, "error": "Connection Refused"})
+        print("Connected")
+        sock.send("command;".encode('utf-8'))
+        try:
+            # Wait for the robot to return the execution result.
+            buf = sock.recv(1024)
+            print(buf.decode('utf-8'))
+        except socket.error as e:
+            print("Error receiving :", e)
+            return jsonify({"robot_ip":ip_addr, "error": "Message not receive"})
+        sock.shutdown(socket.SHUT_WR)
+        sock.close()
+        return jsonify({"robot_ip":ip_str.split()[-1]})
+        
+        
     def robomaster_extension(self):
         """
         Serve the JavaScript extension file.
@@ -78,14 +108,14 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._start(), "Failed to start connection")
+        return self.safe_execute(self._start, "Failed to start connection")
 
     def _start(self):
         """
         Internal method to initialize connection.
         """
         self.ep_robot = robot.Robot()
-        self.ep_robot.initialize(conn_type="ap")
+        self.ep_robot.initialize(conn_type="sta")
         return jsonify({"start": True})
     
     def stop(self):
@@ -95,7 +125,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._stop(), "Failed to stop connection")
+        return self.safe_execute(self._stop, "Failed to stop connection")
 
     def _stop(self):
         """
@@ -111,7 +141,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._move(), "Failed to move robot")
+        return self.safe_execute(self._move, "Failed to move robot")
     
     def _move(self):
         """

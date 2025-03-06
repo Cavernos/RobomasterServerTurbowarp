@@ -16,19 +16,19 @@ class Block {
             arguments: this.arguments
         }
     }
-    async requestHandler(url, method = 'POST', body = null) {
-        try {
-            const options = { method, headers: { 'Content-Type': 'application/json' } };
-            if (body) options.body = JSON.stringify(body);
-            const response = await fetch(`http://localhost:8000/${url}`, options);
-            return await response.json();
-        } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
-        }
-    }
-    async run(method, args){
-        await this.requestHandler(this.opcode, this.arguments.SERVE_METHOD, args)
-    }
+    // async requestHandler(url, method = 'POST', body = null) {
+    //     try {
+    //         const options = { method, headers: { 'Content-Type': 'application/json' } };
+    //         if (body) options.body = JSON.stringify(body);
+    //         const response = await fetch(`http://localhost:8000/${url}`, options);
+    //         return await response.json();
+    //     } catch (error) {
+    //         console.error(`Erreur lors de la requête ${url}:`, error);
+    //     }
+    // }
+    // async run(method, args){
+    //     await this.requestHandler(this.opcode, this.arguments.SERVE_METHOD, args)
+    // }
 
 }
 
@@ -38,6 +38,17 @@ class CustomExtension {
         this.blocks = [
             (new Block( 'start', Scratch.BlockType.COMMAND, 'Start')).toJSON(),
             (new Block('stop',  Scratch.BlockType.COMMAND,'Stop')).toJSON(),
+            { 
+                opcode: 'move',
+                blockType: Scratch.BlockType.COMMAND,
+                text: 'Move x: [x] y: [y] z: [z] speed: [speed]',
+                arguments: {
+                    x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                    y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    z: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    speed: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
+                }
+            }
         ]
     }
 
@@ -101,26 +112,38 @@ class CustomExtension {
          };
     }
 
-
+    async requestHandler(url, request_method = 'POST', request_body = null) {
+        try {
+            console.log("toto")
+            const response = await fetch(`http://localhost:8000/${url}`, {
+                method: request_method, 
+                headers: (new Headers()).append("Content-Type", "application/json"), 
+                body: (request_body) ? JSON.stringify(request_body) : {}
+            });
+            return await response.json();
+        } catch (error) {
+            console.error(`Erreur lors de la requête ${url}:`, error);
+        }
+    }
 
     async start() {
-        await this.requestHandler('start');
+        return await this.requestHandler('start');
     }
 
     async stop() {
-        await this.requestHandler('stop');
+        return await this.requestHandler('stop');
     }
 
     async move(args) {
-        await this.requestHandler('move', 'POST', args);
+        return await this.requestHandler('move', 'POST', args);
     }
 
     async rotate(args) {
-        await this.requestHandler('rotate', 'POST', args);
+        return await this.requestHandler('rotate', 'POST', args);
     }
 
     async gimbal(args) {
-        await this.requestHandler('gimbal', 'POST', args);
+        return await this.requestHandler('gimbal', 'POST', args);
     }
 
     async arm(args) {

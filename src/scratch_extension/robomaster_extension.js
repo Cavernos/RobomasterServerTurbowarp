@@ -38,7 +38,7 @@ Scratch.extensions.register(new CustomExtension());
 
 
 // Robomaster Basics
-class RobomasterBasics {
+export class RobomasterBasics {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -88,7 +88,7 @@ class RobomasterBasics {
 
 
 // LED Effects
-class LedEffects {
+export class LedEffects {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -120,7 +120,7 @@ class LedEffects {
 
 
 // Chassis
-class Chassis {
+export class Chassis {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -179,7 +179,7 @@ class Chassis {
 
 
 // Extension Module
-class ExtensionModule {
+export class ExtensionModule {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -239,7 +239,7 @@ class ExtensionModule {
 
 
 // Smart
-class Smart {
+export class Smart {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -271,7 +271,7 @@ class Smart {
 
 
 // Armor
-class Armor {
+export class Armor {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -303,7 +303,7 @@ class Armor {
 
 
 // Sensor
-class Sensor {
+export class Sensor {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -335,7 +335,7 @@ class Sensor {
 
 
 // Sensor Adapter
-class SensorAdapter {
+export class SensorAdapter {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -367,7 +367,7 @@ class SensorAdapter {
 
 
 // Media
-class Media {
+export class Media {
     constructor(runtime) {
         this.runtime = runtime;
     }
@@ -398,17 +398,4 @@ class Media {
 }
 
 
-// Initialisation
-const extensions = [
-    new RobomasterBasics(),
-    new LedEffects(),
-    new Chassis(),
-    new ExtensionModule(),
-    new Smart(),
-    new Armor(),
-    new Sensor(),
-    new SensorAdapter(),
-    new Media()
-  ];
 
-extensions.forEach(extension => Scratch.extensions.register(extension));

@@ -11,7 +11,7 @@ class RoboMasterServer:
     """
     routes = []
 
-    def __init__(self, file_name="robomaster_extension.js", port=8000):
+    def __init__(self, file_name="index.js", port=8000):
         """
         Initialize the RoboMaster Flask server.
 
@@ -72,7 +72,7 @@ class RoboMasterServer:
         Returns:
             Response: The requested file.
         """
-        return send_from_directory(self.file_dir, self.file_name)
+        return send_from_directory(self.file_dir+'/js/', self.file_name)
     
     def safe_execute(self, func, error_message):
         """

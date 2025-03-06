@@ -16,19 +16,23 @@ class Block {
             arguments: this.arguments
         }
     }
-    // async requestHandler(url, method = 'POST', body = null) {
-    //     try {
-    //         const options = { method, headers: { 'Content-Type': 'application/json' } };
-    //         if (body) options.body = JSON.stringify(body);
-    //         const response = await fetch(`http://localhost:8000/${url}`, options);
-    //         return await response.json();
-    //     } catch (error) {
-    //         console.error(`Erreur lors de la requête ${url}:`, error);
-    //     }
-    // }
-    // async run(method, args){
-    //     await this.requestHandler(this.opcode, this.arguments.SERVE_METHOD, args)
-    // }
+    async requestHandler(url, request_method = 'POST', request_body = null) {
+        try {
+            const response = await fetch(`http://localhost:8000/${url}`, {
+                method: request_method,
+                headers: {"Content-Type": "application/json"},
+                body: (request_body) ? JSON.stringify(request_body) : {}
+            });
+            const json = await response.json()
+            console.log(json)
+            return json;
+        } catch (error) {
+            console.error(`Erreur lors de la requête ${url}:`, error);
+        }
+    }
+    async run(method, args){
+        await this.requestHandler(this.opcode, this.arguments.SERVE_METHOD, args)
+    }
 
 }
 
@@ -36,7 +40,9 @@ class CustomExtension {
     constructor(runtime) {
         this.runtime = runtime;
         this.blocks = [
-            (new Block( 'start', Scratch.BlockType.COMMAND, 'Start')).toJSON(),
+            (new Block( 'start', Scratch.BlockType.COMMAND, 'Start [robots]',{
+                robots: {type: Scratch.ArgumentType.STRING, menu: 'robots_ip'}
+            })).toJSON(),
             (new Block('stop',  Scratch.BlockType.COMMAND,'Stop')).toJSON(),
             { 
                 opcode: 'move',
@@ -48,8 +54,11 @@ class CustomExtension {
                     z: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
                     speed: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
                 }
-            }
+            },
         ]
+    }
+    getRobots(){
+        return ["Aucun Robot"]
     }
 
     getInfo() {
@@ -58,7 +67,7 @@ class CustomExtension {
             name: 'Robomaster Extension',
             color1: '#4C97FF',
             color2: '#3373CC',
-            blocks: this.blocks
+            blocks: this.blocks,
         //         [
         //         {
         //             opcode: 'move',
@@ -80,15 +89,6 @@ class CustomExtension {
         //             }
         //         },
         //         {
-        //             opcode: 'gimbal',
-        //             blockType: Scratch.BlockType.COMMAND,
-        //             text: 'Move gimbal pitch: [pitch] yaw: [yaw]',
-        //             arguments: {
-        //                 pitch: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-        //                 yaw: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-        //             }
-        //         },
-        //         {
         //             opcode: 'arm',
         //             blockType: Scratch.BlockType.COMMAND,
         //             text: 'Move arm to [position]',
@@ -105,25 +105,12 @@ class CustomExtension {
         //             }
         //         }
         //     ],
-        //     menus: {
-        //         armPositions: ['up', 'down'],
-        //         grabberActions: ['open', 'close']
-        //     }
+            menus: {
+                armPositions: ['up', 'down'],
+                grabberActions: ['open', 'close'],
+                robots_ip: 'getRobots'
+            }
          };
-    }
-
-    async requestHandler(url, request_method = 'POST', request_body = null) {
-        try {
-            console.log("toto")
-            const response = await fetch(`http://localhost:8000/${url}`, {
-                method: request_method, 
-                headers: (new Headers()).append("Content-Type", "application/json"), 
-                body: (request_body) ? JSON.stringify(request_body) : {}
-            });
-            return await response.json();
-        } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
-        }
     }
 
     async start() {
@@ -140,10 +127,6 @@ class CustomExtension {
 
     async rotate(args) {
         return await this.requestHandler('rotate', 'POST', args);
-    }
-
-    async gimbal(args) {
-        return await this.requestHandler('gimbal', 'POST', args);
     }
 
     async arm(args) {

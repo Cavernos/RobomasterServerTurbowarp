@@ -1,6 +1,7 @@
 import re
 import socket
 from flask import Flask, send_from_directory, jsonify, request
+from flask_cors import CORS
 from robomaster import robot
 from pathlib import Path
 
@@ -19,6 +20,7 @@ class RoboMasterServer:
             port (int): Port for the local server.
         """
         self.app = Flask(__name__)
+        CORS(self.app)
         self.file_dir = str(Path(__file__).resolve().parent)
         self.file_name = file_name
         self.port = port
@@ -41,38 +43,28 @@ class RoboMasterServer:
         cls.routes.append({"name": "index", "url": "/", "method": getattr(instance, "index")})
         for method_name in cls.__dict__.keys():
             if re.match('_[A-Za-z]', method_name):
-                method_name = method_name.split('_')[1]
+                method_name = method_name.split('_')
+                method_name.pop(0)
+                method_name = "_".join(method_name)
                 cls.routes.append({'name': method_name, 'url': f"/{method_name}", "method": getattr(instance, method_name)})
 
     def index(self):
+        return jsonify({"api": "ok !"})
+
+
+    def get_robot_ip(self):
+        return self.safe_execute(self._get_robot_ip, "No Robot in the same LAN")
+
+    def _get_robot_ip(self):
         ip_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         ip_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        ip_sock.settimeout(2)
         port = 40926
         ip_sock.bind(('0.0.0.0', port))
         ip_str = ip_sock.recv(1024).decode('utf-8')
         ip_addr = ip_str.split()[-1]
-        del ip_sock
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        print("Connecting...")
-        try:
-            sock.connect((ip_addr, int(port)))
-        except ConnectionRefusedError as e:
-            return jsonify({"robot_ip":ip_addr, "error": "Connection Refused"})
-        print("Connected")
-        sock.send("command;".encode('utf-8'))
-        try:
-            # Wait for the robot to return the execution result.
-            buf = sock.recv(1024)
-            print(buf.decode('utf-8'))
-        except socket.error as e:
-            print("Error receiving :", e)
-            return jsonify({"robot_ip":ip_addr, "error": "Message not receive"})
-        sock.shutdown(socket.SHUT_WR)
-        sock.close()
-        return jsonify({"robot_ip":ip_str.split()[-1]})
-        
-        
+        return jsonify({"robot_ip": ip_addr})
+
     def robomaster_extension(self):
         """
         Serve the JavaScript extension file.
@@ -115,7 +107,7 @@ class RoboMasterServer:
         Internal method to initialize connection.
         """
         self.ep_robot = robot.Robot()
-        self.ep_robot.initialize(conn_type="sta")
+        self.ep_robot.initialize(conn_type="ap")
         return jsonify({"start": True})
     
     def stop(self):
@@ -162,7 +154,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._rotate(), "Failed to rotate robot")
+        return self.safe_execute(self._rotate, "Failed to rotate robot")
     
     def _rotate(self):
         """
@@ -181,7 +173,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._arm(), "Failed to control arm")
+        return self.safe_execute(self._arm, "Failed to control arm")
     
     def _arm(self):
         """
@@ -199,7 +191,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(lambda: self._grabber(), "Failed to control grabber")
+        return self.safe_execute(self._grabber, "Failed to control grabber")
     
     def _grabber(self):
         """
@@ -212,25 +204,6 @@ class RoboMasterServer:
         else:
             self.ep_robot.grabber.close().wait_for_completed()
         return jsonify({"grabber": True})
-    
-    def gimbal(self):
-        """
-        Control the gimbal movement.
-
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(lambda: self._gimbal(), "Failed to control gimbal")
-    
-    def _gimbal(self):
-        """
-        Internal method to control the gimbal.
-        """
-        data = request.get_json()
-        pitch = float(data.get("pitch", 0))
-        yaw = float(data.get("yaw", 0))
-        self.ep_robot.gimbal.move(pitch=pitch, yaw=yaw).wait_for_completed()
-        return jsonify({"gimbal": True})
 
 # ==================== if __name__ == '__main__' ==================== #
 

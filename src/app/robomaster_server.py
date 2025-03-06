@@ -3,6 +3,7 @@ import socket
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from robomaster import robot
+import nmap
 from pathlib import Path
 
 class RoboMasterServer:
@@ -56,13 +57,12 @@ class RoboMasterServer:
         return self.safe_execute(self._get_robot_ip, "No Robot in the same LAN")
 
     def _get_robot_ip(self):
-        ip_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        ip_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        ip_sock.settimeout(2)
-        port = 40926
-        ip_sock.bind(('0.0.0.0', port))
-        ip_str = ip_sock.recv(1024).decode('utf-8')
-        ip_addr = ip_str.split()[-1]
+
+        scan = nmap.PortScanner()
+        scan.scan("192.168.0.0-255", '22')
+        #port = 40926
+        ip_addr = scan.all_hosts()
+
         return jsonify({"robot_ip": ip_addr})
 
     def robomaster_extension(self):

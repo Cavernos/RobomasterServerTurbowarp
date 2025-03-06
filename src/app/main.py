@@ -1,7 +1,6 @@
 import os
 
-from src.app.robomaster_server import RoboMasterServer
-os.chdir(os.path.dirname(__file__))
+from robomaster_server import RoboMasterServer
 
 def main() -> int:
     server = RoboMasterServer()

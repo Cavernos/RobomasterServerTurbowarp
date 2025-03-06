@@ -56,3 +56,5 @@ class Player():
     def __init__(self) -> None:
         pass
 ```
+dependency : nmap 
+python dependency :flask robomaster sphinx face_recognition

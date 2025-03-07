@@ -133,6 +133,45 @@ class Chassis {
             color2: '#651FFF',
             blocks: [
                 {
+                    opcode: 'setPwmValue',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Set PWM value [value]',
+                    arguments: {
+                        value: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 }
+                    }
+                },
+                {
+                    opcode: 'enableStickOverlay',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Enable stick overlay'
+                },
+                {
+                    opcode: 'setFollowGimbalOffset',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Set follow gimbal offset [offset]',
+                },
+                {
+                    opcode: 'setTransSpeed',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text:'Set Trans Speed [speed]',
+                    arguments: {
+                        speed: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
+                    }
+                },
+                {
+                    opcode: 'setRotateSpeed',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text:'Set Rotate Speed [speed]',
+                    arguments: {
+                        speed: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
+                    }
+                },
+                {
+                    opcode: 'setWheelSpeed',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text:'Set Wheel Speed [speed]',
+                },
+                {
                     opcode: 'move',
                     blockType: Scratch.BlockType.COMMAND,
                     text: 'Move x: [x] y: [y] z: [z] speed: [speed]',
@@ -144,12 +183,98 @@ class Chassis {
                     }
                 },
                 {
+                    opcode: 'moveWithTime',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Move x: [x] y: [y] z: [z] time: [time]',
+                    arguments: {
+                        x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                        y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        z: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        time: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+                    }
+                },
+                {
+                    opcode: 'moveWithDistance',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Move x: [x] y: [y] z: [z] distance: [distance]',
+                    arguments: {
+                        x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                        y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        z: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        distance: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+                    }
+                },
+                {
+                    opcode: 'moveDegreeWithSpeed',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Move degree: [degree] speed: [speed]',
+                    arguments: {
+                        degree: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
+                        speed: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
+                    }
+                },
+                {
                     opcode: 'rotate',
                     blockType: Scratch.BlockType.COMMAND,
                     text: 'Rotate angle: [angle]',
                     arguments: {
                         angle: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
                     }
+                },
+                {
+                    opcode: 'rotateWithTime',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Rotate angle: [angle] time: [time]',
+                    arguments: {
+                        angle: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
+                        time: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+                    }
+                },
+                {
+                    opcode: 'rotateWithDegree',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Rotate angle: [angle] degree: [degree]',
+                    arguments: {
+                        angle: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
+                        degree: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
+                    }
+                },
+                {
+                    opcode: 'moveAndRotate',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Move x: [x] y: [y] z: [z] speed: [speed] angle: [angle]',
+                    arguments: {
+                        x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                        y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        z: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        speed: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 },
+                        angle: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
+                    }
+                },
+                {
+                    opcode: 'stop',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Stop'
+                },
+                {
+                    opcode: 'getAttitude',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Get attitude'
+                },
+                {
+                    opcode: 'getPositionBasePowerOn',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Get position base power on'
+                },
+                {
+                    opcode: 'chassisImpactDetection',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Chassis impact detection'
+                },
+                {
+                    opcode: 'isImpact',
+                    blockType: Scratch.BlockType.BOOLEAN,
+                    text: 'Is impact'
                 }
             ]
         };
@@ -168,12 +293,80 @@ class Chassis {
         }
     }
 
+    async setPwmValue(args) {
+        return await this.requestHandler('setPwmValue', 'POST', args);
+    }
+
+    async enableStickOverlay() {
+        return await this.requestHandler('enableStickOverlay', 'POST');
+    }
+
+    async setFollowGimbalOffset(args) {
+        return await this.requestHandler('setFollowGimbalOffset', 'POST', args);
+    }
+
+    async setTransSpeed(args) {
+        return await this.requestHandler('setTransSpeed', 'POST', args);
+    }
+
+    async setRotateSpeed(args) {
+        return await this.requestHandler('setRotateSpeed', 'POST', args);
+    }
+
+    async setWheelSpeed(args) {
+        return await this.requestHandler('setWheelSpeed', 'POST', args);
+    }
+
     async move(args) {
         return await this.requestHandler('move', 'POST', args);
     }
 
+    async moveWithTime(args) {
+        return await this.requestHandler('moveWithTime', 'POST', args);
+    }
+
+    async moveWithDistance(args) {
+        return await this.requestHandler('moveWithDistance', 'POST', args);
+    }
+
+    async moveDegreeWithSpeed(args) {
+        return await this.requestHandler('moveDegreeWithSpeed', 'POST', args);
+    }
+
     async rotate(args) {
         return await this.requestHandler('rotate', 'POST', args);
+    }
+
+    async rotateWithTime(args) {
+        return await this.requestHandler('rotateWithTime', 'POST', args);
+    }
+
+    async rotateWithDegree(args) {
+        return await this.requestHandler('rotateWithDegree', 'POST', args);
+    }
+
+    async moveAndRotate(args) {
+        return await this.requestHandler('moveAndRotate', 'POST', args);
+    }
+
+    async stop() {
+        return await this.requestHandler('stop', 'POST');
+    }
+
+    async getAttitude() {
+        return await this.requestHandler('getAttitude', 'GET');
+    }
+
+    async getPositionBasePowerOn() {
+        return await this.requestHandler('getPositionBasePowerOn', 'GET');
+    }
+
+    async chassisImpactDetection() {
+        return await this.requestHandler('chassisImpactDetection', 'GET');
+    }
+
+    async isImpact() {
+        return await this.requestHandler('isImpact', 'GET');
     }
 }
 

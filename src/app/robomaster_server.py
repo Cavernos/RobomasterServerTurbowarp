@@ -179,35 +179,35 @@ class RoboMasterServer:
     
     # enable_stick_overlay
     def enable_stick_overlay(self):
-        return self.safe_execute(self._enable_stick_overlay, "Failed to turn off")
+        return self.safe_execute(self._enable_stick_overlay, "Failed to enable stick overlay")
     
     def _enable_stick_overlay(self):
         return jsonify({"enable_stick_overlay": True})
     
     # set_follow_gimbal_offset
     def set_follow_gimbal_offset(self):
-        return self.safe_execute(self._set_follow_gimbal_offset, "Failed to turn off")
+        return self.safe_execute(self._set_follow_gimbal_offset, "Failed to set follow gimbaloffset")
     
     def _set_follow_gimbal_offset(self):
         return jsonify({"set_follow_gimbal_offset": True})
     
     # set_trans_speed
     def set_trans_speed(self):
-        return self.safe_execute(self._set_trans_speed, "Failed to turn off")
+        return self.safe_execute(self._set_trans_speed, "Failed to set_trans_speed")
     
     def _set_trans_speed(self):
         return jsonify({"set_trans_speed": True})
     
     # set_rotate_speed
     def set_rotate_speed(self):
-        return self.safe_execute(self._set_rotate_speed, "Failed to turn off")
+        return self.safe_execute(self._set_rotate_speed, "Failed to set rotate speed")
     
     def _set_rotate_speed(self):
         return jsonify({"set_rotate_speed": True})
     
     # set_wheel_speed
     def set_wheel_speed(self):
-        return self.safe_execute(self._set_wheel_speed, "Failed to turn off")
+        return self.safe_execute(self._set_wheel_speed, "Failed to set wheel speed")
     
     def _set_wheel_speed(self):
         return jsonify({"set_pwm_value": True})
@@ -220,7 +220,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(self._move, "Failed to move robot")
+        return self.safe_execute(self._move, "Failed to move")
     
     def _move(self):
         """
@@ -236,21 +236,21 @@ class RoboMasterServer:
     
     # move_with_time
     def move_with_time(self):
-        return self.safe_execute(self._move_with_time, "Failed to turn off")
+        return self.safe_execute(self._move_with_time, "Failed to move with time")
     
     def _move_with_time(self):
         return jsonify({"move_with_time": True})
     
     # move_with_distance
     def move_with_distance(self):
-        return self.safe_execute(self._move_with_distance, "Failed to turn off")
+        return self.safe_execute(self._move_with_distance, "Failed to move with distance")
     
     def _move_with_distance(self):
         return jsonify({"move_with_distance": True})
     
     # move_degree_with_speed
     def move_degree_with_speed(self):
-        return self.safe_execute(self._move_degree_with_speed, "Failed to set flash")
+        return self.safe_execute(self._move_degree_with_speed, "Failed to move degree with speed")
     
     def _move_degree_with_speed(self):
         return jsonify({"move_degree_with_speed": True})
@@ -263,7 +263,7 @@ class RoboMasterServer:
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(self._rotate, "Failed to rotate robot")
+        return self.safe_execute(self._rotate, "Failed to rotate")
     
     def _rotate(self):
         """
@@ -277,63 +277,63 @@ class RoboMasterServer:
     
     # rotate_with_time
     def rotate_with_time(self):
-        return self.safe_execute(self._rotate_with_time, "Failed to set flash")
+        return self.safe_execute(self._rotate_with_time, "Failed to rotate with time")
     
     def _rotate_with_time(self):
         return jsonify({"rotate_with_time": True})
     
     # rotate_with_degree
     def rotate_with_degree(self):
-        return self.safe_execute(self._rotate_with_degree, "Failed to set flash")
+        return self.safe_execute(self._rotate_with_degree, "Failed to rotate with degree")
     
     def _rotate_with_degree(self):
         return jsonify({"rotate_with_degree": True})
     
     # move_and_rotate
     def move_and_rotate(self):
-        return self.safe_execute(self._move_and_rotate, "Failed to set flash")
+        return self.safe_execute(self._move_and_rotate, "Failed to move and rotate")
     
     def _move_and_rotate(self):
         return jsonify({"move_and_rotate": True})
     
     # move_with_speed
     def move_with_speed(self):
-        return self.safe_execute(self._move_with_speed, "Failed to set flash")
+        return self.safe_execute(self._move_with_speed, "Failed to move with speed")
     
     def _move_with_speed(self):
         return jsonify({"move_with_speed": True})
     
-    # stop
-    def stop(self):
-        return self.safe_execute(self._stop, "Failed to set flash")
-    
-    def _stop(self):
-        return jsonify({"stop": True})
+    ## stop
+    #def stop(self):
+    #    return self.safe_execute(self._stop, "Failed to stop")
+    #
+    #def _stop(self):
+    #    return jsonify({"stop": True})
     
     # get_attitude
     def get_attitude(self):
-        return self.safe_execute(self._get_attitude, "Failed to set flash")
+        return self.safe_execute(self._get_attitude, "Failed to get attitude")
     
     def _get_attitude(self):
         return jsonify({"get_attitude": True})
     
     # get_position_based_power_on
     def get_position_based_power_on(self):
-        return self.safe_execute(self._get_position_based_power_on, "Failed to set flash")
+        return self.safe_execute(self._get_position_based_power_on, "Failed to get position based power on")
     
     def _get_position_based_power_on(self):
         return jsonify({"get_position_based_power_on": True})
     
     # chassis_impact_detection
     def chassis_impact_detection(self):
-        return self.safe_execute(self._chassis_impact_detection, "Failed to set flash")
+        return self.safe_execute(self._chassis_impact_detection, "Failed to chassis impact detection")
     
     def _chassis_impact_detection(self):
         return jsonify({"chassis_impact_detection": True})
     
     # is_impact
     def is_impact(self):
-        return self.safe_execute(self._is_impact, "Failed to set flash")
+        return self.safe_execute(self._is_impact, "Failed to is impact")
     
     def _is_impact(self):
         return jsonify({"is_impact": True})

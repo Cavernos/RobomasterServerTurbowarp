@@ -1,6 +1,14 @@
-
-import {RobomasterBasics,LedEffects, Chassis,ExtensionModule, Smart,Armor, Sensor,SensorAdapter, Media} from "./robomaster_extension.js"
 // Initialisation
+import {RobomasterBasics} from "./tabs/RobomasterBasics";
+import {LedEffects} from "./tabs/LedEffects";
+import {Chassis} from "./tabs/Chassis.js";
+import {ExtensionModule} from "./tabs/ExtensionModule";
+import {Smart} from "./tabs/Smart";
+import {Armor} from "./tabs/Armor";
+import {Sensor} from "./tabs/Sensor";
+import {SensorAdapter} from "./tabs/SensorAdapter";
+import {Media} from "./tabs/Media";
+
 const extensions = [
     new RobomasterBasics(),
     new LedEffects(),

@@ -1,18 +1,14 @@
-/*
-EXTENSION CALC :
--------------------------------------------------------------------------------
-// Curstom Extension
-class CustomExtension {
+export class Smart {
     constructor(runtime) {
         this.runtime = runtime;
     }
 
     getInfo() {
         return {
-            id: 'customExtension',
-            name: 'Custom Extension',
-            color1: '#ffffff',
-            color2: '#ffffff',
+            id: 'smart',
+            name: 'Smart',
+            color1: '#F19D38',
+            color2: '#F19D38',
             blocks: [
             ]
         }
@@ -31,45 +27,3 @@ class CustomExtension {
         }
     }
 }
-
-Scratch.extensions.register(new CustomExtension());
--------------------------------------------------------------------------------
-*/
-
-
-// Robomaster Basics
-
-
-
-// LED Effects
-
-
-
-// Chassis
-
-
-// Extension Module
-
-
-
-// Smart
-
-
-
-// Armor
-
-
-
-// Sensor
-
-
-
-// Sensor Adapter
-
-
-
-// Media
-
-
-
-

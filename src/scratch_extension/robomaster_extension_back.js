@@ -1,40 +1,4 @@
-class Block {
-    arguments = {
-        SERVE_METHOD: "GET"
-    }
-    constructor(opcode, blockType, text, args = null) {
-        this.opcode = opcode
-        this.blockType = blockType
-        this.text = text
-        this.arguments = args
-    }
-    toJSON(){
-        return {
-            opcode: this.opcode,
-            blockType: this.blockType,
-            text: this.text,
-            arguments: this.arguments
-        }
-    }
-    async requestHandler(url, request_method = 'POST', request_body = null) {
-        try {
-            const response = await fetch(`http://localhost:8000/${url}`, {
-                method: request_method,
-                headers: {"Content-Type": "application/json"},
-                body: (request_body) ? JSON.stringify(request_body) : {}
-            });
-            const json = await response.json()
-            console.log(json)
-            return json;
-        } catch (error) {
-            console.error(`Erreur lors de la requête ${url}:`, error);
-        }
-    }
-    async run(method, args){
-        await this.requestHandler(this.opcode, this.arguments.SERVE_METHOD, args)
-    }
 
-}
 
 class CustomExtension {
     constructor(runtime) {

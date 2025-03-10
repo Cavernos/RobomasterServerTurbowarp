@@ -6,11 +6,15 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node_modules/.bin/vite build"
+    "build": "node_modules\\.bin\\vite build"
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.2.1"
+  },
   "dependencies": {
-    "vite": "^6.2.0"
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21"
   }
 }

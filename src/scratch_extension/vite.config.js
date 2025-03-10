@@ -9,6 +9,7 @@ export default defineConfig({
             name: "RobomasterScratchExtension",
             entry: "main.js",
             fileName: "index"
-        }
+        },
+        watch: true
     }
 })

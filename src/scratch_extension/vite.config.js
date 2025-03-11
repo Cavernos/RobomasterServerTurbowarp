@@ -8,8 +8,10 @@ export default defineConfig({
         lib: {
             name: "RobomasterScratchExtension",
             entry: "main.js",
-            fileName: "index"
+            fileName: "index",
+            formats: ['es'],
+            minifyEs: true
         },
         watch: true
-    }
+    },
 })

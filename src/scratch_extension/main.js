@@ -1,25 +1,9 @@
 // Initialisation
-import {RobomasterBasics} from "./tabs/RobomasterBasics";
-import {LedEffects} from "./tabs/LedEffects";
-import {Chassis} from "./tabs/Chassis.js";
-import {ExtensionModule} from "./tabs/ExtensionModule";
-import {Smart} from "./tabs/Smart";
-import {Armor} from "./tabs/Armor";
-import {Sensor} from "./tabs/Sensor";
-import {SensorAdapter} from "./tabs/SensorAdapter";
-import {Media} from "./tabs/Media";
-
-const extensions = [
-    new RobomasterBasics(),
-    new LedEffects(),
-    new Chassis(),
-    new ExtensionModule(),
-    new Smart(),
-    new Armor(),
-    new Sensor(),
-    new SensorAdapter(),
-    new Media()
-  ];
-
+import {config} from "./config.js";
+import {Tab} from "./tabs/Tab.js";
+const extensions = []
+for (const [tabKey, tab] of  Object.entries(config.tabs)){
+    extensions.push(new Tab(tabKey, tab.color, tab.blocks, tab.menus))
+}
 extensions.forEach(extension => Scratch.extensions.register(extension));
 

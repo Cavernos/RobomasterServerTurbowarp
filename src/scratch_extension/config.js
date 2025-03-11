@@ -4,6 +4,10 @@ import {name, version} from "./package.json"
 export const config = {
     name: name,
     version: version,
+    robomaster_api: {
+      host: "127.0.0.1",
+      port: 8000
+    },
     tabs : {
          RobomasterBasics: {
              color: '#202530',

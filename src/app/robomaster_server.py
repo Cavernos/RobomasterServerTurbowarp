@@ -72,7 +72,7 @@ class RoboMasterServer:
         Returns:
             Response: The requested file.
         """
-        return send_from_directory(self.file_dir+'/js/', self.file_name)
+        return send_from_directory(self.file_dir+'/assets/js/', self.file_name)
     
     def safe_execute(self, func, error_message):
         """

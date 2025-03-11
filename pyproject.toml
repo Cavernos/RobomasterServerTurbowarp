@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robomaster-scratch-extension"
+version = "0.0.1"
+dependencies = [
+  "robomaster",
+  "flask",
+  "opencv-python"
+]
+requires-python = "<=3.8.9"
+authors = [
+  {name = "Louis Dubois", email = "louis.dubois@eleve.isep.fr"},
+    {name = "Nicolas Clement", email = "nicolas.clement@eleve.isep.fr"},
+]
+
+description = "API Web Flask to control Robomaster ep-core"
+readme = "docs/README.md"
+keywords = []
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+
+
+[project.urls]
+Homepage = "https://localhost:8000/"
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/GueuleDeL0up/robomaster-extension-for-scratch.git"
+"Bug Tracker" = "https://github.com/GueuleDeL0up/robomaster-extension-for-scratch/issues"
+
+[project.scripts]
+robomaster-cli = "app.main:main_cli"
+
+[tool.setuptools]
+package-dir = {""="src"}

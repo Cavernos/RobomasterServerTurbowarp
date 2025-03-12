@@ -1,4 +1,4 @@
-import {config} from "../config.js";
+import {config} from "#robomaster_turbowarp_extension/config.js";
 
 export class Block {
 

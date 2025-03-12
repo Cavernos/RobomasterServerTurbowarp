@@ -12,6 +12,9 @@ export default defineConfig({
             formats: ['es'],
             minifyEs: true
         },
+        rollupOptions: {
+            external: false
+        },
         watch: true
     },
 })

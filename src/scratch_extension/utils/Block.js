@@ -1,11 +1,11 @@
-import {config} from "#robomaster_turbowarp_extension/config.js";
+import {config, language} from "#robomaster_turbowarp_extension/config.js";
 
 export class Block {
 
-    constructor(opcode, blockType, text, serve_method = "POST", args = null) {
+    constructor(opcode, blockType, text = "", serve_method = "POST", args = null) {
         this.opcode = opcode
         this.blockType = blockType
-        this.text = text
+        this.text = language.getMessage(this.opcode) === "NoTranslation" ? text : language.getMessage(this.opcode)
         this.serve_method = serve_method
         this.arguments = args
     }

@@ -1,19 +1,20 @@
 import {Block} from "./utils/Block.js";
-import {name, version} from "./package.json"
-
+import {name, version} from "./package.json" with {type: "json"}
+import {Language} from "#robomaster_turbowarp_extension/locales/language.js";
+export const language = new Language()
 export const config = {
     name: name,
     version: version,
     robomaster_api: {
-      host: "127.0.0.1",
+      host: "localhost",
       port: 8000
     },
     tabs : {
          RobomasterBasics: {
              color: '#202530',
              blocks: [
-                    new Block('start',  Scratch.BlockType.COMMAND, "Start"),
-                    new Block('stop', Scratch.BlockType.COMMAND, "Stop")
+                    new Block('start',  Scratch.BlockType.COMMAND),
+                    new Block('stop', Scratch.BlockType.COMMAND)
                 ]
         },
         Armor : {
@@ -26,7 +27,7 @@ export const config = {
             blocks: [
                 new Block('move',
                     Scratch.BlockType.COMMAND,
-                    'Move x: [x]m y: [y]m z: [z]m speed: [speed]m/s',
+                    "",
                     "POST",
                      {
                             x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
@@ -37,7 +38,7 @@ export const config = {
                         ),
                 new Block('rotate',
                      Scratch.BlockType.COMMAND,
-                    'Rotate angle: [angle]°',
+                    "",
                     "POST",
                     {
                             angle: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
@@ -48,18 +49,18 @@ export const config = {
         ExtensionModule: {
              color: "#F24A88",
             blocks: [
-                new Block('arm', Scratch.BlockType.COMMAND, 'Move arm to [position]', "POST",
+                new Block('arm', Scratch.BlockType.COMMAND, '', "POST",
                     {
-                            position: { type: Scratch.ArgumentType.STRING, menu: 'armPositions', defaultValue: 'up' }
+                            position: { type: Scratch.ArgumentType.STRING, menu: 'armPositions', defaultValue: language.getMessage("armPositions")[0] }
                         }),
-                new Block( 'grabber', Scratch.BlockType.COMMAND, 'Grabber [action]', "POST",
+                new Block( 'grabber', Scratch.BlockType.COMMAND, '', "POST",
                     {
-                            action: { type: Scratch.ArgumentType.STRING, menu: 'grabberActions', defaultValue: 'open' }
+                            action: { type: Scratch.ArgumentType.STRING, menu: 'grabberActions', defaultValue: language.getMessage("grabberActions")[0] }
                         })
             ],
             menus: {
-                grabberActions: ['open', "close"],
-                armPositions: ["up", "down"]
+                grabberActions: language.getMessage("grabberActions"),
+                armPositions: language.getMessage("armPositions")
             }
         },
         LedEffects: {

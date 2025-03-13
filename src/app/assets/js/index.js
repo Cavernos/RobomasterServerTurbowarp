@@ -1,15 +1,18 @@
-class l {
-  constructor(e, r, n, o = "POST", a = null) {
-    this.opcode = e, this.blockType = r, this.text = n, this.serve_method = o, this.arguments = a;
+class f {
+  constructor(e, r, n = "", o = "POST", s = null) {
+    this.opcode = e, this.blockType = r, this.text = c.getMessage(this.opcode) === "NoTranslation" ? n : c.getMessage(this.opcode), this.serve_method = o, this.arguments = s;
   }
   async requestHandler(e, r = "POST", n = null) {
     try {
-      const a = await (await fetch(`http://localhost:8000/${e}`, {
-        method: r,
-        headers: { "Content-Type": "application/json" },
-        body: n ? JSON.stringify(n) : {}
-      })).json();
-      return console.log(a), a;
+      const s = await (await fetch(
+        `http://${y.robomaster_api.host}:${y.robomaster_api.port}/${e}`,
+        {
+          method: r,
+          headers: { "Content-Type": "application/json" },
+          body: n ? JSON.stringify(n) : {}
+        }
+      )).json();
+      return console.log(s), s;
     } catch (o) {
       console.error(`Erreur lors de la requête ${e}:`, o);
     }
@@ -18,13 +21,84 @@ class l {
     return await this.requestHandler(this.opcode, this.serve_method, this.arguments);
   }
 }
-const F = {
+const D = "robomaster_turbowarp_extension", F = "0.0.1", L = { message: "RobomasterBasics", description: "name of tab" }, U = { message: "Start", description: "text on block" }, H = { message: "Stop", description: "text on block" }, G = { message: "Armor", description: "name of tab" }, V = { message: "Chassis", description: "name of tab" }, K = { message: "Move x: [x]m y: [y]m z: [z]m speed: [speed]m/s", description: "text on block" }, J = { message: "Rotate angle: [angle]°", description: "text on block" }, q = { message: "ExtensionModule", description: "name of tab" }, X = { message: "Move arm to [position]", description: "text on block" }, Z = { message: "Grabber [action]", description: "text on block" }, Q = { message: ["open", "close"], description: "text in menu" }, W = { message: ["up", "down"], description: "text in menu" }, Y = { message: "LedEffects", description: "name of tab" }, tt = { message: "Media", description: "name of tab" }, et = { message: "Sensor", description: "name of tab" }, rt = { message: "SensorAdapter", description: "name of tab" }, nt = { message: "Smart", description: "name of tab" }, ot = {
+  RobomasterBasics: L,
+  start: U,
+  stop: H,
+  Armor: G,
+  Chassis: V,
+  move: K,
+  rotate: J,
+  ExtensionModule: q,
+  arm: X,
+  grabber: Z,
+  grabberActions: Q,
+  armPositions: W,
+  LedEffects: Y,
+  Media: tt,
+  Sensor: et,
+  SensorAdapter: rt,
+  Smart: nt
+}, st = { message: "RobomasterBases", description: "name of tab" }, at = { message: "Commencer", description: "text on block" }, it = { message: "Arrêter", description: "text on block" }, ct = { message: "Armure", description: "name of tab" }, lt = { message: "Chassis", description: "name of tab" }, pt = { message: "Bouger x: [x]m y: [y]m z: [z]m Vitesse: [speed]m/s", description: "text on block" }, ut = { message: "Rotation d'un angle: [angle]°", description: "text on block" }, ft = { message: "ModuleExtension", description: "name of tab" }, ht = { message: "Bouger le bras vers [position]", description: "text on block" }, dt = { message: "Pince [action]", description: "text on block" }, mt = { message: ["ouvrir", "fermer"], description: "text in menu" }, gt = { message: ["monter", "descendre"], description: "text in menu" }, bt = { message: "EffetsDeLeds", description: "name of tab" }, yt = { message: "Media", description: "name of tab" }, _t = { message: "Capteurs", description: "name of tab" }, St = { message: "AdapteurCapteurs", description: "name of tab" }, vt = { message: "Intelligence", description: "name of tab" }, Ot = {
+  RobomasterBasics: st,
+  start: at,
+  stop: it,
+  Armor: ct,
+  Chassis: lt,
+  move: pt,
+  rotate: ut,
+  ExtensionModule: ft,
+  arm: ht,
+  grabber: dt,
+  grabberActions: mt,
+  armPositions: gt,
+  LedEffects: bt,
+  Media: yt,
+  Sensor: _t,
+  SensorAdapter: St,
+  Smart: vt
+};
+class Tt {
+  constructor(e = "en") {
+    this.lang = e, this.available_language = {
+      en: ot,
+      fr: Ot
+    }, this.translations = this.available_language[this.lang];
+  }
+  getMessage(e) {
+    return this.translations.hasOwnProperty(e) ? this.translations[e].message : "NoTranslation";
+  }
+  generate_template() {
+    const e = {};
+    for (const [n, o] of Object.entries(y.tabs)) {
+      if (e[n] = { message: this.getMessage(n), description: "name of tab" }, o.blocks.length !== 0)
+        for (const s of o.blocks)
+          e[s.opcode] = { message: s.text, description: "text on block" };
+      if (o.hasOwnProperty("menus"))
+        for (const [s, a] of Object.entries(o.menus))
+          e[s] = { message: a, description: "text in menu" };
+    }
+    return ((n, o) => {
+      const s = new Blob([JSON.stringify(n, null, 2)], {
+        type: "application/json"
+      }), a = URL.createObjectURL(s), i = document.createElement("a");
+      i.href = a, i.download = `${o}.json`, i.click(), URL.revokeObjectURL(a);
+    })(e, "messages.template");
+  }
+}
+const c = new Tt(), y = {
+  name: D,
+  version: F,
+  robomaster_api: {
+    host: "localhost",
+    port: 8e3
+  },
   tabs: {
     RobomasterBasics: {
       color: "#202530",
       blocks: [
-        new l("start", Scratch.BlockType.COMMAND, "Start"),
-        new l("stop", Scratch.BlockType.COMMAND, "Stop")
+        new f("start", Scratch.BlockType.COMMAND),
+        new f("stop", Scratch.BlockType.COMMAND)
       ]
     },
     Armor: {
@@ -34,10 +108,10 @@ const F = {
     Chassis: {
       color: "#651FFF",
       blocks: [
-        new l(
+        new f(
           "move",
           Scratch.BlockType.COMMAND,
-          "Move x: [x]m y: [y]m z: [z]m speed: [speed]m/s",
+          "",
           "POST",
           {
             x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
@@ -46,10 +120,10 @@ const F = {
             speed: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
           }
         ),
-        new l(
+        new f(
           "rotate",
           Scratch.BlockType.COMMAND,
-          "Rotate angle: [angle]°",
+          "",
           "POST",
           {
             angle: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
@@ -60,28 +134,28 @@ const F = {
     ExtensionModule: {
       color: "#F24A88",
       blocks: [
-        new l(
+        new f(
           "arm",
           Scratch.BlockType.COMMAND,
-          "Move arm to [position]",
+          "",
           "POST",
           {
-            position: { type: Scratch.ArgumentType.STRING, menu: "armPositions", defaultValue: "up" }
+            position: { type: Scratch.ArgumentType.STRING, menu: "armPositions", defaultValue: c.getMessage("armPositions")[0] }
           }
         ),
-        new l(
+        new f(
           "grabber",
           Scratch.BlockType.COMMAND,
-          "Grabber [action]",
+          "",
           "POST",
           {
-            action: { type: Scratch.ArgumentType.STRING, menu: "grabberActions", defaultValue: "open" }
+            action: { type: Scratch.ArgumentType.STRING, menu: "grabberActions", defaultValue: c.getMessage("grabberActions")[0] }
           }
         )
       ],
       menus: {
-        grabberActions: ["open", "close"],
-        armPositions: ["up", "down"]
+        grabberActions: c.getMessage("grabberActions"),
+        armPositions: c.getMessage("armPositions")
       }
     },
     LedEffects: {
@@ -106,71 +180,71 @@ const F = {
     }
   }
 };
-var R = typeof global == "object" && global && global.Object === Object && global, B = typeof self == "object" && self && self.Object === Object && self, T = R || B || Function("return this")(), h = T.Symbol, N = Object.prototype, H = N.hasOwnProperty, G = N.toString, d = h ? h.toStringTag : void 0;
-function U(t) {
-  var e = H.call(t, d), r = t[d];
+var xt = typeof global == "object" && global && global.Object === Object && global, At = typeof self == "object" && self && self.Object === Object && self, T = xt || At || Function("return this")(), h = T.Symbol, R = Object.prototype, Mt = R.hasOwnProperty, $t = R.toString, m = h ? h.toStringTag : void 0;
+function Pt(t) {
+  var e = Mt.call(t, m), r = t[m];
   try {
-    t[d] = void 0;
+    t[m] = void 0;
     var n = !0;
   } catch {
   }
-  var o = G.call(t);
-  return n && (e ? t[d] = r : delete t[d]), o;
+  var o = $t.call(t);
+  return n && (e ? t[m] = r : delete t[m]), o;
 }
-var k = Object.prototype, V = k.toString;
-function K(t) {
-  return V.call(t);
+var Ct = Object.prototype, wt = Ct.toString;
+function Et(t) {
+  return wt.call(t);
 }
-var L = "[object Null]", q = "[object Undefined]", A = h ? h.toStringTag : void 0;
-function x(t) {
-  return t == null ? t === void 0 ? q : L : A && A in Object(t) ? U(t) : K(t);
+var jt = "[object Null]", Nt = "[object Undefined]", C = h ? h.toStringTag : void 0;
+function k(t) {
+  return t == null ? t === void 0 ? Nt : jt : C && C in Object(t) ? Pt(t) : Et(t);
 }
-function X(t) {
+function Rt(t) {
   return t != null && typeof t == "object";
 }
-var Z = "[object Symbol]";
-function v(t) {
-  return typeof t == "symbol" || X(t) && x(t) == Z;
+var kt = "[object Symbol]";
+function x(t) {
+  return typeof t == "symbol" || Rt(t) && k(t) == kt;
 }
-function J(t, e) {
+function zt(t, e) {
   for (var r = -1, n = t == null ? 0 : t.length, o = Array(n); ++r < n; )
     o[r] = e(t[r], r, t);
   return o;
 }
-var O = Array.isArray, M = h ? h.prototype : void 0, j = M ? M.toString : void 0;
+var A = Array.isArray, w = h ? h.prototype : void 0, E = w ? w.toString : void 0;
 function z(t) {
   if (typeof t == "string")
     return t;
-  if (O(t))
-    return J(t, z) + "";
-  if (v(t))
-    return j ? j.call(t) : "";
+  if (A(t))
+    return zt(t, z) + "";
+  if (x(t))
+    return E ? E.call(t) : "";
   var e = t + "";
   return e == "0" && 1 / t == -1 / 0 ? "-0" : e;
 }
-function b(t) {
+function _(t) {
   var e = typeof t;
   return t != null && (e == "object" || e == "function");
 }
-var Q = "[object AsyncFunction]", W = "[object Function]", Y = "[object GeneratorFunction]", tt = "[object Proxy]";
-function et(t) {
-  if (!b(t))
+var Bt = "[object AsyncFunction]", It = "[object Function]", Dt = "[object GeneratorFunction]", Ft = "[object Proxy]";
+function Lt(t) {
+  if (!_(t))
     return !1;
-  var e = x(t);
-  return e == W || e == Y || e == Q || e == tt;
+  var e = k(t);
+  return e == It || e == Dt || e == Bt || e == Ft;
 }
-var S = T["__core-js_shared__"], $ = function() {
-  var t = /[^.]+$/.exec(S && S.keys && S.keys.IE_PROTO || "");
+var O = T["__core-js_shared__"], j = function() {
+  var t = /[^.]+$/.exec(O && O.keys && O.keys.IE_PROTO || "");
   return t ? "Symbol(src)_1." + t : "";
 }();
-function rt(t) {
-  return !!$ && $ in t;
+function Ut(t) {
+  return !!j && j in t;
 }
-var nt = Function.prototype, ot = nt.toString;
-function at(t) {
+var Ht = Function.prototype, Gt = Ht.toString;
+function Vt(t) {
   if (t != null) {
     try {
-      return ot.call(t);
+      return Gt.call(t);
     } catch {
     }
     try {
@@ -180,122 +254,164 @@ function at(t) {
   }
   return "";
 }
-var it = /[\\^$.*+?()[\]{}|]/g, st = /^\[object .+?Constructor\]$/, ct = Function.prototype, ut = Object.prototype, lt = ct.toString, ht = ut.hasOwnProperty, pt = RegExp(
-  "^" + lt.call(ht).replace(it, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
+var Kt = /[\\^$.*+?()[\]{}|]/g, Jt = /^\[object .+?Constructor\]$/, qt = Function.prototype, Xt = Object.prototype, Zt = qt.toString, Qt = Xt.hasOwnProperty, Wt = RegExp(
+  "^" + Zt.call(Qt).replace(Kt, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
 );
-function ft(t) {
-  if (!b(t) || rt(t))
+function Yt(t) {
+  if (!_(t) || Ut(t))
     return !1;
-  var e = et(t) ? pt : st;
-  return e.test(at(t));
+  var e = Lt(t) ? Wt : Jt;
+  return e.test(Vt(t));
 }
-function dt(t, e) {
+function te(t, e) {
   return t == null ? void 0 : t[e];
 }
-function P(t, e) {
-  var r = dt(t, e);
-  return ft(r) ? r : void 0;
+function M(t, e) {
+  var r = te(t, e);
+  return Yt(r) ? r : void 0;
 }
-var E = function() {
+var N = function() {
   try {
-    var t = P(Object, "defineProperty");
+    var t = M(Object, "defineProperty");
     return t({}, "", {}), t;
   } catch {
   }
-}(), yt = 9007199254740991, gt = /^(?:0|[1-9]\d*)$/;
-function bt(t, e) {
+}(), ee = 9007199254740991, re = /^(?:0|[1-9]\d*)$/;
+function ne(t, e) {
   var r = typeof t;
-  return e = e ?? yt, !!e && (r == "number" || r != "symbol" && gt.test(t)) && t > -1 && t % 1 == 0 && t < e;
+  return e = e ?? ee, !!e && (r == "number" || r != "symbol" && re.test(t)) && t > -1 && t % 1 == 0 && t < e;
 }
-function _t(t, e, r) {
-  e == "__proto__" && E ? E(t, e, {
+function oe(t, e, r) {
+  e == "__proto__" && N ? N(t, e, {
     configurable: !0,
     enumerable: !0,
     value: r,
     writable: !0
   }) : t[e] = r;
 }
-function I(t, e) {
+function B(t, e) {
   return t === e || t !== t && e !== e;
 }
-var mt = Object.prototype, St = mt.hasOwnProperty;
-function Tt(t, e, r) {
+var se = Object.prototype, ae = se.hasOwnProperty;
+function ie(t, e, r) {
   var n = t[e];
-  (!(St.call(t, e) && I(n, r)) || r === void 0 && !(e in t)) && _t(t, e, r);
+  (!(ae.call(t, e) && B(n, r)) || r === void 0 && !(e in t)) && oe(t, e, r);
 }
-var vt = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/, Ot = /^\w*$/;
-function Pt(t, e) {
-  if (O(t))
+var ce = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/, le = /^\w*$/;
+function pe(t, e) {
+  if (A(t))
     return !1;
   var r = typeof t;
-  return r == "number" || r == "symbol" || r == "boolean" || t == null || v(t) ? !0 : Ot.test(t) || !vt.test(t) || e != null && t in Object(e);
+  return r == "number" || r == "symbol" || r == "boolean" || t == null || x(t) ? !0 : le.test(t) || !ce.test(t) || e != null && t in Object(e);
 }
-var y = P(Object, "create");
-function wt() {
-  this.__data__ = y ? y(null) : {}, this.size = 0;
+var g = M(Object, "create");
+function ue() {
+  this.__data__ = g ? g(null) : {}, this.size = 0;
 }
-function Ct(t) {
+function fe(t) {
   var e = this.has(t) && delete this.__data__[t];
   return this.size -= e ? 1 : 0, e;
 }
-var At = "__lodash_hash_undefined__", Mt = Object.prototype, jt = Mt.hasOwnProperty;
-function $t(t) {
+var he = "__lodash_hash_undefined__", de = Object.prototype, me = de.hasOwnProperty;
+function ge(t) {
   var e = this.__data__;
-  if (y) {
+  if (g) {
     var r = e[t];
-    return r === At ? void 0 : r;
+    return r === he ? void 0 : r;
   }
-  return jt.call(e, t) ? e[t] : void 0;
+  return me.call(e, t) ? e[t] : void 0;
 }
-var Et = Object.prototype, Nt = Et.hasOwnProperty;
-function xt(t) {
+var be = Object.prototype, ye = be.hasOwnProperty;
+function _e(t) {
   var e = this.__data__;
-  return y ? e[t] !== void 0 : Nt.call(e, t);
+  return g ? e[t] !== void 0 : ye.call(e, t);
 }
-var zt = "__lodash_hash_undefined__";
-function It(t, e) {
+var Se = "__lodash_hash_undefined__";
+function ve(t, e) {
   var r = this.__data__;
-  return this.size += this.has(t) ? 0 : 1, r[t] = y && e === void 0 ? zt : e, this;
+  return this.size += this.has(t) ? 0 : 1, r[t] = g && e === void 0 ? Se : e, this;
 }
-function s(t) {
+function l(t) {
   var e = -1, r = t == null ? 0 : t.length;
   for (this.clear(); ++e < r; ) {
     var n = t[e];
     this.set(n[0], n[1]);
   }
 }
-s.prototype.clear = wt;
-s.prototype.delete = Ct;
-s.prototype.get = $t;
-s.prototype.has = xt;
-s.prototype.set = It;
-function Dt() {
+l.prototype.clear = ue;
+l.prototype.delete = fe;
+l.prototype.get = ge;
+l.prototype.has = _e;
+l.prototype.set = ve;
+function Oe() {
   this.__data__ = [], this.size = 0;
 }
-function _(t, e) {
+function S(t, e) {
   for (var r = t.length; r--; )
-    if (I(t[r][0], e))
+    if (B(t[r][0], e))
       return r;
   return -1;
 }
-var Ft = Array.prototype, Rt = Ft.splice;
-function Bt(t) {
-  var e = this.__data__, r = _(e, t);
+var Te = Array.prototype, xe = Te.splice;
+function Ae(t) {
+  var e = this.__data__, r = S(e, t);
   if (r < 0)
     return !1;
   var n = e.length - 1;
-  return r == n ? e.pop() : Rt.call(e, r, 1), --this.size, !0;
+  return r == n ? e.pop() : xe.call(e, r, 1), --this.size, !0;
 }
-function Ht(t) {
-  var e = this.__data__, r = _(e, t);
+function Me(t) {
+  var e = this.__data__, r = S(e, t);
   return r < 0 ? void 0 : e[r][1];
 }
-function Gt(t) {
-  return _(this.__data__, t) > -1;
+function $e(t) {
+  return S(this.__data__, t) > -1;
 }
-function Ut(t, e) {
-  var r = this.__data__, n = _(r, t);
+function Pe(t, e) {
+  var r = this.__data__, n = S(r, t);
   return n < 0 ? (++this.size, r.push([t, e])) : r[n][1] = e, this;
+}
+function d(t) {
+  var e = -1, r = t == null ? 0 : t.length;
+  for (this.clear(); ++e < r; ) {
+    var n = t[e];
+    this.set(n[0], n[1]);
+  }
+}
+d.prototype.clear = Oe;
+d.prototype.delete = Ae;
+d.prototype.get = Me;
+d.prototype.has = $e;
+d.prototype.set = Pe;
+var Ce = M(T, "Map");
+function we() {
+  this.size = 0, this.__data__ = {
+    hash: new l(),
+    map: new (Ce || d)(),
+    string: new l()
+  };
+}
+function Ee(t) {
+  var e = typeof t;
+  return e == "string" || e == "number" || e == "symbol" || e == "boolean" ? t !== "__proto__" : t === null;
+}
+function v(t, e) {
+  var r = t.__data__;
+  return Ee(e) ? r[typeof e == "string" ? "string" : "hash"] : r.map;
+}
+function je(t) {
+  var e = v(this, t).delete(t);
+  return this.size -= e ? 1 : 0, e;
+}
+function Ne(t) {
+  return v(this, t).get(t);
+}
+function Re(t) {
+  return v(this, t).has(t);
+}
+function ke(t, e) {
+  var r = v(this, t), n = r.size;
+  return r.set(t, e), this.size += r.size == n ? 0 : 1, this;
 }
 function p(t) {
   var e = -1, r = t == null ? 0 : t.length;
@@ -304,116 +420,74 @@ function p(t) {
     this.set(n[0], n[1]);
   }
 }
-p.prototype.clear = Dt;
-p.prototype.delete = Bt;
-p.prototype.get = Ht;
-p.prototype.has = Gt;
-p.prototype.set = Ut;
-var kt = P(T, "Map");
-function Vt() {
-  this.size = 0, this.__data__ = {
-    hash: new s(),
-    map: new (kt || p)(),
-    string: new s()
-  };
-}
-function Kt(t) {
-  var e = typeof t;
-  return e == "string" || e == "number" || e == "symbol" || e == "boolean" ? t !== "__proto__" : t === null;
-}
-function m(t, e) {
-  var r = t.__data__;
-  return Kt(e) ? r[typeof e == "string" ? "string" : "hash"] : r.map;
-}
-function Lt(t) {
-  var e = m(this, t).delete(t);
-  return this.size -= e ? 1 : 0, e;
-}
-function qt(t) {
-  return m(this, t).get(t);
-}
-function Xt(t) {
-  return m(this, t).has(t);
-}
-function Zt(t, e) {
-  var r = m(this, t), n = r.size;
-  return r.set(t, e), this.size += r.size == n ? 0 : 1, this;
-}
-function c(t) {
-  var e = -1, r = t == null ? 0 : t.length;
-  for (this.clear(); ++e < r; ) {
-    var n = t[e];
-    this.set(n[0], n[1]);
-  }
-}
-c.prototype.clear = Vt;
-c.prototype.delete = Lt;
-c.prototype.get = qt;
-c.prototype.has = Xt;
-c.prototype.set = Zt;
-var Jt = "Expected a function";
-function w(t, e) {
+p.prototype.clear = we;
+p.prototype.delete = je;
+p.prototype.get = Ne;
+p.prototype.has = Re;
+p.prototype.set = ke;
+var ze = "Expected a function";
+function $(t, e) {
   if (typeof t != "function" || e != null && typeof e != "function")
-    throw new TypeError(Jt);
+    throw new TypeError(ze);
   var r = function() {
-    var n = arguments, o = e ? e.apply(this, n) : n[0], a = r.cache;
-    if (a.has(o))
-      return a.get(o);
-    var i = t.apply(this, n);
-    return r.cache = a.set(o, i) || a, i;
+    var n = arguments, o = e ? e.apply(this, n) : n[0], s = r.cache;
+    if (s.has(o))
+      return s.get(o);
+    var a = t.apply(this, n);
+    return r.cache = s.set(o, a) || s, a;
   };
-  return r.cache = new (w.Cache || c)(), r;
+  return r.cache = new ($.Cache || p)(), r;
 }
-w.Cache = c;
-var Qt = 500;
-function Wt(t) {
-  var e = w(t, function(n) {
-    return r.size === Qt && r.clear(), n;
+$.Cache = p;
+var Be = 500;
+function Ie(t) {
+  var e = $(t, function(n) {
+    return r.size === Be && r.clear(), n;
   }), r = e.cache;
   return e;
 }
-var Yt = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g, te = /\\(\\)?/g, ee = Wt(function(t) {
+var De = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g, Fe = /\\(\\)?/g, Le = Ie(function(t) {
   var e = [];
-  return t.charCodeAt(0) === 46 && e.push(""), t.replace(Yt, function(r, n, o, a) {
-    e.push(o ? a.replace(te, "$1") : n || r);
+  return t.charCodeAt(0) === 46 && e.push(""), t.replace(De, function(r, n, o, s) {
+    e.push(o ? s.replace(Fe, "$1") : n || r);
   }), e;
 });
-function re(t) {
+function Ue(t) {
   return t == null ? "" : z(t);
 }
-function ne(t, e) {
-  return O(t) ? t : Pt(t, e) ? [t] : ee(re(t));
+function He(t, e) {
+  return A(t) ? t : pe(t, e) ? [t] : Le(Ue(t));
 }
-function oe(t) {
-  if (typeof t == "string" || v(t))
+function Ge(t) {
+  if (typeof t == "string" || x(t))
     return t;
   var e = t + "";
   return e == "0" && 1 / t == -1 / 0 ? "-0" : e;
 }
-function ae(t, e, r, n) {
-  if (!b(t))
+function Ve(t, e, r, n) {
+  if (!_(t))
     return t;
-  e = ne(e, t);
-  for (var o = -1, a = e.length, i = a - 1, f = t; f != null && ++o < a; ) {
-    var u = oe(e[o]), g = r;
+  e = He(e, t);
+  for (var o = -1, s = e.length, a = s - 1, i = t; i != null && ++o < s; ) {
+    var u = Ge(e[o]), b = r;
     if (u === "__proto__" || u === "constructor" || u === "prototype")
       return t;
-    if (o != i) {
-      var C = f[u];
-      g = void 0, g === void 0 && (g = b(C) ? C : bt(e[o + 1]) ? [] : {});
+    if (o != a) {
+      var P = i[u];
+      b = void 0, b === void 0 && (b = _(P) ? P : ne(e[o + 1]) ? [] : {});
     }
-    Tt(f, u, g), f = f[u];
+    ie(i, u, b), i = i[u];
   }
   return t;
 }
-function ie(t, e, r) {
-  return t == null ? t : ae(t, e, r);
+function Ke(t, e, r) {
+  return t == null ? t : Ve(t, e, r);
 }
-class se {
-  constructor(e = "NoName", r = "#000000", n = [], o = {}, a) {
-    this.runtime = a, this.id = `${e.substring(0, 1).toLowerCase()}${e.substring(1)}`, this.name = e.match(/[A-Z][a-z]+/g).join(" "), this.color = r, this.blocks = n, this.menus = o;
-    for (const i of this.blocks)
-      ie(this, i.opcode.toString(), async () => await i.run());
+class Je {
+  constructor(e = "NoName", r = "#000000", n = [], o = {}, s) {
+    this.runtime = s, this.id = `${e.substring(0, 1).toLowerCase()}${e.substring(1)}`, this.name = e.match(/[A-Z][a-z]+/g).join(" "), this.color = r, this.blocks = n, this.menus = o;
+    for (const a of this.blocks)
+      Ke(this, a.opcode.toString(), async () => await a.run());
   }
   getInfo() {
     return {
@@ -426,7 +500,7 @@ class se {
     };
   }
 }
-const D = [];
-for (const [t, e] of Object.entries(F.tabs))
-  D.push(new se(t, e.color, e.blocks, e.menus));
-D.forEach((t) => Scratch.extensions.register(t));
+const I = [];
+for (const [t, e] of Object.entries(y.tabs))
+  I.push(new Je(c.getMessage(t), e.color, e.blocks, e.menus));
+I.forEach((t) => Scratch.extensions.register(t));

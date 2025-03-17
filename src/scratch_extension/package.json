@@ -6,8 +6,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node_modules\\.bin\\vite build",
-    "minify": "node_modules\\.bin\\esbuild ..\\app\\assets\\js\\index.js --minify --outfile=..\\app\\assets\\js\\index.js --allow-overwrite",
+    "build": "npx tsc && npx vite build -d",
+    "minify": "npx esbuild ..\\app\\assets\\js\\index.js --minify --outfile=..\\app\\assets\\js\\index.js --allow-overwrite",
     "build-prod": "npm run build && npm run minify"
   },
   "author": {
@@ -16,13 +16,22 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "vite": "^6.2.1"
+    "@types/lodash-es": "^4.17.12",
+    "jsdoc": "^4.0.4",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.1",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21"
   },
   "imports": {
-    "#robomaster_turbowarp_extension/*.js": "./*.js"
+    "#types/*.d.ts": "./types/*.d.ts",
+    "#robomaster_turbowarp_extension/*.json": "./*.json",
+    "#robomaster_turbowarp_extension/*.ts": "./*.ts"
+  },
+  "exports": {
+    "@types/*.d.ts": "./types/*.d.ts"
   }
 }

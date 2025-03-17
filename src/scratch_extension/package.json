@@ -8,7 +8,10 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npx tsc && npx vite build -d",
         "minify": "npx esbuild ..\\app\\assets\\js\\index.js --minify --outfile=..\\app\\assets\\js\\index.js --allow-overwrite",
-        "build-prod": "npm run build && npm run minify"
+        "lint": "npx eslint ./src ./config main.ts --fix",
+        "pretty": "npx prettier . --write",
+        "format-and-pretty": "npm run pretty && npm run lint",
+        "build-prod": "npm run format-and-pretty && npm run build && npm run minify"
     },
     "author": {
         "name": "Louis DUBOIS",

@@ -1,7 +1,7 @@
 // Initialisation
 import { config, language } from '#config'
 import { Tab } from '#robomaster_turbowarp_extension/Tab.ts'
-import { Scratch } from "#types/scratch/Scratch.d.ts"
+import { Scratch } from '#types/scratch/Scratch.d.ts'
 
 /**
  * @const {Tab[]} extensions - Extension list

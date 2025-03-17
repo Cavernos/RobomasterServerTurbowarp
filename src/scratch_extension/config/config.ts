@@ -1,7 +1,7 @@
 import { Block } from '#robomaster_turbowarp_extension/Block.ts'
 import { name, version } from '#package' with { type: 'json' }
 import { Language } from '#robomaster_turbowarp_extension/locales/Language.ts'
-import { Scratch } from "#types/scratch/Scratch.d.ts"
+import { Scratch } from '#types/scratch/Scratch.d.ts'
 
 /**
  * Config module is the define variable for application configuration

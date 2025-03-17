@@ -1,0 +1,3 @@
+export type LanguageObject = {
+    [key: string]: { message: string | string[]; description: string }
+}

@@ -1,37 +1,46 @@
 {
-  "name": "robomaster_turbowarp_extension",
-  "version": "0.0.1",
-  "type": "module",
-  "description": "This extension provide robomaster api from python to turbowarp",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc && npx vite build -d",
-    "minify": "npx esbuild ..\\app\\assets\\js\\index.js --minify --outfile=..\\app\\assets\\js\\index.js --allow-overwrite",
-    "build-prod": "npm run build && npm run minify"
-  },
-  "author": {
-    "name": "Louis DUBOIS",
-    "email": "louis.dubois@eleve.isep.fr"
-  },
-  "license": "ISC",
-  "devDependencies": {
-    "@types/lodash-es": "^4.17.12",
-    "jsdoc": "^4.0.4",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.1",
-    "vite-tsconfig-paths": "^5.1.4"
-  },
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "lodash-es": "^4.17.21"
-  },
-  "imports": {
-    "#types/*.d.ts": "./types/*.d.ts",
-    "#robomaster_turbowarp_extension/*.json": "./*.json",
-    "#robomaster_turbowarp_extension/*.ts": "./*.ts"
-  },
-  "exports": {
-    "@types/*.d.ts": "./types/*.d.ts"
-  }
+    "name": "robomaster_turbowarp_extension",
+    "version": "0.0.1",
+    "type": "module",
+    "description": "This extension provide robomaster api from python to turbowarp",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "npx tsc && npx vite build -d",
+        "minify": "npx esbuild ..\\app\\assets\\js\\index.js --minify --outfile=..\\app\\assets\\js\\index.js --allow-overwrite",
+        "build-prod": "npm run build && npm run minify"
+    },
+    "author": {
+        "name": "Louis DUBOIS",
+        "email": "louis.dubois@eleve.isep.fr"
+    },
+    "license": "ISC",
+    "devDependencies": {
+        "@eslint/js": "^9.22.0",
+        "@turbowarp/types": "github:TurboWarp/types-tw#tw",
+        "@types/lodash-es": "^4.17.12",
+        "eslint": "^9.22.0",
+        "eslint-config-prettier": "^10.1.1",
+        "eslint-plugin-prettier": "^5.2.3",
+        "globals": "^16.0.0",
+        "jsdoc": "^4.0.4",
+        "prettier": "^3.5.3",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.26.1",
+        "vite": "^6.2.1",
+        "vite-tsconfig-paths": "^5.1.4"
+    },
+    "dependencies": {
+        "lodash": "^4.17.21",
+        "lodash-es": "^4.17.21"
+    },
+    "imports": {
+        "#types/*.d.ts": "./src/types/*.d.ts",
+        "#robomaster_turbowarp_extension/": "./src/",
+        "#config": "./config/config.ts",
+        "#package": "./package.json"
+    },
+    "exports": {
+        "@types/*.d.ts": "./src/types/*.d.ts"
+    }
 }

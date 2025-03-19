@@ -1,7 +1,8 @@
 import * as _ from 'lodash-es'
 import { Block } from '#robomaster_turbowarp_extension/Block.ts'
+import { Scratch } from '#types/scratch/Scratch.d.ts'
 
-export class Tab {
+export class Tab implements Scratch.Extension {
     id: string
     name: string
     color: string

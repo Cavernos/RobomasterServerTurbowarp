@@ -1,23 +1,30 @@
-// Initialisation
+// @ts-nocheck
 import { config, language } from '#config'
 import { Tab } from '#robomaster_turbowarp_extension/Tab.ts'
-import { Scratch } from '#types/scratch/Scratch.d.ts'
+//import { Scratch } from '#types/scratch/Scratch.d.ts'
 
 /**
+ * Extension list
  * @const {Tab[]} extensions - Extension list
  * */
 const extensions: Tab[] = []
 
 for (const [tabKey, tab] of Object.entries(config.tabs)) {
+    let tabObj: Tab
     if ('menus' in tab) {
-        extensions.push(
-            new Tab(
-                language.getMessage(tabKey) as string,
-                tab.color,
-                tab.blocks,
-                tab.menus
-            )
+        tabObj = new Tab(
+            language.getMessage(tabKey) as string,
+            tab.color,
+            tab.blocks,
+            tab.menus
+        )
+    } else {
+        tabObj = new Tab(
+            language.getMessage(tabKey) as string,
+            tab.color,
+            tab.blocks
         )
     }
+    extensions.push(tabObj)
 }
 extensions.forEach((extension) => Scratch.extensions.register(extension))

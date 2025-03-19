@@ -1,11 +1,55 @@
 import { config, language } from '#config'
-
+import { Scratch } from '#types/scratch/Scratch.d.ts'
+/**
+ * Create a new Block
+ * @class Block
+ * @example
+ * // create a new block
+ * const block = new Block("start", Scratch.BlockType.COMMAND, "Start [x]", "POST", {
+ *     x: "12"
+ * });
+ * For more information with BlockType
+ * @see {@link Scratch.BlockType}
+ *
+ * */
 export class Block {
-    arguments: { [key: string]: object } | undefined
-    blockType: string
+    /**
+     * Opcode (equivalent of id) of the block
+     * @property {string} opcode
+     * */
     opcode: string
-    serve_method: string
+
+    /**
+     *
+     * Type of the block
+     *
+     * For more information with BlockType
+     * @see {@link Scratch.BlockType}
+     *
+     *@property {Scratch.BlockType} BlockType
+     * */
+    blockType: string
+
+    /**
+     *  Text display on block
+     * @property {string | string[]} text
+     * */
     text: string | string[]
+
+    /**
+     * HTTP Method of the server (GET | POST)
+     * @property {string} serve_method
+     * */
+    serve_method: string
+
+    /**
+     * Supplementaries arguments for the block
+     *
+     * For  more information on arguments
+     * @see {@link Scratch.ArgumentType}
+     * @property {undefined | object} arguments
+     * */
+    arguments: { [key: string]: object } | undefined
 
     constructor(
         opcode: string,

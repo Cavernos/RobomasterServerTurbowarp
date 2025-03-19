@@ -1,0 +1,19 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc", "closure"]
+    },
+    "plugins": ["node_modules/better-docs/typescript"],
+    "source": {
+        "include": [
+            ".",
+            "./src",
+            "./src/locales",
+            "./src/types/locales",
+            "./src/types/scratch"
+        ],
+        "includePattern": "\\.(jsx|js|ts|tsx)$",
+        "exclude": ["./eslint.config.js"]
+    },
+    "sourceType": "module"
+}

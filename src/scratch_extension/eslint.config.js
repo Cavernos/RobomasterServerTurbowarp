@@ -4,7 +4,10 @@ import tseslint from 'typescript-eslint'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import { defineConfig } from 'eslint/config'
 
-/** @type {import('eslint').Linter.Config[]} */
+/** 
+ * @type {import('eslint').Linter.Config[]} 
+ * 
+*/
 export default defineConfig([
     {
         files: ['src/*.{js,mjs,cjs,ts}', 'config/*.{js,mjs,cjs,ts}', 'main.ts'],

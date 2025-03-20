@@ -22,7 +22,7 @@ export class Block {
     /**
      *
      * Type of the block
-     *
+     * 
      * For more information with BlockType
      * @see {@link Scratch.BlockType}
      *
@@ -44,11 +44,10 @@ export class Block {
 
     /**
      * Supplementaries arguments for the block
-     *
      * For  more information on arguments
      * @see {@link Scratch.ArgumentType}
      * @property {undefined | object} arguments
-     * */
+     */
     arguments: { [key: string]: object } | undefined
 
     constructor(
@@ -58,6 +57,7 @@ export class Block {
         serve_method: string = 'POST',
         args: { [key: string]: object } | undefined = undefined
     ) {
+        // Define this block properties
         this.opcode = opcode
         this.blockType = blockType
         this.text =
@@ -67,11 +67,19 @@ export class Block {
         this.serve_method = serve_method
         this.arguments = args
     }
+
+    /**
+     * @param url 
+     * @param request_method 
+     * @param request_body 
+     * @returns json or return error 
+     */
     async requestHandler(
         url: string,
         request_method = 'POST',
         request_body: undefined | object = undefined
     ) {
+        //...
         try {
             const response = await fetch(
                 `http://${config.robomaster_api.host}:${config.robomaster_api.port}/${url}`,
@@ -90,7 +98,12 @@ export class Block {
             console.error(`Erreur lors de la requête ${url}:`, error)
         }
     }
+    
+    /**
+     * 
+     */
     async run() {
+        // Start running with requestHandler of this block 
         return await this.requestHandler(
             this.opcode,
             this.serve_method,

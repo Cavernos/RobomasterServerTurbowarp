@@ -21,9 +21,13 @@ export class Tab implements Scratch.Extension {
         this.blocks = blocks!
         this.menus = menus
         for (const block of this.blocks) {
-            _.set(this, block.opcode.toString(), async () => {
-                return await block.run()
-            })
+            _.set(
+                this,
+                block.opcode.toString(),
+                async (args?: object | undefined) => {
+                    return await block.run(args)
+                }
+            )
         }
     }
     getInfo() {

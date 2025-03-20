@@ -90,11 +90,7 @@ export class Block {
             console.error(`Erreur lors de la requête ${url}:`, error)
         }
     }
-    async run() {
-        return await this.requestHandler(
-            this.opcode,
-            this.serve_method,
-            this.arguments
-        )
+    async run(args: object | undefined) {
+        return await this.requestHandler(this.opcode, this.serve_method, args)
     }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "robomaster_turbowarp_extension",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "This extension provide robomaster api from python to turbowarp",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules\\.bin\\vite build",
+    "minify": "node_modules\\.bin\\esbuild ..\\app\\assets\\js\\index.js --minify --outfile=..\\app\\assets\\js\\index.js --allow-overwrite",
+    "build-prod": "npm run build && npm run minify"
+  },
+  "author": {
+    "name": "Louis DUBOIS",
+    "email": "louis.dubois@eleve.isep.fr"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.2.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21"
+  },
+  "imports": {
+    "#robomaster_turbowarp_extension/*.js": "./*.js"
+  }
+}

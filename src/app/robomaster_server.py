@@ -3,7 +3,9 @@ import socket
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from robomaster import robot
+import nmap
 from pathlib import Path
+
 
 class RoboMasterServer:
     """
@@ -11,7 +13,7 @@ class RoboMasterServer:
     """
     routes = []
 
-    def __init__(self, file_name="robomaster_extension.js", port=8000):
+    def __init__(self, file_name="index.js", port=8000):
         """
         Initialize the RoboMaster Flask server.
 
@@ -51,17 +53,17 @@ class RoboMasterServer:
     def index(self):
         return jsonify({"api": "ok !"})
 
+
     def get_robot_ip(self):
         return self.safe_execute(self._get_robot_ip, "No Robot in the same LAN")
 
     def _get_robot_ip(self):
-        ip_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        ip_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        ip_sock.settimeout(2)
-        port = 40926
-        ip_sock.bind(('0.0.0.0', port))
-        ip_str = ip_sock.recv(1024).decode('utf-8')
-        ip_addr = ip_str.split()[-1]
+
+        scan = nmap.PortScanner()
+        scan.scan("192.168.0.0-255", '22')
+        #port = 40926
+        ip_addr = scan.all_hosts()
+
         return jsonify({"robot_ip": ip_addr})
 
     def robomaster_extension(self):
@@ -71,7 +73,7 @@ class RoboMasterServer:
         Returns:
             Response: The requested file.
         """
-        return send_from_directory(self.file_dir, self.file_name)
+        return send_from_directory(self.file_dir+'/assets/js/', self.file_name)
     
     def safe_execute(self, func, error_message):
         """
@@ -89,7 +91,7 @@ class RoboMasterServer:
         except Exception as e:
             print(f"{error_message}: {e}")
             return jsonify({"error": error_message, "details": str(e)})
-        
+
     # -------------------- BLOC FUNCTIONS -------------------- #
 
     # Robomaster Basics
@@ -227,6 +229,7 @@ class RoboMasterServer:
         Internal method to move the robot.
         """
         data = request.get_json()
+        print(data)
         x = float(data.get("x", 0))
         y = float(data.get("y", 0))
         z = float(data.get("z", 0))
@@ -341,44 +344,74 @@ class RoboMasterServer:
     
     # Extension Module
     
-    def arm(self):
+    def set_gripper(self):
+        """
+        Control the gripper.
+
+        Returns:
+            Response: JSON indicating success.
+        """
+        return self.safe_execute(self._set_gripper, "Failed to control gripper")
+    
+    def _set_gripper(self):
+        """
+        Internal method to control the gripper.
+        """
+        data = request.get_json()
+        action = str(data.get('action', 'open'))
+        print(action)
+        if action == 'open':
+            self.ep_robot.gripper.open()
+        elif action == 'close':
+            self.ep_robot.gripper.close().wait_for_completed()
+        elif action == 'stop':
+            self.ep_robot.gripper.stop().wait_for_completed()
+        return jsonify({'set_gripper': True})
+    
+    def arm_move(self):
         """
         Control the robotic arm.
 
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(self._arm, "Failed to control arm")
+        return self.safe_execute(self._arm_move, "Failed to control arm")
     
-    def _arm(self):
+    def _arm_move(self):
         """
         Internal method to control the arm.
         """
         data = request.get_json()
-        position = int(data.get("position", 1))
-        self.ep_robot.robotic_arm.move_to(position).wait_for_completed()
+        direction = int(data.get("direction", "forward"))
+        distance = int(data.get("distance", 1))
+        if direction == "forward":
+            self.ep_robot.robotic_arm.move(x=distance, y=0).wait_for_completed()
+        elif direction == "backward":
+            self.ep_robot.robotic_arm.move(x=-distance, y=0).wait_for_completed()
+        elif direction == "up":
+            self.ep_robot.robotic_arm.move(x=0, y=distance).wait_for_completed()
+        elif direction == "down":
+            self.ep_robot.robotic_arm.move(x=0, y=-distance).wait_for_completed()
         return jsonify({"arm": True})
     
-    def grabber(self):
+    def arm_move_to(self):
         """
-        Control the grabber.
+        Control the robotic arm.
 
         Returns:
             Response: JSON indicating success.
         """
-        return self.safe_execute(self._grabber, "Failed to control grabber")
+        return self.safe_execute(self._arm_move_to, "Failed to control arm")
     
-    def _grabber(self):
+    def _arm_move_to(self):
         """
-        Internal method to control the grabber.
+        Internal method to control the arm.
         """
         data = request.get_json()
-        action = data.get("action", "open")
-        if action == "open":
-            self.ep_robot.grabber.open().wait_for_completed()
-        else:
-            self.ep_robot.grabber.close().wait_for_completed()
-        return jsonify({"grabber": True})
+        x = int(data.get("x", 1))
+        y = int(data.get("y", 1))
+        self.ep_robot.robotic_arm.move_to(x=x, y=y).wait_for_completed()
+        return jsonify({"arm": True})
     
     
     # Smart

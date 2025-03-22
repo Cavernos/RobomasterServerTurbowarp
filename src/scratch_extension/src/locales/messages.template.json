@@ -1,70 +1,86 @@
 {
-    "RobomasterBasics": {
-        "message": "RobomasterBasics",
-        "description": "name of tab"
-    },
-    "start": {
-        "message": "Start",
-        "description": "text on block"
-    },
-    "stop": {
-        "message": "Stop",
-        "description": "text on block"
-    },
-    "Armor": {
-        "message": "Armor",
-        "description": "name of tab"
-    },
-    "Chassis": {
-        "message": "Chassis",
-        "description": "name of tab"
-    },
-    "move": {
-        "message": "Move x: [x]m y: [y]m z: [z]m speed: [speed]m/s",
-        "description": "text on block"
-    },
-    "rotate": {
-        "message": "Rotate angle: [angle]°",
-        "description": "text on block"
-    },
-    "ExtensionModule": {
-        "message": "ExtensionModule",
-        "description": "name of tab"
-    },
-    "arm": {
-        "message": "Move arm to [position]",
-        "description": "text on block"
-    },
-    "grabber": {
-        "message": "Grabber [action]",
-        "description": "text on block"
-    },
-    "grabberActions": {
-        "message": ["open", "close"],
-        "description": "text in menu"
-    },
-    "armPositions": {
-        "message": ["up", "down"],
-        "description": "text in menu"
-    },
-    "LedEffects": {
-        "message": "LedEffects",
-        "description": "name of tab"
-    },
-    "Media": {
-        "message": "Media",
-        "description": "name of tab"
-    },
-    "Sensor": {
-        "message": "Sensor",
-        "description": "name of tab"
-    },
-    "SensorAdapter": {
-        "message": "SensorAdapter",
-        "description": "name of tab"
-    },
-    "Smart": {
-        "message": "Smart",
-        "description": "name of tab"
-    }
+  "RobomasterBasics": {
+    "message": "RobomasterBasics",
+    "description": "name of tab"
+  },
+  "start": {
+    "message": "Start",
+    "description": "text on block"
+  },
+  "stop": {
+    "message": "Stop",
+    "description": "text on block"
+  },
+  "robotIp": {
+    "message": [
+      "192.168.0.2"
+    ],
+    "description": "text in menu"
+  },
+  "Armor": {
+    "message": "Armor",
+    "description": "name of tab"
+  },
+  "Chassis": {
+    "message": "Chassis",
+    "description": "name of tab"
+  },
+  "move": {
+    "message": "Move x: [x]m y: [y]m z: [z]m speed: [speed]m/s",
+    "description": "text on block"
+  },
+  "rotate": {
+    "message": "Rotate angle: [angle]°",
+    "description": "text on block"
+  },
+  "ExtensionModule": {
+    "message": "ExtensionModule",
+    "description": "name of tab"
+  },
+  "arm": {
+    "message": "Move arm to [position]",
+    "description": "text on block"
+  },
+  "grabber": {
+    "message": "Grabber [action]",
+    "description": "text on block"
+  },
+  "grabberActions": {
+    "message": [
+      "open",
+      "close"
+    ],
+    "description": "text in menu"
+  },
+  "armPositions": {
+    "message": [
+      "up",
+      "down"
+    ],
+    "description": "text in menu"
+  },
+  "LedEffects": {
+    "message": "LedEffects",
+    "description": "name of tab"
+  },
+  "Media": {
+    "message": "Media",
+    "description": "name of tab"
+  },
+  "say": {
+    "message": "Say [say]",
+    "description": "text on block"
+  },
+  "Sensor": {
+    "message": "Sensor",
+    "description": "name of tab"
+  },
+  "SensorAdapter": {
+    "message": "SensorAdapter",
+    "description": "name of tab"
+  },
+  "Smart": {
+    "message": "Smart",
+    "description": "name of tab"
+  }
 }

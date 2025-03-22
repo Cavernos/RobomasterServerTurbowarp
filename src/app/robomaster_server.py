@@ -1,9 +1,8 @@
-import re
-import socket
+
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from robomaster import robot
-import nmap
+import pyttsx3, nmap, subprocess, re, os
 from pathlib import Path
 
 class RoboMasterServer:
@@ -31,6 +30,7 @@ class RoboMasterServer:
         self.generate_route_list(self)
         for route in self.routes:
             self.app.add_url_rule(route['url'], route['name'], route['method'], methods=['GET', 'POST'])
+        self.file_list = []
 
     def run(self):
         """
@@ -107,7 +107,8 @@ class RoboMasterServer:
         Internal method to initialize connection.
         """
         self.ep_robot = robot.Robot()
-        self.ep_robot.initialize(conn_type="ap")
+        #self.ep_robot.initialize(conn_type="sta")
+        self.ep_robot.initialize()
         return jsonify({"start": True})
     
     def stop(self):
@@ -180,8 +181,11 @@ class RoboMasterServer:
         Internal method to control the arm.
         """
         data = request.get_json()
-        position = int(data.get("position", 1))
-        self.ep_robot.robotic_arm.move_to(position).wait_for_completed()
+        if data.get("position", 1) == "up":
+            position = (255, 255)
+        else:
+            position = (0, 0)
+        self.ep_robot.robotic_arm.moveto(position[0], position[1]).wait_for_completed()
         return jsonify({"arm": True})
     
     def grabber(self):
@@ -200,11 +204,48 @@ class RoboMasterServer:
         data = request.get_json()
         action = data.get("action", "open")
         if action == "open":
-            self.ep_robot.grabber.open().wait_for_completed()
+            self.ep_robot.gripper.open()
         else:
-            self.ep_robot.grabber.close().wait_for_completed()
+            self.ep_robot.gripper.close()
         return jsonify({"grabber": True})
 
+    def say(self):
+        return self.safe_execute(self._say, "Failed to say something")
+
+    def _say(self):
+        self.ep_robot.play_audio(filename=f"test.wav").wait_for_completed()
+        data = request.get_json()
+        engine = pyttsx3.init()
+        texte = data.get("say")
+                # texte = input("Entrez le texte à prononcer : ")
+                    
+                    # Paramétrages optionnels : voix, vitesse, volume...
+                    # Liste des voix disponibles  
+        if texte.lower() not in self.file_list:  
+            self.file_list.append(texte) 
+            voices = engine.getProperty('voices')
+            for idx, voice in enumerate(voices):
+                    print(idx, voice.name, voice.id)
+                        
+                        # Exemple : choisir la première voix
+            engine.setProperty('voice', voices[0].id)
+                        # Régler la vitesse de la parole (par défaut ~200 mots/min)
+            engine.setProperty('rate', 150)
+                        
+                        # Lecture du texte à voix haute (sortie haut-parleurs)
+                        
+                        # Enregistrement du texte dans un fichier audio WAV
+            nom_fichier = f"_{self.file_list.index(texte)}.wav"   
+            os.chdir(self.file_dir) 
+            engine.save_to_file(texte, nom_fichier)
+            engine.runAndWait()   
+            subprocess.run([ "ffmpeg", "-i", nom_fichier, "-ar", "48000", "-ac",  "2", "-c:a", "pcm_s16le", f"{self.file_list.index(texte)}.wav" ])
+            os.remove(nom_fichier)
+
+        print(f"Lecture du fichier audio '{self.file_list.index(texte)}'...")
+        self.ep_robot.play_audio(filename={self.file_list.index(texte)}).wait_for_completed()
+        print("Lecture terminée.")
+        return jsonify({"saying": data.get("say")})
 
 # ==================== if __name__ == '__main__' ==================== #
 

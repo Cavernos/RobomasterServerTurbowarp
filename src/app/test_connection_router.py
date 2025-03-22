@@ -8,13 +8,13 @@ ip_sock.bind(('0.0.0.0', 40926))
 
 # Wait to receive data.
 ip_str = ip_sock.recvfrom(1024)
-#print(ip_str)
+print(ip_str)
 
 # Output the data.
 import sys
 
 # In direct connection mode, the default IP address of the robot is 192.168.2.1 and the control command port is port 40923.
-host = "192.168.0.25"
+host = "192.168.204.25"
 port = 40923
 
 def main():
@@ -60,7 +60,10 @@ def main():
         s.close()
 
 main()
+
+"""
 ep_robot = robot.Robot()
 ep_robot.initialize(conn_type="sta")
-#ep_robot.chassis.move(x=-3, y=0,z=0,xy_speed=1).wait_for_completed()
+ep_robot.chassis.move(x=1, y=0,z=0,xy_speed=1).wait_for_completed()
 ep_robot.close()
+"""

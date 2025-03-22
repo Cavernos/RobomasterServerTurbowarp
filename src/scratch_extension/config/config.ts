@@ -66,9 +66,16 @@ export const config = {
         RobomasterBasics: {
             color: '#202530',
             blocks: [
-                new Block('start', Scratch.BlockType.COMMAND),
+                new Block('start', Scratch.BlockType.COMMAND, '', "POST", {
+                    type: Scratch.ArgumentType.STRING,
+                    menu: "robotIp",
+                    defaultValue: "192.168.0.2"
+                }),
                 new Block('stop', Scratch.BlockType.COMMAND),
             ],
+            menus: {
+                "robotIp": ["192.168.0.2"]
+            }
         },
         Armor: {
             color: '#F5C343',
@@ -127,7 +134,14 @@ export const config = {
         },
         Media: {
             color: '#67AD5B',
-            blocks: [],
+            blocks: [
+                new Block("say", Scratch.BlockType.COMMAND, "", "POST", {
+                    say: {
+                        type: Scratch.ArgumentType.STRING,
+                        defaultValue: "Hello"
+                    }
+                })
+            ],
         },
         Sensor: {
             color: '#6DD700',

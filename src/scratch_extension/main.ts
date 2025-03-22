@@ -8,7 +8,6 @@ import { Tab } from '#robomaster_turbowarp_extension/Tab.ts'
  * @const {Tab[]} extensions - Extension list
  * */
 const extensions: Tab[] = []
-
 for (const [tabKey, tab] of Object.entries(config.tabs)) {
     let tabObj: Tab
     if ('menus' in tab) {

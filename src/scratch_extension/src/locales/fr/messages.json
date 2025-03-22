@@ -55,6 +55,10 @@
         "message": "Media",
         "description": "name of tab"
     },
+    "say": {
+    "message": "Dire [say]",
+    "description": "text on block"
+    },
     "Sensor": {
         "message": "Capteurs",
         "description": "name of tab"

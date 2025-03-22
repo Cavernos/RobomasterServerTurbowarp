@@ -2,13 +2,37 @@ import en from './en/messages.json' with { type: 'json' }
 import fr from './fr/messages.json' with { type: 'json' }
 import { config } from '#config'
 import { LanguageObject } from '#types/locales/Language.d.ts'
-
+/**
+ * Get new language 
+ * @class Language
+ * @exemple 
+ * 
+ */
 export class Language {
+    /**
+     * Language's name 
+     * @property {string} lang
+     */
     lang: string
+
+    /**
+     * List of the available language from src/locales 
+     * @property {string | LanguageObject } available_language
+     */
     available_language: { [key: string]: LanguageObject }
+
+    /**
+     * 
+     * For more information about this property 
+     * @see {LanguageObject}
+     */
     translations: LanguageObject
 
+    /**
+     * @param lang 
+     */
     constructor(lang = 'en') {
+        // Define the properties of the class Language
         this.lang = lang
         this.available_language = {
             en,
@@ -17,13 +41,24 @@ export class Language {
         this.translations = this.available_language[this.lang]
     }
 
+    /**
+     * 
+     * @param {string[] | string} message 
+     * @returns {string} the result of the translation 
+     */
     getMessage(message: string): string | string[] {
+        // Get the message and stranslate it, if the message is define in src/locales 
         if (message in this.translations) {
             return this.translations[message].message
         }
         return 'NoTranslation'
     }
+
+    /**
+     * @returns {void} - Generate new message template in json file 
+     */
     generate_template(): void {
+        // Generate new message template in json file 
         const translations_template: LanguageObject = {}
         for (const [tabKey, tab] of Object.entries(config.tabs)) {
             translations_template[tabKey] = {

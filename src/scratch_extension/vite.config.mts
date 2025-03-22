@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 
+/**
+ * @type {[]}
+ */
 export default defineConfig({
     plugins: [viteTsconfigPaths()],
     build: {

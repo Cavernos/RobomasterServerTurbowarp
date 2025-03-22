@@ -7,6 +7,7 @@ name = "robomaster-scratch-extension"
 version = "0.0.1"
 dependencies = [
   "robomaster",
+<<<<<<< HEAD
   "werkzeug",
   "flask>=2.2",
   "flask-cors",
@@ -15,6 +16,11 @@ dependencies = [
   "opencv-python",
   "pyttsx3",
   "gunicorn"
+=======
+  "flask",
+  "opencv-python",
+  "pyttsx3"
+>>>>>>> 551b0c0 (Add block say and some audio files)
 ]
 requires-python = "<=3.8.9"
 authors = [

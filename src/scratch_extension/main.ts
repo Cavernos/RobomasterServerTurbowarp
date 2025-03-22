@@ -9,7 +9,7 @@ import { Tab } from '#robomaster_turbowarp_extension/Tab.ts'
  * */
 const extensions: Tab[] = []
 for (const [tabKey, tab] of Object.entries(config.tabs)) {
-    // Create and push new tab from the extensions list given above to scratch.extention 
+    // Create and push new tab from the extensions list given above to scratch.extention
     let tabObj: Tab
     if ('menus' in tab) {
         tabObj = new Tab(
@@ -27,10 +27,8 @@ for (const [tabKey, tab] of Object.entries(config.tabs)) {
     }
     extensions.push(tabObj)
 }
-
-
 /**
- * For more information about Scratch extentions 
+ * For more information about Scratch extentions
  * @see {Scratch.extensions}
  */
 extensions.forEach((extension) => Scratch.extensions.register(extension))

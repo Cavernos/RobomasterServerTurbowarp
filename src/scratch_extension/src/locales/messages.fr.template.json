@@ -1,6 +1,6 @@
 {
     "RobomasterBasics": {
-        "message": "RobomasterBasics",
+        "message": "RobomasterBases",
         "description": "name of tab"
     },
     "start": {
@@ -16,7 +16,7 @@
         "description": "text in menu"
     },
     "Armor": {
-        "message": "Armor",
+        "message": "Armure",
         "description": "name of tab"
     },
     "Chassis": {
@@ -133,7 +133,7 @@
         "description": "text in menu"
     },
     "ExtensionModule": {
-        "message": "ExtensionModule",
+        "message": "ModuleExtension",
         "description": "name of tab"
     },
     "arm": {
@@ -165,11 +165,11 @@
         "description": "text in menu"
     },
     "armDirection": {
-        "message": ["forward", "backward", "up", "bottom"],
+        "message": "NoTranslation",
         "description": "text in menu"
     },
     "LedEffects": {
-        "message": "LedEffects",
+        "message": "EffetsDeLeds",
         "description": "name of tab"
     },
     "setFlash": {
@@ -243,15 +243,15 @@
         "description": "text on block"
     },
     "Sensor": {
-        "message": "Sensor",
+        "message": "Capteurs",
         "description": "name of tab"
     },
     "SensorAdapter": {
-        "message": "SensorAdapter",
+        "message": "AdapteurCapteurs",
         "description": "name of tab"
     },
     "Smart": {
-        "message": "Smart",
+        "message": "Intelligence",
         "description": "name of tab"
     }
 }

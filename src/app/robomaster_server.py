@@ -375,6 +375,9 @@ class RoboMasterServer:
             Response: JSON indicating success.
         """
         return self.safe_execute(self._arm, "Failed to control arm")
+
+    def arm(self):
+        return self.safe_execute(self._arm, "Failed to control arm")
     
     def _arm(self):
         """

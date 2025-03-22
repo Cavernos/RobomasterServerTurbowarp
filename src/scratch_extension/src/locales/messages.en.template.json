@@ -165,7 +165,7 @@
         "description": "text in menu"
     },
     "armDirection": {
-        "message": ["forward", "backward", "up", "bottom"],
+        "message": "NoTranslation",
         "description": "text in menu"
     },
     "LedEffects": {

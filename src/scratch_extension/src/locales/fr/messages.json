@@ -4,12 +4,16 @@
         "description": "name of tab"
     },
     "start": {
-        "message": "Commencer",
+        "message": "Démarrer",
         "description": "text on block"
     },
     "stop": {
-        "message": "Arrêter",
+        "message": "Stopper",
         "description": "text on block"
+    },
+    "robotIp": {
+        "message": ["192.168.0.2"],
+        "description": "text in menu"
     },
     "Armor": {
         "message": "Armure",
@@ -20,44 +24,223 @@
         "description": "name of tab"
     },
     "move": {
-        "message": "Bouger x: [x]m y: [y]m z: [z]m Vitesse: [speed]m/s",
+        "message": "Se déplacer de x: [x]m y: [y]m z: [z]m speed: [speed]m/s",
         "description": "text on block"
     },
     "rotate": {
-        "message": "Rotation d'un angle: [angle]°",
+        "message": "Tourner d'un angle: [angle]°",
         "description": "text on block"
+    },
+    "setPwmValue": {
+        "message": "régler [pwm] la sortie pwm à [value]%",
+        "description": "text on block"
+    },
+    "enableStickOverlay": {
+        "message": "[status] accélération du chassis",
+        "description": "text on block"
+    },
+    "setFollowGimbalOffset": {
+        "message": "Suivre un stabilisateur [degree]°",
+        "description": "text on block"
+    },
+    "setTransSpeed": {
+        "message": "Vitesse de translation [speed]m/s",
+        "description": "text on block"
+    },
+    "setRotateSpeed": {
+        "message": "Vitesse de rotation [speed]°/s",
+        "description": "text on block"
+    },
+    "setWheelSpeed": {
+        "message": "vitesse de rotation des roues (rpm) avant gauche [fl] avant droit [fr] arrière gauche [rl] arrière droit [rr]",
+        "description": "text on block"
+    },
+    "moveWithTime": {
+        "message": "se déplacer à [degree]° pour [time]s",
+        "description": "text on block"
+    },
+    "moveWithDistance": {
+        "message": "se déplacer à [degree]° sur [distance]m",
+        "description": "text on block"
+    },
+    "moveDegreeWithSpeed": {
+        "message": "se déplacer à [degree]° à [speed]m/s",
+        "description": "text on block"
+    },
+    "rotateWithTime": {
+        "message": "tourner [direction] pendant [time]s",
+        "description": "text on block"
+    },
+    "rotateWithDegree": {
+        "message": "tourner [direction] à [degree]°",
+        "description": "text on block"
+    },
+    "moveAndRotate": {
+        "message": "Avancer de [degree]° en tournant à [direction]",
+        "description": "text on block"
+    },
+    "moveWithSpeed": {
+        "message": "Se déplacer à [xspeed]m/s sur l'axe X et à [yspeed] sur l'axe Y et tourne sur l'axe Z à [rotation]°/s",
+        "description": "text on block"
+    },
+    "getAttitude": {
+        "message": "Attitude de l'angle [attitude]",
+        "description": "text on block"
+    },
+    "getPositionBasePowerOn": {
+        "message": "Position courante [action]",
+        "description": "text on block"
+    },
+    "chassisImpactDetection": {
+        "message": "Impact détecté ?",
+        "description": "text on block"
+    },
+    "isImpact": {
+        "message": "collision ?",
+        "description": "text on block"
+    },
+    "pwm_port": {
+        "message": [
+            "PWP_all",
+            "PWP_1",
+            "PWP_2",
+            "PWP_3",
+            "PWP_4",
+            "PWP_5",
+            "PWP_6"
+        ],
+        "description": "text in menu"
+    },
+    "status": {
+        "message": ["Activé", "Désactivé"],
+        "description": "text in menu"
+    },
+    "direction": {
+        "message": ["droite", "gauche"],
+        "description": "text in menu"
+    },
+    "attitude": {
+        "message": ["perdu", "terrain", "rouler"],
+        "description": "text in menu"
+    },
+    "action": {
+        "message": [
+            "orientation",
+            "coordonnée X",
+            "coordonnée Y",
+            "coordonnée Z"
+        ],
+        "description": "text in menu"
     },
     "ExtensionModule": {
         "message": "ModuleExtension",
         "description": "name of tab"
     },
     "arm": {
-        "message": "Bouger le bras vers [position]",
+        "message": "Bouger le bras vers le [position]",
         "description": "text on block"
     },
     "grabber": {
         "message": "Pince [action]",
         "description": "text on block"
     },
-    "grabberActions": {
-        "message": ["ouvrir", "fermer"],
+    "setGripper": {
+        "message": "Pince [action]",
+        "description": "text on block"
+    },
+    "armMove": {
+        "message": "bouger le bras vers le [direction] de [distance]mm",
+        "description": "text on block"
+    },
+    "armMoveTo": {
+        "message": "bouger le bras au coordonnées (X:[x] Y:[y])",
+        "description": "text on block"
+    },
+    "gripperActions": {
+        "message": ["ouverte", "fermée", "stoppée"],
         "description": "text in menu"
     },
     "armPositions": {
-        "message": ["monter", "descendre"],
+        "message": ["haut", "bas"],
+        "description": "text in menu"
+    },
+    "armDirection": {
+        "message": ["avant", "arrière", "haut", "bas"],
         "description": "text in menu"
     },
     "LedEffects": {
         "message": "EffetsDeLeds",
         "description": "name of tab"
     },
+    "setFlash": {
+        "message": "set [led] LED flash rate to [frequency]Hz",
+        "description": "text on block"
+    },
+    "setBottomLed": {
+        "message": "set chassis [led] LED color to [color] and effect to [effect]",
+        "description": "text on block"
+    },
+    "setTopLed": {
+        "message": "set gimbal [led] LED color to [color] and effect to [effect]",
+        "description": "text on block"
+    },
+    "setSignleLed": {
+        "message": "set gimbal [led] LED sequence to [index] and effect to [effect]",
+        "description": "text on block"
+    },
+    "turnOff": {
+        "message": "set gimbal [led] LED color to [color]",
+        "description": "text on block"
+    },
+    "armorFlash": {
+        "message": [
+            "all",
+            "bottom front",
+            "bottom back",
+            "bottom left",
+            "bottom right",
+            "top left",
+            "top right"
+        ],
+        "description": "text in menu"
+    },
+    "armorBottomLed": {
+        "message": [
+            "bottom all",
+            "bottom front",
+            "bottom back",
+            "bottom left",
+            "bottom right"
+        ],
+        "description": "text in menu"
+    },
+    "armorTopLed": {
+        "message": ["top all", "top left", "top right"],
+        "description": "text in menu"
+    },
+    "color": {
+        "message": [
+            "red",
+            "green",
+            "blue",
+            "yellow",
+            "cyan",
+            "purple",
+            "white"
+        ],
+        "description": "text in menu"
+    },
+    "effect": {
+        "message": ["solid", "breath", "flash", "off"],
+        "description": "text in menu"
+    },
     "Media": {
         "message": "Media",
         "description": "name of tab"
     },
     "say": {
-    "message": "Dire [say]",
-    "description": "text on block"
+        "message": "Say [say]",
+        "description": "text on block"
     },
     "Sensor": {
         "message": "Capteurs",

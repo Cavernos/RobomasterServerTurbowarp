@@ -3,33 +3,33 @@ import fr from './fr/messages.json' with { type: 'json' }
 import { config } from '#config'
 import { LanguageObject } from '#types/locales/Language.d.ts'
 /**
- * Get new language 
+ * Get new language
  * @class Language
- * @exemple 
- * 
+ * @exemple
+ *
  */
 export class Language {
     /**
-     * Language's name 
+     * Language's name
      * @property {string} lang
      */
     lang: string
 
     /**
-     * List of the available language from src/locales 
+     * List of the available language from src/locales
      * @property {string | LanguageObject } available_language
      */
     available_language: { [key: string]: LanguageObject }
 
     /**
-     * 
-     * For more information about this property 
+     *
+     * For more information about this property
      * @see {LanguageObject}
      */
     translations: LanguageObject
 
     /**
-     * @param lang 
+     * @param lang
      */
     constructor(lang = 'en') {
         // Define the properties of the class Language
@@ -42,12 +42,12 @@ export class Language {
     }
 
     /**
-     * 
-     * @param {string[] | string} message 
-     * @returns {string} the result of the translation 
+     *
+     * @param {string[] | string} message
+     * @returns {string} the result of the translation
      */
     getMessage(message: string): string | string[] {
-        // Get the message and stranslate it, if the message is define in src/locales 
+        // Get the message and stranslate it, if the message is defined in src/locales
         if (message in this.translations) {
             return this.translations[message].message
         }
@@ -55,10 +55,10 @@ export class Language {
     }
 
     /**
-     * @returns {void} - Generate new message template in json file 
+     * @returns {void} - Generate new message template in json file
      */
     generate_template(): void {
-        // Generate new message template in json file 
+        // Generate new message template in json file
         const translations_template: LanguageObject = {}
         for (const [tabKey, tab] of Object.entries(config.tabs)) {
             translations_template[tabKey] = {
@@ -86,13 +86,16 @@ export class Language {
             const blob = new Blob([JSON.stringify(obj, null, 2)], {
                 type: 'application/json',
             })
-            const url = URL.createObjectURL(blob)
-            const a = document.createElement('a')
+            const url: string = URL.createObjectURL(blob)
+            const a: HTMLAnchorElement = document.createElement('a')
             a.href = url
             a.download = `${filename}.json`
             a.click()
             URL.revokeObjectURL(url)
         }
-        return JSONToFile(translations_template, 'messages.template')
+        return JSONToFile(
+            translations_template,
+            `messages.${this.lang}.template`
+        )
     }
 }

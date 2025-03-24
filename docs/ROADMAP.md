@@ -2,6 +2,7 @@
 
 ## Development Environment
 
+<!--
 <div hidden>
 
 ```
@@ -25,11 +26,13 @@ SHOW_LEGEND()
 @enduml
 ```
 </div>
+-->
 
 ![](./diagrams/actual.svg)
 
 ## Production Environment
 
+<!--
 <div hidden>
 
 ```
@@ -58,5 +61,6 @@ SHOW_LEGEND()
 ```
 
 </div>
+-->
 
 ![](./diagrams/expected.svg)

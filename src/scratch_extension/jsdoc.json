@@ -3,7 +3,10 @@
         "allowUnknownTags": true,
         "dictionaries": ["jsdoc", "closure"]
     },
-    "plugins": ["node_modules/better-docs/typescript"],
+    "opts": {
+        "template": "node_modules/docdash"
+    },
+    "plugins": ["node_modules/jsdoc-babel", "plugins/markdown"],
     "source": {
         "include": [
             ".",
@@ -14,6 +17,28 @@
         ],
         "includePattern": "\\.(jsx|js|ts|tsx)$",
         "exclude": ["./eslint.config.js"]
+    },
+    "docdash": {
+        "static": true,
+        "sort": true,
+        "search": true,
+        "collapse": true,
+        "typedefs": true,
+        "removeQuotes": "none",
+        "scripts": [],
+        "menu": {
+            "Gihub Repo": {
+                "href": "",
+                "target": "_blank",
+                "class": "menu-item",
+                "id": "repository"
+            }
+        }
+    },
+    "templates": {
+        "default": {
+            "useLongnameInNav": true
+        }
     },
     "sourceType": "module"
 }

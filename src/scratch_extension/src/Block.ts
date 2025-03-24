@@ -68,14 +68,14 @@ export class Block {
     }
 
     /**
-     * @param url
-     * @param request_method
-     * @param request_body
+     * @param {string} url - Block api call slug
+     * @param {string} request_method - If it is (POST or GET)
+     * @param {undefined | object} request_body - (Arguments for the request)
      * @returns json or return error
      */
     async requestHandler(
         url: string,
-        request_method = 'POST',
+        request_method: string = 'POST',
         request_body: undefined | object = undefined
     ) {
         //...

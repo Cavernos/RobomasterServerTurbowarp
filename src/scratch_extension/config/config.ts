@@ -43,7 +43,8 @@ export const config = {
          * api host like http://localhost/
          * @type {string}
          * */
-        host: 'localhost',
+        //host: 'localhost',
+        host: '192.168.137.202',
         /**
          * port
          * api port like :8000

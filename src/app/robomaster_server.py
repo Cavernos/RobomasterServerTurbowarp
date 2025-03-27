@@ -1,6 +1,7 @@
 
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
+from flask_talisman import Talisman
 from robomaster import robot
 import pyttsx3, nmap, subprocess, re, os
 from pathlib import Path
@@ -21,6 +22,7 @@ class RoboMasterServer:
         """
         self.app = Flask(__name__)
         CORS(self.app)
+        Talisman(self.app)
         self.file_dir = str(Path(__file__).resolve().parent)
         self.file_name = file_name
         self.port = port
@@ -36,7 +38,7 @@ class RoboMasterServer:
         """
         Start the RoboMaster Flask server.
         """
-        self.app.run(debug=True, port=self.port)
+        self.app.run(debug=True, ssl_cert="adhoc", port=self.port)
 
     @classmethod
     def generate_route_list(cls, instance):

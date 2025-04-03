@@ -81,7 +81,7 @@ export class Block {
         //...
         try {
             const response = await fetch(
-                `https://${config.robomaster_api.host}:${config.robomaster_api.port}/${url}`,
+                `http${config.env === 'production' ? 's' : ''}://${config.robomaster_api.host}:${config.robomaster_api.port}/${url}`,
                 {
                     method: request_method,
                     headers: { 'Content-Type': 'application/json' },

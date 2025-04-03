@@ -1,10 +1,14 @@
+import json
+from ssl import cert_time_to_seconds
+from turtledemo.sorting_animate import start_ssort
 
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from flask_talisman import Talisman
 from robomaster import robot
-import pyttsx3, nmap, subprocess, re, os
+import pyttsx3, subprocess, re, os
 from pathlib import Path
+from config.config import ENV
 
 class RoboMasterServer:
     """
@@ -38,7 +42,10 @@ class RoboMasterServer:
         """
         Start the RoboMaster Flask server.
         """
-        self.app.run(debug=True, ssl_cert="adhoc", port=self.port)
+        if ENV == "production":
+            self.app.run(ssl_cert="adhoc", port=self.port)
+        else:
+            self.app.run(debug=True, port=self.port)
 
     @classmethod
     def generate_route_list(cls, instance):
@@ -48,24 +55,27 @@ class RoboMasterServer:
             if re.match('_[A-Za-z]', method_name):
                 method_name = method_name.split('_')
                 method_name.pop(0)
-                method_name = "_".join(method_name)
-                cls.routes.append({'name': method_name, 'url': f"/{method_name}", "method": getattr(instance, method_name)})
+                method = "_".join(method_name)
+                for i, char in enumerate(method_name):
+                    if i > 0:
+                        method_name[i] = char.title()
+                name = "".join(method_name)
+
+                cls.routes.append({'name': name, 'url': f"/{name}", "method": getattr(instance, method)})
 
     def index(self):
-        return jsonify({"api": "ok !"})
+        dict_routes = []
+        for route in self.routes:
+            dict_routes.append({route['name']: route['url']})
+
+        return jsonify({"api": "ok !", "available_routes": dict_routes})
 
 
     def get_robot_ip(self):
         return self.safe_execute(self._get_robot_ip, "No Robot in the same LAN")
 
     def _get_robot_ip(self):
-
-        scan = nmap.PortScanner()
-        scan.scan("192.168.0.0-255", '22')
-        #port = 40926
-        ip_addr = scan.all_hosts()
-
-        return jsonify({"robot_ip": ip_addr})
+        return jsonify({"robot_ip": "192.168.2.1"})
 
     def robomaster_extension(self):
         """

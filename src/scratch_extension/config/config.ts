@@ -31,6 +31,7 @@ export const config = {
      * @type {string}
      * */
     version: version,
+    env: 'dev',
     /**
      * Robomaster Api represent host and port for fetch api connection
      * @param {string} host - api host like http://localhost/
@@ -44,7 +45,7 @@ export const config = {
          * @type {string}
          * */
         //host: 'localhost',
-        host: '192.168.137.202',
+        host: '',
         /**
          * port
          * api port like :8000
@@ -625,3 +626,6 @@ export const config = {
         },
     },
 }
+config.env === 'production'
+    ? (config.robomaster_api.host = '192.168.137.202')
+    : (config.robomaster_api.host = 'localhost')

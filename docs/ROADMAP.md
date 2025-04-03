@@ -32,11 +32,12 @@ SHOW_LEGEND()
 
 ## Production Environment
 
+### Option 1
 <!--
 <div hidden>
 
 ```
-@startuml expected
+@startuml expected_1
 !include <C4/C4_Container>
 LAYOUT_LEFT_RIGHT()
 
@@ -63,4 +64,42 @@ SHOW_LEGEND()
 </div>
 -->
 
-![](./diagrams/expected.svg)
+![](./diagrams/expected_1.svg)
+
+### Option 2
+
+<!--
+<div hidden>
+
+```
+@startuml expected_2
+!include <C4/C4_Container>
+LAYOUT_LEFT_RIGHT()
+
+Person(admin, "Student")
+System_Boundary(c1, "PC 127.0.0.1") {
+    Container(turbowarp, "Turbowarp Robomater extension", "JavaScript", "Just to link blocks with python api")
+}
+System_Boundary(c2, "Raspberry Pi connected with Isep Network") {
+    Container(api_app, "Flask API", "Python,  Flask library", "Get request from turbowarp and communicate with the robot")
+    System_Boundary(c3, "Local Network from Raspberry Pi use as router"){
+        System(robot, "Robot", "192.168.1-255.1-255, sta mode")
+}
+   
+}
+
+
+
+Rel(admin, turbowarp, "Uses", "HTTP")
+Rel(turbowarp, api_app, "Send request to api", "HTTP")
+Rel(api_app, robot, "Send socket to robot", "UDP")
+Rel(api_app, turbowarp, "Send response to know if it works")
+
+SHOW_LEGEND()
+@enduml
+```
+
+</div>
+-->
+
+![](./diagrams/expected_2.svg)

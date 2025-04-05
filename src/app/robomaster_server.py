@@ -1,14 +1,14 @@
-import json
-from ssl import cert_time_to_seconds
-from turtledemo.sorting_animate import start_ssort
-
 from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from flask_talisman import Talisman
-from robomaster import robot
+from werkzeug.middleware.proxy_fix import ProxyFix
 import pyttsx3, subprocess, re, os
-from pathlib import Path
+
+
+
 from config.config import ENV
+from lib.Connection import StaMode
+
 
 class RoboMasterServer:
     """
@@ -27,10 +27,11 @@ class RoboMasterServer:
         self.app = Flask(__name__)
         CORS(self.app)
         Talisman(self.app)
-        self.file_dir = str(Path(__file__).resolve().parent)
+        self.robot_connection = StaMode()
+        self.file_dir = os.path.abspath(os.path.dirname(__file__))
         self.file_name = file_name
         self.port = port
-        self.ep_robot = None
+        self.ep_robot = self.robot_connection.get_robot()
 
         # Define routes
         self.generate_route_list(self)
@@ -43,7 +44,8 @@ class RoboMasterServer:
         Start the RoboMaster Flask server.
         """
         if ENV == "production":
-            self.app.run(ssl_cert="adhoc", port=self.port)
+            self.app.wsgi_app = ProxyFix(self.app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+            self.app.run(ssl_context="adhoc", port=self.port)
         else:
             self.app.run(debug=True, port=self.port)
 
@@ -70,13 +72,6 @@ class RoboMasterServer:
 
         return jsonify({"api": "ok !", "available_routes": dict_routes})
 
-
-    def get_robot_ip(self):
-        return self.safe_execute(self._get_robot_ip, "No Robot in the same LAN")
-
-    def _get_robot_ip(self):
-        return jsonify({"robot_ip": "192.168.2.1"})
-
     def robomaster_extension(self):
         """
         Serve the JavaScript extension file.
@@ -84,7 +79,7 @@ class RoboMasterServer:
         Returns:
             Response: The requested file.
         """
-        return send_from_directory(self.file_dir+'/assets/js/', self.file_name)
+        return send_from_directory(os.path.join(self.file_dir, 'assets', 'js'), self.file_name)
     
     def safe_execute(self, func, error_message):
         """
@@ -121,10 +116,10 @@ class RoboMasterServer:
         """
         Internal method to initialize connection.
         """
-        self.ep_robot = robot.Robot()
-        #self.ep_robot.initialize(conn_type="sta")
-        self.ep_robot.initialize()
-        return jsonify({"start": True})
+        data = request.get_json()
+        self.robot_connection.connect("sta", data.get("sn"))
+        self.ep_robot = self.robot_connection.get_robot()
+        return jsonify({"start": self.robot_connection.connect("sta", data.get("sn"))})
     
     # stop
     def stop(self):
@@ -140,7 +135,8 @@ class RoboMasterServer:
         """
         Internal method to stop connection.
         """
-        self.ep_robot.close()
+        if self.ep_robot.connect(self.robot_connection.conn_type, self.robot_connection.sn):
+            self.ep_robot.close()
         return jsonify({"stop": True})
     
 

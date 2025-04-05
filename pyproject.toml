@@ -7,6 +7,7 @@ name = "robomaster-scratch-extension"
 version = "0.0.1"
 dependencies = [
   "robomaster",
+  "werkzeug",
   "flask>=2.2",
   "flask-cors",
   "flask_talisman",

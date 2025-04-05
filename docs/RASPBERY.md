@@ -22,7 +22,8 @@ Command : ssh robomaster@192.168.137.202
 ```shell
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get remove python3.9
+#sudo apt-get remove python3.9 # For Raspberypi 3
+sudo apt-get remove python3.11 # For Raspberypi 5
 
 # Dependency for our application
 # PYTHON INSTALLATION
@@ -31,13 +32,14 @@ sudo apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev lib
 wget https://www.python.org/ftp/python/3.8.9/Python-3.8.9.tar.xz
 tar xf Python-3.8.9.tar.xz
 cd Python-3.8.9
-./configure
+./configure --enable-optimizations
 make
 sudo make altinstall
 sudo touch /usr/bin/python # If not exits
 sudo cp python /usr/bin/python3.8
-sudo ln -sf /usr/bin/python /usr/bin/python3.8
+sudo ln -sf /usr/bin/python3.8 /usr/bin/python
 cd ..
+python --version
 sudo rm -rf Python-3.8.9 Python-3.8.9.tar.xz
 python -m pip install --upgrade pip
 
@@ -69,7 +71,9 @@ sudo systemctl start NetworkManager
 
 # Check networks available
 nmcli device
-
+# IF WIFI is unavalaible
+sudo nmcli radio wifi on
+ 
 # Start Hotspot
 sudo nmcli device wifi hotspot ssid RPI-ROBOMASTER password 12345678 ifname wlan0
 
@@ -80,8 +84,8 @@ sudo nmcli device wifi hotspot ssid RPI-ROBOMASTER password 12345678 ifname wlan
 nmcli connection
 
 # Hotspot Configuration
-UUID=57eb62f7-c2cb-469e-a475-0c683f9c8a32
-nmcli connection show $UUID # For us UUID = 57eb62f7-c2cb-469e-a475-0c683f9c8a32
+UUID=f93b6da6-44d4-4e94-b415-035167650f53
+nmcli connection show $UUID # For us UUID =f93b6da6-44d4-4e94-b415-035167650f53
 sudo nmcli connection modify $UUID connection.autoconnect yes connection.autoconnect-priority 100
 
 ```

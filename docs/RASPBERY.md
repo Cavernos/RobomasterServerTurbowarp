@@ -10,9 +10,9 @@ For more information see: https://pihw.wordpress.com/guides/direct-network-conne
 # SSH Keypass (Done)
 
 ```
-Host (on my device) : 192.168.137.202
+Host (on my device) : 192.168.137.202 # ifconfig if it's not the same adress
 User: robomaster
-Password : l202-robot (Temporary)
+Password : l220-robot (Temporary)
 
 Command : ssh robomaster@192.168.137.202
 ```

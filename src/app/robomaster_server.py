@@ -45,7 +45,7 @@ class RoboMasterServer:
         """
         if ENV == "production":
             self.app.wsgi_app = ProxyFix(self.app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
-            self.app.run(ssl_context="adhoc", port=self.port)
+            self.app.run(ssl_context="adhoc", host="0.0.0.0", port=self.port)
         else:
             self.app.run(debug=True, port=self.port)
 

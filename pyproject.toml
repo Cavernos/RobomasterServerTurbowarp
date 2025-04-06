@@ -7,12 +7,14 @@ name = "robomaster-scratch-extension"
 version = "0.0.1"
 dependencies = [
   "robomaster",
+  "werkzeug",
   "flask>=2.2",
   "flask-cors",
   "flask_talisman",
   "pyopenssl",
   "opencv-python",
-  "pyttsx3"
+  "pyttsx3",
+  "gunicorn"
 ]
 requires-python = "<=3.8.9"
 authors = [

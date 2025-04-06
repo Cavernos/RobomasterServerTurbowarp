@@ -5,5 +5,6 @@
     text-align: center;
 }
 .caption{
-    size: 20
+    size: 20;
+    font-style: italic;
 }

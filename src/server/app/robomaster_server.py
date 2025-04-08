@@ -1,4 +1,5 @@
 import os
+from tkinter.constants import EXTENDED
 
 import pyttsx3
 import re
@@ -6,7 +7,7 @@ import subprocess
 
 from lib.Connection import ConnectionMode
 from app.config import ENV, PORT, APP_DIR, ROUTER, ASSETS_DIR
-from app.tabs import RobomasterBasics
+from app.tabs import RobomasterBasics, LedEffects, Chassis, ExtensionModule, Armor, Media, Sensor, SensorAdapter, Smart
 from flask import Flask, send_from_directory, jsonify, request,render_template,url_for
 from flask_cors import CORS
 from flask_talisman import Talisman
@@ -32,6 +33,14 @@ class RoboMasterServer:
         self.robot_connection = ConnectionMode()
         self.tabs = [
             RobomasterBasics(self.robot_connection),
+            LedEffects(self.robot_connection),
+            Chassis(self.robot_connection),
+            ExtensionModule(self.robot_connection),
+            Armor(self.robot_connection),
+            Media(self.robot_connection),
+            Sensor(self.robot_connection),
+            SensorAdapter(self.robot_connection),
+            Smart(self.robot_connection)
         ]
         self.app_dir = APP_DIR
         self.port = PORT
@@ -100,286 +109,18 @@ class RoboMasterServer:
 
     # LED Effects
 
-    # set_flash
-    def set_flash(self):
-        return self.safe_execute(self._set_flash, "Failed to set flash")
 
-    def _set_flash(self):
-        return jsonify({"set_flash": True})
-
-    # set_bottom_led
-    def set_bottom_led(self):
-        return self.safe_execute(self._set_bottom_led, "Failed to set bottom flash")
-
-    def _set_bottom_led(self):
-        return jsonify({"set_bottom_led": True})
-
-    # set_top_led
-    def set_top_led(self):
-        return self.safe_execute(self._set_top_led, "Failed to set top flash")
-
-    def _set_top_led(self):
-        return jsonify({"set_top_led": True})
-
-    # set_signle_led
-    def set_signle_led(self):
-        return self.safe_execute(self._set_signle_led, "Failed to set signle led")
-
-    def _set_signle_led(self):
-        return jsonify({"set_signle_led": True})
-
-    # turn_off
-    def turn_off(self):
-        return self.safe_execute(self._turn_off, "Failed to turn off")
-
-    def _turn_off(self):
-        return jsonify({"turn_off": True})
 
 
     # Chassis
 
     # set_pwm_value
-    def set_pwm_value(self):
-        return self.safe_execute(self._set_pwm_value, "Failed to set pwm value")
 
-    def _set_pwm_value(self):
-        return jsonify({"set_pwm_value": True})
-
-    # enable_stick_overlay
-    def enable_stick_overlay(self):
-        return self.safe_execute(self._enable_stick_overlay, "Failed to enable stick overlay")
-
-    def _enable_stick_overlay(self):
-        return jsonify({"enable_stick_overlay": True})
-
-    # set_follow_gimbal_offset
-    def set_follow_gimbal_offset(self):
-        return self.safe_execute(self._set_follow_gimbal_offset, "Failed to set follow gimbaloffset")
-
-    def _set_follow_gimbal_offset(self):
-        return jsonify({"set_follow_gimbal_offset": True})
-
-    # set_trans_speed
-    def set_trans_speed(self):
-        return self.safe_execute(self._set_trans_speed, "Failed to set_trans_speed")
-
-    def _set_trans_speed(self):
-        return jsonify({"set_trans_speed": True})
-
-    # set_rotate_speed
-    def set_rotate_speed(self):
-        return self.safe_execute(self._set_rotate_speed, "Failed to set rotate speed")
-
-    def _set_rotate_speed(self):
-        return jsonify({"set_rotate_speed": True})
-
-    # set_wheel_speed
-    def set_wheel_speed(self):
-        return self.safe_execute(self._set_wheel_speed, "Failed to set wheel speed")
-
-    def _set_wheel_speed(self):
-        return jsonify({"set_pwm_value": True})
-
-    # move
-    def move(self):
-        """
-        Move the robot.
-
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(self._move, "Failed to move")
-    
-    def _move(self):
-        """
-        Internal method to move the robot.
-        """
-        data = request.get_json()
-        x = float(data.get("x", 0))
-        y = float(data.get("y", 0))
-        z = float(data.get("z", 0))
-        speed = float(data.get("speed", 0.5))
-        self.ep_robot.chassis.move(x=x, y=y, z=z, xy_speed=speed).wait_for_completed()
-        return jsonify({"move": True})
-    
-    # move_with_time
-    def move_with_time(self):
-        return self.safe_execute(self._move_with_time, "Failed to move with time")
-
-    def _move_with_time(self):
-        return jsonify({"move_with_time": True})
-
-    # move_with_distance
-    def move_with_distance(self):
-        return self.safe_execute(self._move_with_distance, "Failed to move with distance")
-
-    def _move_with_distance(self):
-        return jsonify({"move_with_distance": True})
-
-    # move_degree_with_speed
-    def move_degree_with_speed(self):
-        return self.safe_execute(self._move_degree_with_speed, "Failed to move degree with speed")
-
-    def _move_degree_with_speed(self):
-        return jsonify({"move_degree_with_speed": True})
-
-    # rotate
-    def rotate(self):
-        """
-        Rotate the robot.
-
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(self._rotate, "Failed to rotate")
-    
-    def _rotate(self):
-        """
-        Internal method to rotate the robot.
-        """
-        data = request.get_json()
-        angle = float(data.get("angle", 0))
-        speed = float(data.get("speed", 30))
-        self.ep_robot.chassis.move(z=angle, xy_speed=speed).wait_for_completed()
-        return jsonify({"rotate": True})
-    
-    # rotate_with_time
-    def rotate_with_time(self):
-        return self.safe_execute(self._rotate_with_time, "Failed to rotate with time")
-
-    def _rotate_with_time(self):
-        return jsonify({"rotate_with_time": True})
-
-    # rotate_with_degree
-    def rotate_with_degree(self):
-        return self.safe_execute(self._rotate_with_degree, "Failed to rotate with degree")
-
-    def _rotate_with_degree(self):
-        return jsonify({"rotate_with_degree": True})
-
-    # move_and_rotate
-    def move_and_rotate(self):
-        return self.safe_execute(self._move_and_rotate, "Failed to move and rotate")
-
-    def _move_and_rotate(self):
-        return jsonify({"move_and_rotate": True})
-
-    # move_with_speed
-    def move_with_speed(self):
-        return self.safe_execute(self._move_with_speed, "Failed to move with speed")
-
-    def _move_with_speed(self):
-        return jsonify({"move_with_speed": True})
-
-    ## stop
-    #def stop(self):
-    #    return self.safe_execute(self._stop, "Failed to stop")
-    #
-    #def _stop(self):
-    #    return jsonify({"stop": True})
-
-    # get_attitude
-    def get_attitude(self):
-        return self.safe_execute(self._get_attitude, "Failed to get attitude")
-
-    def _get_attitude(self):
-        return jsonify({"get_attitude": True})
-
-    # get_position_based_power_on
-    def get_position_based_power_on(self):
-        return self.safe_execute(self._get_position_based_power_on, "Failed to get position based power on")
-
-    def _get_position_based_power_on(self):
-        return jsonify({"get_position_based_power_on": True})
-
-    # chassis_impact_detection
-    def chassis_impact_detection(self):
-        return self.safe_execute(self._chassis_impact_detection, "Failed to chassis impact detection")
-
-    def _chassis_impact_detection(self):
-        return jsonify({"chassis_impact_detection": True})
-
-    # is_impact
-    def is_impact(self):
-        return self.safe_execute(self._is_impact, "Failed to is impact")
-
-    def _is_impact(self):
-        return jsonify({"is_impact": True})
 
 
     # Extension Module
 
-    def set_gripper(self):
-        """
-        Control the gripper.
 
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(self._set_gripper, "Failed to control gripper")
-
-    def _set_gripper(self):
-        """
-        Internal method to control the gripper.
-        """
-        data = request.get_json()
-        action = str(data.get('action', 'open'))
-        print(action)
-        if action == 'open':
-            self.ep_robot.gripper.open()
-        elif action == 'close':
-            self.ep_robot.gripper.close().wait_for_completed()
-        elif action == 'stop':
-            self.ep_robot.gripper.stop().wait_for_completed()
-        return jsonify({'set_gripper': True})
-
-    def arm_move(self):
-        """
-        Control the robotic arm.
-
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(self._arm, "Failed to control arm")
-
-    def arm(self):
-        return self.safe_execute(self._arm, "Failed to control arm")
-    
-    def _arm(self):
-        """
-        Internal method to control the arm.
-        """
-        data = request.get_json()
-        direction = int(data.get("direction", "forward"))
-        distance = int(data.get("distance", 1))
-        if direction == "forward":
-            self.ep_robot.robotic_arm.move(x=distance, y=0).wait_for_completed()
-        elif direction == "backward":
-            self.ep_robot.robotic_arm.move(x=-distance, y=0).wait_for_completed()
-        elif direction == "up":
-            self.ep_robot.robotic_arm.move(x=0, y=distance).wait_for_completed()
-        elif direction == "down":
-            self.ep_robot.robotic_arm.move(x=0, y=-distance).wait_for_completed()
-        return jsonify({"arm": True})
-    
-    def arm_move_to(self):
-        """
-        Control the robotic arm.
-
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(self._arm_move_to, "Failed to control arm")
-    
-    def _arm_move_to(self):
-        """
-        Internal method to control the arm.
-        """
-        data = request.get_json()
-        x = int(data.get("x", 1))
-        y = int(data.get("y", 1))
-        self.ep_robot.robotic_arm.move_to(x=x, y=y).wait_for_completed()
-        return jsonify({"arm": True})
 
 
     # Smart
@@ -389,40 +130,7 @@ class RoboMasterServer:
 
     # Armor
 
-    # set_hit_sensitivity
-    def set_hit_sensitivity(self):
-        return self.safe_execute(self._set_hit_sensitivity, "Failed to set flash")
 
-    def _set_hit_sensitivity(self):
-        return jsonify({"set_hit_sensitivity": True})
-
-    # armor_hit_detection_all
-    def armor_hit_detection_all(self):
-        return self.safe_execute(self._armor_hit_detection_all, "Failed to set flash")
-
-    def _armor_hit_detection_all(self):
-        return jsonify({"armor_hit_detection_all": True})
-
-    # get_last_hit_index
-    def get_last_hit_index(self):
-        return self.safe_execute(self._get_last_hit_index, "Failed to set flash")
-
-    def _get_last_hit_index(self):
-        return jsonify({"get_last_hit_index": True})
-
-    # check_condition
-    def check_condition(self):
-        return self.safe_execute(self._check_condition, "Failed to set flash")
-
-    def _check_condition(self):
-        return jsonify({"is_impact": True})
-
-    # cond_wait
-    def cond_wait(self):
-        return self.safe_execute(self._cond_wait, "Failed to set flash")
-
-    def _cond_wait(self):
-        return jsonify({"cond_wait": True})
 
 
     # Sensor
@@ -437,74 +145,6 @@ class RoboMasterServer:
 
     # Media
 
-    # play_sound
-    def play_sound(self):
-        return self.safe_execute(self._play_sound, "Failed to set flash")
-
-    def _play_sound(self):
-        return jsonify({"play_sound": True})
-
-    # play_sound
-    def play_sound(self):
-        return self.safe_execute(self._play_sound, "Failed to set flash")
-
-    def _play_sound(self):
-        return jsonify({"play_sound": True})
-
-    # capture
-    def capture(self):
-        return self.safe_execute(self._capture, "Failed to set flash")
-
-    def _capture(self):
-        return jsonify({"capture": True})
-
-    # record
-    def record(self):
-        return self.safe_execute(self._record, "Failed to set flash")
-
-    def _record(self):
-        return jsonify({"cond_wait": True})
-
-    # say
-
-
-    def say(self):
-        return self.safe_execute(self._say, "Failed to say something")
-
-    def _say(self):
-        self.ep_robot.play_audio(filename=f"test.wav").wait_for_completed()
-        data = request.get_json()
-        engine = pyttsx3.init()
-        texte = data.get("say")
-                # texte = input("Entrez le texte à prononcer : ")
-
-                    # Paramétrages optionnels : voix, vitesse, volume...
-                    # Liste des voix disponibles
-        if texte.lower() not in self.file_list:
-            self.file_list.append(texte)
-            voices = engine.getProperty('voices')
-            for idx, voice in enumerate(voices):
-                    print(idx, voice.name, voice.id)
-
-                        # Exemple : choisir la première voix
-            engine.setProperty('voice', voices[0].id)
-                        # Régler la vitesse de la parole (par défaut ~200 mots/min)
-            engine.setProperty('rate', 150)
-
-                        # Lecture du texte à voix haute (sortie haut-parleurs)
-
-                        # Enregistrement du texte dans un fichier audio WAV
-            nom_fichier = f"_{self.file_list.index(texte)}.wav"
-            os.chdir(self.file_dir)
-            engine.save_to_file(texte, nom_fichier)
-            engine.runAndWait()
-            subprocess.run([ "ffmpeg", "-i", nom_fichier, "-ar", "48000", "-ac",  "2", "-c:a", "pcm_s16le", f"{self.file_list.index(texte)}.wav" ])
-            os.remove(nom_fichier)
-
-        print(f"Lecture du fichier audio '{self.file_list.index(texte)}'...")
-        self.ep_robot.play_audio(filename={self.file_list.index(texte)}).wait_for_completed()
-        print("Lecture terminée.")
-        return jsonify({"saying": data.get("say")})
 
 # ==================== if __name__ == '__main__' ==================== #
 

@@ -16,13 +16,14 @@ class ConnectionMode:
     def connect(self, conn_type: str, sn: str) -> bool:
         self.ep_robot = robot.Robot()
         try:
-            if self.ep_robot.initialize(conn_type=conn_type, sn=sn):
                 self.sn = sn
                 self.conn_type = conn_type
-                return self.ep_robot.initialize(conn_type=conn_type, sn=sn)
+                self.ep_robot.initialize(conn_type=conn_type, sn=sn)
+                return True
         except Exception as e:
             self.ep_robot = None
             logging.error("Failed to initialize robot : try to reconnect the robot on the router")
+            return False
 
     def get_robot(self):
         if self.ep_robot is not None:

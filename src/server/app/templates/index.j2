@@ -9,15 +9,13 @@
 <h1>
     ROBOMASTER API
 </h1>
+<h2>Routes Information</h2>
 <ul>
     {% for route in routes %}
-        {% if 'url' in route.params %}
-            <li>route_name: {{ route.name }} <b>url</b>: /{{ route.params['url'] }}</li>
-        {% else %}
-             <li>route_name: {{ route.name }}  <b>url</b>: /{{ route.name }}</li>
-        {% endif %}
+             <li>route_name: {{ route.name }}  <b>url</b>: {{ route.path }}</li>
     {% endfor %}
 </ul>
-
+<h2>Download JavaScript</h2>
+<a href="{{ url_for('robomaster_extension', filename='index.js') }}">Download JS</a>
 </body>
 </html>

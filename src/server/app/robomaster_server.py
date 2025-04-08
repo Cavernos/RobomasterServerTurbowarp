@@ -25,10 +25,6 @@ class RoboMasterServer:
     def __init__(self):
         """
         Initialize the RoboMaster Flask server.
-
-        Args:
-            file_name (str): JavaScript extension file name.
-            port (int): Port for the local server.
         """
         self.app = Flask(__name__)
         CORS(self.app)
@@ -39,13 +35,7 @@ class RoboMasterServer:
         ]
         self.app_dir = APP_DIR
         self.port = PORT
-        for route in ROUTER.routes:
-                callback = getattr(self, route.callback) if isinstance(route.callback, str) else route.callback
-                if 'url' in route.params:
-                    self.app.add_url_rule(route.params['url'], route.name, callback, methods=[route.params['http_method']])
-                else:
-                    self.app.add_url_rule(f"/{route.name}", route.name, callback,
-                                          methods=[route.params['http_method']])
+        ROUTER.route_generator(self.app)
 
 
 
@@ -60,39 +50,24 @@ class RoboMasterServer:
         else:
             self.app.run(debug=True, port=self.port)
 
-
-    def index(self):
+    @staticmethod
+    def index():
         return render_template('index.j2', routes=ROUTER.routes)
-
-    def favicon(self):
+    @staticmethod
+    def favicon():
         return send_from_directory(os.path.join(ASSETS_DIR, 'img'),
                                    'favicon.ico', mimetype='image/vnd.microsoft.icon')
-
-    def robomaster_extension(self):
+    @staticmethod
+    def robomaster_extension():
         """
         Serve the JavaScript extension file.
 
         Returns:
             Response: The requested file.
         """
-        return send_from_directory(os.path.join(self.file_dir, 'assets', 'js'), self.file_name)
+        return send_from_directory(os.path.join(APP_DIR, 'assets', 'js'), 'index.js', as_attachment=True)
     
-    def safe_execute(self, func, error_message):
-        """
-        Execute a function safely, preventing crashes.
 
-        Args:
-            func (Callable): Function to execute.
-            error_message (str): Error message if function fails.
-
-        Returns:
-            Response: JSON response indicating success or failure.
-        """
-        try:
-            return func()
-        except Exception as e:
-            print(f"{error_message}: {e}")
-            return jsonify({"error": error_message, "details": str(e)})
 
     # -------------------- BLOC FUNCTIONS -------------------- #
 

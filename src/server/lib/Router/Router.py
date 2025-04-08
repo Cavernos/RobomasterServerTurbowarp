@@ -1,3 +1,4 @@
+from app import robomaster_server
 from lib.Router import Route
 
 
@@ -15,22 +16,33 @@ class Router:
         if static_route is not None:
             self.routes = self.routes + static_route
 
-    def get(self, name: str, callback: str or callable, **params)-> None:
+    def get(self, path: str, name: str, callback: str or callable, **params)-> None:
         """Append new route in router Routes with get method
         Args:
+            path (str) route path
             name (str) route name
             callback (str | callable) function or function name to call when router call route
             **params (dict) Some another params to add
         """
-        self.routes.append(Route(name,callback, {**params, "http_method": "GET"}))
+        self.routes.append(Route(path, name,callback, {**params, "http_method": "GET"}))
 
-    def post(self, name, callback, **params) -> None:
+    def post(self, path: str, name: str, callback: str or callable, **params) -> None:
         """Append new route in router Routes with post method
                 Args:
+                    path (str) route path
                     name (str) route name
                     callback (str | callable) function or function name to call when router call route
                     **params (dict) Some another params to add
         """
-        self.routes.append(Route(name, callback, {**params, "http_method": "POST"}))
+        self.routes.append(Route(path, name, callback, {**params, "http_method": "POST"}))
 
-
+    def route_generator(self, app):
+        """Generate all route and open them
+            Args:
+                app (Flask) flask app
+        """
+        for route in self.routes:
+            if isinstance(route.callback, str):
+                app.add_url_rule(route.path, route.name, getattr(robomaster_server.RoboMasterServer, route.callback), methods=[route.params['http_method']])
+            else:
+                app.add_url_rule(route.path, route.name, route.callback, methods=[route.params['http_method']])

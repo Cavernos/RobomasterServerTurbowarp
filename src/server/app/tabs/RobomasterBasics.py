@@ -1,14 +1,13 @@
 from robomaster import robot
 from flask import jsonify, request
+import re
+
+import app.tabs
 from app.config import ROUTER
+from lib.Tabs import Tab
 
 
-# @classmethod
-# def generate_route_list(cls, instance):
-#
-#
-#             cls.routes.append({'name': name, 'url': f"/{name}", "method": getattr(instance, method)})
-class RobomasterBasics:
+class RobomasterBasics(Tab):
     """
     RobomasterBasics class represent all the function related to same name tab
     """
@@ -19,7 +18,9 @@ class RobomasterBasics:
         Args:
             robot_conection (None | robot.Robot): Robot Connection instance.
         """
-        self.robot_connection = robot_connection
+        super().__init__(robot_connection)
+
+
 
     def _start(self):
         """

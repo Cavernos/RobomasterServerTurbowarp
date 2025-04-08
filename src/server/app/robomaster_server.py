@@ -1,13 +1,19 @@
-from flask import Flask, send_from_directory, jsonify, request
+import os
+
+import pyttsx3
+import re
+import subprocess
+
+from lib.Connection import ConnectionMode
+from app.config import ENV, PORT, APP_DIR, ROUTER, ASSETS_DIR
+from app.tabs import RobomasterBasics
+from flask import Flask, send_from_directory, jsonify, request,render_template,url_for
 from flask_cors import CORS
 from flask_talisman import Talisman
+
 from werkzeug.middleware.proxy_fix import ProxyFix
-import pyttsx3, subprocess, re, os
 
 
-
-from config.config import ENV
-from lib.Connection import StaMode
 
 
 class RoboMasterServer:
@@ -16,7 +22,7 @@ class RoboMasterServer:
     """
     routes = []
 
-    def __init__(self, file_name="index.js", port=8000):
+    def __init__(self):
         """
         Initialize the RoboMaster Flask server.
 
@@ -27,17 +33,22 @@ class RoboMasterServer:
         self.app = Flask(__name__)
         CORS(self.app)
         Talisman(self.app)
-        self.robot_connection = StaMode()
-        self.file_dir = os.path.abspath(os.path.dirname(__file__))
-        self.file_name = file_name
-        self.port = port
-        self.ep_robot = self.robot_connection.get_robot()
+        self.robot_connection = ConnectionMode()
+        self.tabs = [
+            RobomasterBasics(self.robot_connection),
+        ]
+        self.app_dir = APP_DIR
+        self.port = PORT
+        for route in ROUTER.routes:
+                callback = getattr(self, route.callback) if isinstance(route.callback, str) else route.callback
+                if 'url' in route.params:
+                    self.app.add_url_rule(route.params['url'], route.name, callback, methods=[route.params['http_method']])
+                else:
+                    self.app.add_url_rule(f"/{route.name}", route.name, callback,
+                                          methods=[route.params['http_method']])
 
-        # Define routes
-        self.generate_route_list(self)
-        for route in self.routes:
-            self.app.add_url_rule(route['url'], route['name'], route['method'], methods=['GET', 'POST'])
-        self.file_list = []
+
+
 
     def run(self):
         """
@@ -49,28 +60,13 @@ class RoboMasterServer:
         else:
             self.app.run(debug=True, port=self.port)
 
-    @classmethod
-    def generate_route_list(cls, instance):
-        cls.routes.append({'name': "robomaster_extension", "url": "/robomaster_extension", "method": getattr(instance, "robomaster_extension")})
-        cls.routes.append({"name": "index", "url": "/", "method": getattr(instance, "index")})
-        for method_name in cls.__dict__.keys():
-            if re.match('_[A-Za-z]', method_name):
-                method_name = method_name.split('_')
-                method_name.pop(0)
-                method = "_".join(method_name)
-                for i, char in enumerate(method_name):
-                    if i > 0:
-                        method_name[i] = char.title()
-                name = "".join(method_name)
-
-                cls.routes.append({'name': name, 'url': f"/{name}", "method": getattr(instance, method)})
 
     def index(self):
-        dict_routes = []
-        for route in self.routes:
-            dict_routes.append({route['name']: route['url']})
+        return render_template('index.j2', routes=ROUTER.routes)
 
-        return jsonify({"api": "ok !", "available_routes": dict_routes})
+    def favicon(self):
+        return send_from_directory(os.path.join(ASSETS_DIR, 'img'),
+                                   'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
     def robomaster_extension(self):
         """
@@ -112,14 +108,7 @@ class RoboMasterServer:
         """
         return self.safe_execute(self._start, "Failed to start connection")
 
-    def _start(self):
-        """
-        Internal method to initialize connection.
-        """
-        data = request.get_json()
-        self.robot_connection.connect("sta", data.get("sn"))
-        self.ep_robot = self.robot_connection.get_robot()
-        return jsonify({"start": self.robot_connection.connect("sta", data.get("sn"))})
+
     
     # stop
     def stop(self):
@@ -131,13 +120,7 @@ class RoboMasterServer:
         """
         return self.safe_execute(self._stop, "Failed to stop connection")
 
-    def _stop(self):
-        """
-        Internal method to stop connection.
-        """
-        if self.ep_robot.connect(self.robot_connection.conn_type, self.robot_connection.sn):
-            self.ep_robot.close()
-        return jsonify({"stop": True})
+
     
 
     # LED Effects

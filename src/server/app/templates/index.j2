@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('favicon', filename='favicon.ico')  }}" type="image/x-icon">
+    <title>Robomaster API</title>
+</head>
+<body>
+<h1>
+    ROBOMASTER API
+</h1>
+<ul>
+    {% for route in routes %}
+        {% if 'url' in route.params %}
+            <li>route_name: {{ route.name }} <b>url</b>: /{{ route.params['url'] }}</li>
+        {% else %}
+             <li>route_name: {{ route.name }}  <b>url</b>: /{{ route.name }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+</body>
+</html>

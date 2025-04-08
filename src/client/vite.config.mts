@@ -7,7 +7,7 @@ import viteTsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
     plugins: [viteTsconfigPaths()],
     build: {
-        outDir: '../app/assets/js',
+        outDir: 'build/extension.js',
         emptyOutDir: true,
         minify: true,
         lib: {

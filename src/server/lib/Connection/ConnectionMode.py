@@ -1,8 +1,9 @@
 import logging
 
 from robomaster import robot
+from app.config import ENV
 
-class StaMode:
+class ConnectionMode:
     """
     Define a class for all methods related to robot connection by router
     """
@@ -10,7 +11,7 @@ class StaMode:
     def __init__(self):
         self.ep_robot = None
         self.sn = ""
-        self.conn_type = "ap"
+        self.conn_type = "ap" if ENV != "production" else "sta"
 
     def connect(self, conn_type: str, sn: str) -> bool:
         self.ep_robot = robot.Robot()

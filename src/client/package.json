@@ -7,7 +7,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npx tsc && npx vite build -d",
-        "minify": "npx esbuild ../app/assets/js/index.js --minify --outfile=../app/assets/js/index.js --allow-overwrite",
+        "minify": "npx esbuild build/extension.js --minify --outfile=build/extension.js --allow-overwrite",
         "lint": "npx eslint . --fix",
         "pretty": "npx prettier . --write",
         "format-and-pretty": "npm run pretty && npm run lint",

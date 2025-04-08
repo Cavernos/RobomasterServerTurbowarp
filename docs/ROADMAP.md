@@ -80,10 +80,10 @@ Person(admin, "Student")
 System_Boundary(c1, "PC 127.0.0.1") {
     Container(turbowarp, "Turbowarp Robomater extension", "JavaScript", "Just to link blocks with python api")
 }
-System_Boundary(c2, "Raspberry Pi connected with Isep Network") {
+System_Boundary(c2, "Raspberry Pi [10.42.0.1] connected with Isep Network") {
     Container(api_app, "Flask API", "Python,  Flask library", "Get request from turbowarp and communicate with the robot")
     System_Boundary(c3, "Local Network from Raspberry Pi use as router"){
-        System(robot, "Robot", "192.168.1-255.1-255, sta mode")
+        System(robot, "Robot", "10.42.0-255.1-255, sta mode")
 }
    
 }

@@ -1,5 +1,6 @@
 import logging
-from flask import request
+
+from flask import request, session
 from robomaster import robot
 
 class ConnectionMode:
@@ -8,22 +9,29 @@ class ConnectionMode:
     """
 
     def __init__(self):
-        self.ep_robot = None
+        self.robot_dict = {}
         self.sn = ""
         self.conn_type = "sta"
 
     def connect(self, sn: str) -> bool:
-        self.ep_robot = robot.Robot()
+        if sn not in self.robot_dict.keys():
+            self.robot_dict[sn] =  robot.Robot()
+        else:
+            return False
         try:
-                self.sn = sn
-                # "3JKCK7E0030BMR"
-                self.ep_robot.initialize(conn_type=self.conn_type, sn=sn)
+                # Example "3JKCK7E0030BMR"
+                self.robot_dict[sn].initialize(conn_type=self.conn_type, sn=sn)
                 return True
         except Exception as e:
-            self.ep_robot = None
             logging.error("Failed to initialize robot : try to reconnect the robot on the router")
             return False
 
-    def get_robot(self):
-        if self.ep_robot is not None:
-            return self.ep_robot
+    def close(self, sn: str) -> bool:
+        if sn in self.robot_dict.keys():
+            self.robot_dict[sn].close()
+            del self.robot_dict[sn]
+            return True
+        else:
+            return False
+    def get_robot(self, sn):
+        return self.robot_dict[sn]

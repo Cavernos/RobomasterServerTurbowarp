@@ -91,8 +91,12 @@ export class Block {
             )
             const json = await response.json()
             console.log(json)
+            if (config.robomaster_api.env !== 'production') {
+                window.alert(JSON.stringify(json))
+            }
             return json
         } catch (error) {
+            window.alert(error)
             console.error(`Erreur lors de la requête ${url}:`, error)
         }
     }

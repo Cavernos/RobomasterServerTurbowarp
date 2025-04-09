@@ -37,17 +37,13 @@ class Media(Tab):
     def _record(self):
         return jsonify({"cond_wait": True})
 
-    # say
 
-
-    def say(self):
-        return self.safe_execute(self._say, "Failed to say something")
 
     def _say(self):
         data = request.get_json()
         engine = pyttsx3.init()
         texte = data.get("say").lower()
-        files_list = [f for f in os.listdir(os.path.join(ASSETS_DIR, "audio", "say")) if os.path.isfile(f)]
+        files_list = [f for f in os.listdir(os.path.join(ASSETS_DIR, "audio", "say"))]
         for word in texte.split(' '):
             if f'{word}.wav' not in files_list:
                 # texte = input("Entrez le texte à prononcer : ")
@@ -72,7 +68,6 @@ class Media(Tab):
                 engine.runAndWait()
                 subprocess.run([ "ffmpeg", "-i", nom_fichier, "-ar", "48000", "-ac",  "2", "-c:a", "pcm_s16le", f"{word}.wav" ])
                 os.remove(nom_fichier)
-            else:
-                self.robot_connection.get_robot().play_audio(filename=f"{word}.wav").wait_for_completed()
+            self.robot_connection.get_robot().play_audio(filename=f"{word}.wav").wait_for_completed()
         print("Lecture terminée.")
         return jsonify({"saying": data.get("say")})

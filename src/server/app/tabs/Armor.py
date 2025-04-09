@@ -11,7 +11,6 @@ class Armor(Tab):
     def _set_hit_sensitivity(self):
         return jsonify({"set_hit_sensitivity": True})
 
-
     def _armor_hit_detection_all(self):
         return jsonify({"armor_hit_detection_all": True})
 

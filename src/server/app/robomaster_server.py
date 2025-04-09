@@ -48,8 +48,6 @@ class RoboMasterServer:
         ROUTER.route_generator(self.app)
 
 
-
-
     def run(self):
         """
         Start the RoboMaster Flask server.
@@ -76,83 +74,4 @@ class RoboMasterServer:
             Response: The requested file.
         """
         return send_from_directory(os.path.join(APP_DIR, 'assets', 'js'), 'index.js', as_attachment=True)
-    
 
-
-    # -------------------- BLOC FUNCTIONS -------------------- #
-
-    # Robomaster Basics
-
-    # start
-    def start(self):
-        """
-        Initialize connection with the RoboMaster robot.
-
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(self._start, "Failed to start connection")
-
-
-    
-    # stop
-    def stop(self):
-        """
-        Stop the connection with the RoboMaster robot.
-
-        Returns:
-            Response: JSON indicating success.
-        """
-        return self.safe_execute(self._stop, "Failed to stop connection")
-
-
-    
-
-    # LED Effects
-
-
-
-
-    # Chassis
-
-    # set_pwm_value
-
-
-
-    # Extension Module
-
-
-
-
-    # Smart
-
-
-
-
-    # Armor
-
-
-
-
-    # Sensor
-
-
-
-
-    # Sensor Adapter
-
-
-
-
-    # Media
-
-
-# ==================== if __name__ == '__main__' ==================== #
-
-def main() -> int:
-    server = RoboMasterServer()
-    server.run()  # http://localhost:8000/robomaster_extension
-    return 0
-
-if __name__ == '__main__':
-    main()

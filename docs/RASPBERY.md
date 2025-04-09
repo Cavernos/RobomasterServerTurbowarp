@@ -131,17 +131,17 @@ openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 36
 ```nginx
 server {
     listen 443 ssl http2;
-    server_name example.com;
+    server_name example.com _;
     ssl_certificate /home/robomaster/ssl-certificate/cert.pem;
     ssl_certificate_key /home/robomaster/ssl-certificate/key.pem;
     location / {
        include proxy_params;
-        proxy_pass http://unix:/home/robomaster/app/api.sock;
+        proxy_pass http://unix:/home/robomaster/app/src/server/app/api.sock;
     }
 }
 server {
     listen 80;
-    server_name example.com;
+    server_name example.com _;
     location / {
         return 301 https://$host$request_uri;
     }
@@ -165,7 +165,7 @@ User=robomaster
 Group=www-data
 WorkingDirectory=/home/robomaster/app
 Environment="PATH=/home/robomaster/app/venv/bin"
-ExecStart=/home/robomaster/app/venv/bin/gunicorn --workers 3 --bind unix:api.sock -m 007 --chdir /home/robomaster/app/src/app wsgi:app
+ExecStart=/home/robomaster/app/venv/bin/gunicorn --workers 3 --bind unix:api.sock -m 007 wgsi:app
 
 [Install]
 WantedBy=multi-user.target

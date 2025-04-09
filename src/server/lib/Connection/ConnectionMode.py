@@ -1,7 +1,6 @@
 import logging
 
 from robomaster import robot
-from app.config import ENV
 
 class ConnectionMode:
     """
@@ -11,13 +10,13 @@ class ConnectionMode:
     def __init__(self):
         self.ep_robot = None
         self.sn = ""
-        self.conn_type = "ap" if ENV != "production" else "sta"
+        self.conn_type = "sta"
 
     def connect(self, sn: str) -> bool:
         self.ep_robot = robot.Robot()
         try:
                 self.sn = sn
-                self.ep_robot.initialize(conn_type=self.conn_type, sn=sn)
+                self.ep_robot.initialize(conn_type=self.conn_type, sn="3JKCK7E0030BMR")
                 return True
         except Exception as e:
             self.ep_robot = None

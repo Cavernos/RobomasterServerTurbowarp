@@ -6,7 +6,7 @@ import re
 import subprocess
 
 from lib.Connection import ConnectionMode
-from app.config import ENV, PORT, APP_DIR, ROUTER, ASSETS_DIR
+from app.config import ENV,HOST, PORT, APP_DIR, ROUTER, ASSETS_DIR
 from app.tabs import RobomasterBasics, LedEffects, Chassis, ExtensionModule, Armor, Media, Sensor, SensorAdapter, Smart
 from flask import Flask, send_from_directory, jsonify, request,render_template,url_for
 from flask_cors import CORS
@@ -43,6 +43,7 @@ class RoboMasterServer:
             Smart(self.robot_connection)
         ]
         self.app_dir = APP_DIR
+        self.host = HOST
         self.port = PORT
         ROUTER.route_generator(self.app)
 
@@ -55,7 +56,7 @@ class RoboMasterServer:
         """
         if ENV == "production":
             self.app.wsgi_app = ProxyFix(self.app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
-            self.app.run(ssl_context="adhoc", host="0.0.0.0", port=self.port)
+            self.app.run(ssl_context="adhoc", host=self.host, port=self.port)
         else:
             self.app.run(debug=True, port=self.port)
 

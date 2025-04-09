@@ -13,13 +13,14 @@ class Tab:
         self.ep_robot = self.robot_connection.get_robot()
         class_name = self.__class__.__name__.lower()
         for method_name in self.__class__.__dict__.keys():
+
             if re.match('_[A-Za-z]', method_name):
+                setattr(self, method_name[1::], lambda: self.safe_execute(getattr(self, method_name), f"{method_name} is failing"))
                 name = method_name[1::].split("_")
                 for i, char in enumerate(name):
                     if i > 0:
                         name[i] = char.title()
-                ROUTER.post(f"/{class_name}/{''.join(name)}", f"{class_name}.{''.join(name)}",
-                            lambda: self.safe_execute(getattr(self, method_name),f"EZ"))
+                ROUTER.post(f"/{class_name}/{''.join(name)}", f"{class_name}.{''.join(name)}", getattr(self, method_name[1::]))
 
     @staticmethod
     def safe_execute(func, error_message):

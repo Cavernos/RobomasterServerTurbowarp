@@ -112,8 +112,7 @@ source venv/bin/activate
 cd src/scratch_extension
 npm install .
 npm audit fix
-#npm run build-prod
-npm run pretty && npm run build && npm run minify
+npm run build-prod
 cd ../../
 python src/app/robomaster_server.py
 

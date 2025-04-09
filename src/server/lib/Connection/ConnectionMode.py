@@ -13,12 +13,11 @@ class ConnectionMode:
         self.sn = ""
         self.conn_type = "ap" if ENV != "production" else "sta"
 
-    def connect(self, conn_type: str, sn: str) -> bool:
+    def connect(self, sn: str) -> bool:
         self.ep_robot = robot.Robot()
         try:
                 self.sn = sn
-                self.conn_type = conn_type
-                self.ep_robot.initialize(conn_type=conn_type, sn=sn)
+                self.ep_robot.initialize(conn_type=self.conn_type, sn=sn)
                 return True
         except Exception as e:
             self.ep_robot = None

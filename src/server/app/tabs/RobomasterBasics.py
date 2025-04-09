@@ -1,3 +1,5 @@
+import logging
+
 from robomaster import robot
 from flask import jsonify, request
 import re
@@ -21,23 +23,20 @@ class RobomasterBasics(Tab):
         super().__init__(robot_connection)
 
 
-
     def _start(self):
         """
         Internal method to initialize connection.
         """
         data = request.get_json()
-        self.robot_connection.connect("sta", data.get("sn"))
-        self.ep_robot = self.robot_connection.get_robot()
-        return jsonify({"start": self.robot_connection.connect("sta", data.get("sn"))})
+        response = self.robot_connection.connect(data.get("sn"))
+        return jsonify({"start": response})
 
     def _stop(self):
         """
         Internal method to stop connection.
         """
-        robot = self.robot_connection.get_robot()
-        if robot.connect(self.robot_connection.conn_type, self.robot_connection.sn):
-            robot.close()
+        if self.robot_connection.connect(self.robot_connection.sn):
+            self.robot_connection.close()
             self.robot_connection.ep_robot = None
         return jsonify({"stop": True})
 

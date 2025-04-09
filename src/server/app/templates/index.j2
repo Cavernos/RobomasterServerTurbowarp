@@ -13,7 +13,7 @@
 <ul>
     {% for route in routes %}
         <h1>{{ route.name.split('.')[0] }}</h1>
-             <li>route_name: {{ route.name }}  <b>url</b>: {{ route.path }}</li>
+             <li>route_name: {{ route.name }}  <b>url</b>: {{ route.path }} callback: {{ route.callback }}</li>
     {% endfor %}
 </ul>
 <h2>Download JavaScript</h2>

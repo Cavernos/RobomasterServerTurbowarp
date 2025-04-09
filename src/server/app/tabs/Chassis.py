@@ -52,7 +52,7 @@ class Chassis(Tab):
         y = float(data.get("y", 0))
         z = float(data.get("z", 0))
         speed = float(data.get("speed", 0.5))
-        self.ep_robot.chassis.move(x=x, y=y, z=z, xy_speed=speed).wait_for_completed()
+        self.robot_connection.get_robot().chassis.move(x=x, y=y, z=z, xy_speed=speed).wait_for_completed()
         return jsonify({"move": True})
 
 

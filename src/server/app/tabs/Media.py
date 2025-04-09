@@ -1,4 +1,8 @@
 from lib.Tabs import Tab
+from app.config import ASSETS_DIR
+import pyttsx3
+import os
+import subprocess
 from flask import jsonify, request
 
 class Media(Tab):
@@ -40,36 +44,35 @@ class Media(Tab):
         return self.safe_execute(self._say, "Failed to say something")
 
     def _say(self):
-        self.ep_robot.play_audio(filename=f"test.wav").wait_for_completed()
         data = request.get_json()
         engine = pyttsx3.init()
-        texte = data.get("say")
+        texte = data.get("say").lower()
+        files_list = [f for f in os.listdir(os.path.join(ASSETS_DIR, "audio", "say")) if os.path.isfile(f)]
+        for word in texte.split(' '):
+            if f'{word}.wav' not in files_list:
                 # texte = input("Entrez le texte à prononcer : ")
 
                     # Paramétrages optionnels : voix, vitesse, volume...
                     # Liste des voix disponibles
-        if texte.lower() not in self.file_list:
-            self.file_list.append(texte)
-            voices = engine.getProperty('voices')
-            for idx, voice in enumerate(voices):
-                    print(idx, voice.name, voice.id)
+                voices = engine.getProperty('voices')
+                for idx, voice in enumerate(voices):
+                        print(idx, voice.name, voice.id)
 
-                        # Exemple : choisir la première voix
-            engine.setProperty('voice', voices[0].id)
-                        # Régler la vitesse de la parole (par défaut ~200 mots/min)
-            engine.setProperty('rate', 150)
+                            # Exemple : choisir la première voix
+                engine.setProperty('voice', voices[0].id)
+                            # Régler la vitesse de la parole (par défaut ~200 mots/min)
+                engine.setProperty('rate', 150)
 
-                        # Lecture du texte à voix haute (sortie haut-parleurs)
+                            # Lecture du texte à voix haute (sortie haut-parleurs)
 
-                        # Enregistrement du texte dans un fichier audio WAV
-            nom_fichier = f"_{self.file_list.index(texte)}.wav"
-            os.chdir(self.file_dir)
-            engine.save_to_file(texte, nom_fichier)
-            engine.runAndWait()
-            subprocess.run([ "ffmpeg", "-i", nom_fichier, "-ar", "48000", "-ac",  "2", "-c:a", "pcm_s16le", f"{self.file_list.index(texte)}.wav" ])
-            os.remove(nom_fichier)
-
-        print(f"Lecture du fichier audio '{self.file_list.index(texte)}'...")
-        self.ep_robot.play_audio(filename={self.file_list.index(texte)}).wait_for_completed()
+                            # Enregistrement du texte dans un fichier audio WAV
+                nom_fichier = f"_{word}.wav"
+                os.chdir(os.path.join(ASSETS_DIR, "audio", "say"))
+                engine.save_to_file(word, nom_fichier)
+                engine.runAndWait()
+                subprocess.run([ "ffmpeg", "-i", nom_fichier, "-ar", "48000", "-ac",  "2", "-c:a", "pcm_s16le", f"{word}.wav" ])
+                os.remove(nom_fichier)
+            else:
+                self.robot_connection.get_robot().play_audio(filename=f"{word}.wav").wait_for_completed()
         print("Lecture terminée.")
         return jsonify({"saying": data.get("say")})

@@ -9,6 +9,15 @@ set ENV=dev
 robomaster_cli
 ```
 
+# To upgrade on Rapsberry-Pi
+```
+git pull origin [branch_name]
+source venv/bin/activate
+python -m pip install -e .
+sudo systemctl stop api
+sudo systemctl start api
+```
+
 ## For client-side
 
 ```

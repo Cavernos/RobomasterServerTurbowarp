@@ -29,7 +29,7 @@ class RobomasterBasics(Tab):
         Internal method to initialize connection.
         """
         data = request.get_json()
-        response = self.robot_connection.connect(SN[data.get("sn")-1])
+        response = self.robot_connection.connect(SN[int(data.get("sn"))-1])
         return jsonify({"start": response})
 
     def _stop(self):

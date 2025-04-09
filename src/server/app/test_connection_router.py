@@ -14,7 +14,7 @@ print(ip_str)
 import sys
 
 # In direct connection mode, the default IP address of the robot is 192.168.2.1 and the control command port is port 40923.
-host = "192.168.204.25"
+host = ip_str[1][0]
 port = 40923
 
 def main():

@@ -7,6 +7,7 @@ import re
 import app.tabs
 from app.config import ROUTER
 from lib.Tabs import Tab
+from app.config import SN
 
 
 class RobomasterBasics(Tab):
@@ -28,7 +29,7 @@ class RobomasterBasics(Tab):
         Internal method to initialize connection.
         """
         data = request.get_json()
-        response = self.robot_connection.connect(data.get("sn"))
+        response = self.robot_connection.connect(SN[data.get("sn")-1])
         return jsonify({"start": response})
 
     def _stop(self):

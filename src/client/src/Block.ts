@@ -1,5 +1,4 @@
 import { config, language } from '#config'
-import { Scratch } from '#types/scratch/Scratch.d.ts'
 /**
  * Create a new Block
  * @class Block
@@ -81,7 +80,7 @@ export class Block {
         //...
         try {
             const response = await fetch(
-                `http${config.env === 'production' ? 's' : ''}://${config.robomaster_api.host}:${config.robomaster_api.port}/${url}`,
+                `http${config.robomaster_api.env === 'production' ? 's' : ''}://${config.robomaster_api.host()}:${config.robomaster_api.port()}/${url}`,
                 {
                     method: request_method,
                     headers: { 'Content-Type': 'application/json' },
@@ -101,7 +100,11 @@ export class Block {
     /**
      *
      */
-    async run(args: object | undefined) {
-        return await this.requestHandler(this.opcode, this.serve_method, args)
+    async run(tabName: string, args: object | undefined) {
+        return await this.requestHandler(
+            `${tabName}/${this.opcode}`,
+            this.serve_method,
+            args
+        )
     }
 }

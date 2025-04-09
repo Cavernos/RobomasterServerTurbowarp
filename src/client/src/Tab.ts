@@ -1,6 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import * as _ from 'lodash-es'
 import { Block } from '#robomaster_turbowarp_extension/Block.ts'
-import { Scratch } from '#types/scratch/Scratch.d.ts'
 /**
  * Create a new tab
  * @class Tab
@@ -36,7 +37,7 @@ export class Tab implements Scratch.Extension {
      * A list of block(s) having in the tab
      * @property {list} blocks
      */
-    blocks: Block[]
+    blocks: (Block | Scratch.Separator)[]
 
     /**
      * Define tab's menu (side bar)
@@ -57,25 +58,27 @@ export class Tab implements Scratch.Extension {
         this.blocks = blocks!
         this.menus = menus
         for (const block of this.blocks) {
-            _.set(
-                this,
-                block.opcode.toString(),
-                async (args?: object | undefined) => {
-                    return await block.run(args)
-                }
-            )
+            if (block instanceof Block) {
+                _.set(
+                    this,
+                    block.opcode.toString(),
+                    async (args?: object | undefined) => {
+                        return await block.run(name.toLowerCase(), args)
+                    }
+                )
+            }
         }
     }
 
     /**
-     * Return this tab's informations
+     * Return this tab's information
      * @return {string} id
      * @return {string} name
      * @return {string} color
      * @return {list} blocks
      * @return {} menus
      */
-    getInfo() {
+    getInfo(): Scratch.Info {
         // get Tab's information
         return {
             id: this.id,

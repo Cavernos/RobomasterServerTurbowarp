@@ -1,19 +1,22 @@
 import { defineConfig } from 'vite'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
+import checker from 'vite-plugin-checker'
 
 /**
  * @type {[]}
  */
 export default defineConfig({
-    plugins: [viteTsconfigPaths()],
+    plugins: [viteTsconfigPaths(), checker({ typescript: true })],
+
     build: {
-        outDir: 'build/extension.js',
+        outDir: 'build',
         emptyOutDir: true,
+        manifest: true,
         minify: true,
         lib: {
             name: 'RobomasterScratchExtension',
             entry: 'main.ts',
-            fileName: 'index',
+            fileName: 'extension',
             formats: ['es'],
         },
         watch: null,

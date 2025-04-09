@@ -6,7 +6,9 @@
     "main": "main.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "npx tsc && npx vite build -d",
+        "tsc": "tsc -b",
+        "vite": "vite build",
+        "build": "npm-run-all --parallel tsc vite",
         "minify": "npx esbuild build/extension.js --minify --outfile=build/extension.js --allow-overwrite",
         "lint": "npx eslint . --fix",
         "pretty": "npx prettier . --write",
@@ -20,7 +22,9 @@
     "license": "ISC",
     "devDependencies": {
         "@eslint/js": "^9.22.0",
+        "@turbowarp/types": "^0.0.13",
         "@types/lodash-es": "^4.17.12",
+        "@types/node": "^22.14.0",
         "docdash": "^2.0.2",
         "eslint": "^9.22.0",
         "eslint-config-prettier": "^10.1.1",
@@ -29,10 +33,12 @@
         "jsdoc": "^4.0.4",
         "jsdoc-babel": "^0.5.0",
         "jsdoc-to-markdown": "^9.1.1",
+        "npm-run-all": "^4.1.5",
         "prettier": "^3.5.3",
         "typescript": "^5.8.2",
         "typescript-eslint": "^8.26.1",
         "vite": "^6.2.1",
+        "vite-plugin-checker": "^0.9.1",
         "vite-tsconfig-paths": "^5.1.4"
     },
     "dependencies": {

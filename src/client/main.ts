@@ -1,7 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { config, language } from '#config'
 import { Tab } from '#robomaster_turbowarp_extension/Tab.ts'
-//import { Scratch } from '#types/scratch/Scratch.d.ts'
 
 /**
  * Extension's list

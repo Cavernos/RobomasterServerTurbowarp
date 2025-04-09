@@ -1,9 +1,8 @@
-// @ts-nocheck
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { Block } from '#robomaster_turbowarp_extension/Block.ts'
 import { name, version } from '#package' with { type: 'json' }
 import { Language } from '#robomaster_turbowarp_extension/locales/Language.ts'
-
-//import { Scratch } from '#types/scratch/Scratch.d.ts'
 /**
  * Config module is the define variable for application configuration
  * @author Cavernos
@@ -14,8 +13,8 @@ import { Language } from '#robomaster_turbowarp_extension/locales/Language.ts'
  * @const {Language} language - Translator
  * @instance
  * */
-let locale: string = Scratch.vm.getLocale()
-export const language = new Language(locale)
+// const locale: string = Scratch.vm.getLocale()
+export const language = new Language()
 /**
  * Object that represent config of the app
  * @namespace config
@@ -31,7 +30,6 @@ export const config = {
      * @type {string}
      * */
     version: version,
-    env: 'production',
     /**
      * Robomaster Api represent host and port for fetch api connection
      * @param {string} host - api host like http://localhost/
@@ -45,13 +43,26 @@ export const config = {
          * @type {string}
          * */
         //host: 'localhost',
-        host: '',
+        env: 'development',
+        host: function () {
+            if (this.env === 'production') {
+                return '10.42.0.1'
+            } else {
+                return 'localhost'
+            }
+        },
         /**
          * port
          * api port like :8000
          * @type {int}
          * */
-        port: 0,
+        port: function () {
+            if (this.env === 'production') {
+                return 443
+            } else {
+                return 8000
+            }
+        },
     },
     /**
      * Tabs
@@ -69,20 +80,121 @@ export const config = {
         RobomasterBasics: {
             color: '#202530',
             blocks: [
-                new Block('start', Scratch.BlockType.COMMAND, '', 'POST', {
-                    type: Scratch.ArgumentType.STRING,
-                    menu: 'robotIp',
-                    defaultValue: '192.168.0.2',
-                }),
+                new Block(
+                    'start',
+                    Scratch.BlockType.COMMAND,
+                    'Start [sn]',
+                    'POST',
+                    {
+                        sn: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'sn',
+                            defaultValue: 'XF00',
+                        },
+                    }
+                ),
                 new Block('stop', Scratch.BlockType.COMMAND),
             ],
             menus: {
-                robotIp: ['192.168.0.2'],
+                sn: ['XF00'],
             },
         },
         Armor: {
             color: '#F5C343',
-            blocks: [],
+            blocks: [
+                new Block(
+                    'setArmorSensitivity',
+                    Scratch.BlockType.COMMAND,
+                    "définir la sensibilité de l'armure à [sensitivity]",
+                    'POST',
+                    {
+                        sensitivity: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 5,
+                        },
+                    }
+                ),
+                new Block(
+                    'armorHit',
+                    Scratch.BlockType.EVENT,
+                    "quand l'armure [armor] est touchée",
+                    'POST',
+                    {
+                        armor: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'armorPosition',
+                            defaultValue: 'aléatoire',
+                        },
+                    }
+                ),
+                new Block(
+                    'getLastHitArmor',
+                    Scratch.BlockType.REPORTER,
+                    '[info] de la dernière armure touchée',
+                    'POST',
+                    {
+                        info: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'armorInfo',
+                            defaultValue: 'ID',
+                        },
+                    }
+                ),
+                new Block(
+                    'isArmorHit',
+                    Scratch.BlockType.BOOLEAN,
+                    'armure [armor] touchée',
+                    'POST',
+                    {
+                        armor: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'armorPosition',
+                            defaultValue: 'aléatoire',
+                        },
+                    }
+                ),
+                new Block(
+                    'waitUntilArmorHit',
+                    Scratch.BlockType.COMMAND,
+                    "attendre un impact sur l'armure [armor]",
+                    'POST',
+                    {
+                        armor: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'armorPosition',
+                            defaultValue: 'aléatoire',
+                        },
+                    }
+                ),
+                new Block(
+                    'irHit',
+                    Scratch.BlockType.EVENT,
+                    "Lorsqu'un robot est touché par un faisceau infrarouge",
+                    'POST'
+                ),
+                new Block(
+                    'isIrHit',
+                    Scratch.BlockType.BOOLEAN,
+                    'robot touché par un faisceau infrarouge',
+                    'POST'
+                ),
+                new Block(
+                    'waitUntilIrHit',
+                    Scratch.BlockType.COMMAND,
+                    'Attendez que le robot soit touché par un faisceau infrarouge',
+                    'POST'
+                ),
+            ],
+            menus: {
+                armorPosition: [
+                    'aléatoire',
+                    'avant',
+                    'arrière',
+                    'gauche',
+                    'droite',
+                ],
+                armorInfo: ['ID', 'temps'],
+            },
         },
         Chassis: {
             color: '#651FFF',
@@ -610,11 +722,220 @@ export const config = {
                         defaultValue: 'Hello',
                     },
                 }),
+                new Block(
+                    'playNote',
+                    Scratch.BlockType.COMMAND,
+                    'jouer la note [note]',
+                    'POST',
+                    {
+                        note: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'notes',
+                            defaultValue: '1C',
+                        },
+                    }
+                ),
+                new Block(
+                    'playSoundEffect',
+                    Scratch.BlockType.COMMAND,
+                    'jouer un effet sonore pour [effect]',
+                    'POST',
+                    {
+                        effect: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'soundEffects',
+                            defaultValue: 'impact',
+                        },
+                    }
+                ),
+                new Block(
+                    'playSoundEffectUntilDone',
+                    Scratch.BlockType.COMMAND,
+                    "jouer l'effet sonore [effect] jusqu'à la fin",
+                    'POST',
+                    {
+                        effect: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'soundEffects',
+                            defaultValue: 'impact',
+                        },
+                    }
+                ),
+                new Block(
+                    'playCustomAudio',
+                    Scratch.BlockType.COMMAND,
+                    'Lire audio personnalisé [audio]',
+                    'POST',
+                    {
+                        audio: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'customAudio',
+                            defaultValue: 'audio1',
+                        },
+                    }
+                ),
+                new Block(
+                    'playCustomAudioUntilDone',
+                    Scratch.BlockType.COMMAND,
+                    "Lire audio personnalisé [audio] jusqu'à la fin",
+                    'POST',
+                    {
+                        audio: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'customAudio',
+                            defaultValue: 'audio1',
+                        },
+                    }
+                ),
+                new Block(
+                    'takePhoto',
+                    Scratch.BlockType.COMMAND,
+                    'prendre une photo',
+                    'POST'
+                ),
+                new Block(
+                    'startVideoRecording',
+                    Scratch.BlockType.COMMAND,
+                    "[action] l'enregistrement vidéo",
+                    'POST',
+                    {
+                        action: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'recordingActions',
+                            defaultValue: 'start',
+                        },
+                    }
+                ),
             ],
+            menus: {
+                notes: [
+                    '1C',
+                    '1D',
+                    '1E',
+                    '1F',
+                    '1G',
+                    '1A',
+                    '1B',
+                    '2C',
+                    '2D',
+                    '2E',
+                    '2F',
+                    '2G',
+                    '2A',
+                    '2B',
+                    '3C',
+                    '3D',
+                    '3E',
+                    '3F',
+                    '3G',
+                    '3A',
+                    '3B',
+                ],
+                soundEffects: ['impact', 'hit', 'explosion', 'alert'],
+                customAudio: ['audio1', 'audio2', 'audio3'],
+                recordingActions: ['start', 'stop'],
+            },
         },
         Sensor: {
             color: '#6DD700',
-            blocks: [],
+            blocks: [
+                new Block(
+                    'setInfraredSensor',
+                    Scratch.BlockType.COMMAND,
+                    'capteur de distance infrarouge [status] fonctions de mesures [sensor]',
+                    'POST',
+                    {
+                        sensor: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 1,
+                        },
+                        status: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'sensorStatus',
+                            defaultValue: 'activer',
+                        },
+                    }
+                ),
+                new Block(
+                    'whenInfraredDistance',
+                    Scratch.BlockType.EVENT,
+                    'quand le capteur de distance infrarouge [sensor] détecte une distance de [operator] [value] cm',
+                    'POST',
+                    {
+                        sensor: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 1,
+                        },
+                        operator: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'operators',
+                            defaultValue: '>=',
+                        },
+                        value: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 10,
+                        },
+                    }
+                ),
+                new Block(
+                    'waitUntilInfraredDistance',
+                    Scratch.BlockType.COMMAND,
+                    'attendez que la valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]',
+                    'POST',
+                    {
+                        operator: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'operators',
+                            defaultValue: '>=',
+                        },
+                        value: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 10,
+                        },
+                        sensor: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 1,
+                        },
+                    }
+                ),
+                new Block(
+                    'isInfraredDistance',
+                    Scratch.BlockType.BOOLEAN,
+                    'valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]',
+                    'POST',
+                    {
+                        operator: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'operators',
+                            defaultValue: '>=',
+                        },
+                        value: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 10,
+                        },
+                        sensor: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 1,
+                        },
+                    }
+                ),
+                new Block(
+                    'getInfraredDistance',
+                    Scratch.BlockType.REPORTER,
+                    'capteur de distance infrarouge [sensor] valeur de distance',
+                    'POST',
+                    {
+                        sensor: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 1,
+                        },
+                    }
+                ),
+            ],
+            menus: {
+                sensorStatus: ['activer', 'désactiver'],
+                operators: ['>=', '<=', '='],
+            },
         },
         SensorAdapter: {
             color: '#00c87e',
@@ -622,13 +943,215 @@ export const config = {
         },
         Smart: {
             color: '#F19D38',
-            blocks: [],
+            blocks: [
+                new Block(
+                    'setClapsDetection',
+                    Scratch.BlockType.COMMAND,
+                    '[status] la détection des applaudissements',
+                    'POST',
+                    {
+                        status: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'status',
+                            defaultValue: 'activé',
+                        },
+                    }
+                ),
+                new Block(
+                    'setExposureValue',
+                    Scratch.BlockType.COMMAND,
+                    "définir la valeur d'exposition à [exposure]",
+                    'POST',
+                    {
+                        exposure: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'exposureValues',
+                            defaultValue: 'élevée',
+                        },
+                    }
+                ),
+                new Block(
+                    'whenRobotIdentifies',
+                    Scratch.BlockType.EVENT,
+                    'quand le robot identifie [target]',
+                    'POST',
+                    {
+                        target: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'identificationTargets',
+                            defaultValue: 'personnes',
+                        },
+                    }
+                ),
+                new Block(
+                    'whenRobotIdentifiesClaps',
+                    Scratch.BlockType.EVENT,
+                    'quand le robot identifie [claps]',
+                    'POST',
+                    {
+                        claps: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'clapTypes',
+                            defaultValue: '2 applaudissements',
+                        },
+                    }
+                ),
+                new Block(
+                    'enableIdentification',
+                    Scratch.BlockType.COMMAND,
+                    "[action] l'identification de [feature]",
+                    'POST',
+                    {
+                        action: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'actionTypes',
+                            defaultValue: 'activer',
+                        },
+                        feature: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'featureTypes',
+                            defaultValue: 'marqueurs visuels',
+                        },
+                    }
+                ),
+                new Block(
+                    'setMarkerIdentificationDistance',
+                    Scratch.BlockType.COMMAND,
+                    "définir la distance d'identification des marqueurs visuels à [distance] m",
+                    'POST',
+                    {
+                        distance: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 1,
+                        },
+                    }
+                ),
+                new Block(
+                    'setMarkerColor',
+                    Scratch.BlockType.COMMAND,
+                    "définir [color] comme couleur d'identification du marqueur visuel",
+                    'POST',
+                    {
+                        color: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'markerColors',
+                            defaultValue: 'rouge',
+                        },
+                    }
+                ),
+                new Block(
+                    'setLineColor',
+                    Scratch.BlockType.COMMAND,
+                    "définir le [color] comme la couleur d'identification de la ligne",
+                    'POST',
+                    {
+                        color: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'lineColors',
+                            defaultValue: 'bleu',
+                        },
+                    }
+                ),
+                new Block(
+                    'getMarkerInfo',
+                    Scratch.BlockType.REPORTER,
+                    'infos sur le marqueur visuel identifié',
+                    'POST'
+                ),
+                new Block(
+                    'getPersonInfo',
+                    Scratch.BlockType.REPORTER,
+                    'infos sur [target] identifié(e)',
+                    'POST',
+                    {
+                        target: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'personTypes',
+                            defaultValue: 'personnes',
+                        },
+                    }
+                ),
+                new Block(
+                    'getGestureInfo',
+                    Scratch.BlockType.REPORTER,
+                    'infos sur le geste identifié',
+                    'POST'
+                ),
+                new Block(
+                    'getLineInfo',
+                    Scratch.BlockType.REPORTER,
+                    'infos sur la ligne identifiée',
+                    'POST'
+                ),
+                new Block(
+                    'getLinesInfo',
+                    Scratch.BlockType.REPORTER,
+                    'infos sur les lignes identifiées',
+                    'POST'
+                ),
+                new Block(
+                    'getCurrentBrightness',
+                    Scratch.BlockType.REPORTER,
+                    'luminosité actuelle',
+                    'POST'
+                ),
+                new Block(
+                    'getAimingPosition',
+                    Scratch.BlockType.REPORTER,
+                    'position de visée',
+                    'POST'
+                ),
+                new Block(
+                    'waitUntilIdentifies',
+                    Scratch.BlockType.COMMAND,
+                    "attendre jusqu'à l'identification de [target]",
+                    'POST',
+                    {
+                        target: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'waitTargets',
+                            defaultValue: 'personnes',
+                        },
+                    }
+                ),
+                new Block(
+                    'waitUntilClaps',
+                    Scratch.BlockType.COMMAND,
+                    "attendre jusqu'à l'identification de [claps]",
+                    'POST',
+                    {
+                        claps: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'clapTypes',
+                            defaultValue: '2 applaudissements',
+                        },
+                    }
+                ),
+            ],
+            menus: {
+                exposureValues: ['élevée', 'moyenne', 'basse'],
+                targetTypes: ['coeur rouge', 'cercle bleu', 'triangle vert'],
+                identificationTargets: [
+                    'personnes',
+                    'marqueurs visuels',
+                    'gestes',
+                ],
+                clapTypes: [
+                    '2 applaudissements',
+                    '1 applaudissement',
+                    '3 applaudissements',
+                ],
+                actionTypes: ['activer', 'désactiver'],
+                featureTypes: [
+                    'marqueurs visuels',
+                    'lignes',
+                    'applaudissements',
+                ],
+                markerColors: ['rouge', 'vert', 'bleu', 'jaune'],
+                lineColors: ['bleu', 'rouge', 'vert', 'jaune'],
+                personTypes: ['personnes', 'robots S1'],
+                waitTargets: ['personnes', 'marqueurs visuels', 'gestes'],
+            },
         },
     },
 }
-config.env === 'production'
-    ? (config.robomaster_api.host = '192.168.0.73')
-    : (config.robomaster_api.host = 'localhost')
-config.env === 'production'
-    ? (config.robomaster_api.port = 443)
-    : (config.robomaster_api.port = 8000)

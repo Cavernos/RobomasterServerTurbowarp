@@ -1,6 +1,7 @@
 import logging
-
+from flask import request
 from robomaster import robot
+from app.config import SN
 
 class ConnectionMode:
     """
@@ -16,7 +17,8 @@ class ConnectionMode:
         self.ep_robot = robot.Robot()
         try:
                 self.sn = sn
-                self.ep_robot.initialize(conn_type=self.conn_type, sn="3JKCK7E0030BMR")
+                # "3JKCK7E0030BMR"
+                self.ep_robot.initialize(conn_type=self.conn_type, sn=SN[request.get("sn")-1])
                 return True
         except Exception as e:
             self.ep_robot = None

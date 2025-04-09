@@ -20,7 +20,7 @@ class Tab:
                 for i, char in enumerate(name):
                     if i > 0:
                         name[i] = char.title()
-                ROUTER.post(f"/{class_name}/{''.join(name)}", f"{class_name}.{''.join(name)}", getattr(self, method_name[1::]))
+                ROUTER.post(f"/{class_name}/{''.join(name)}", f"{class_name}.{''.join(name)}", getattr(self, method_name))
 
     @staticmethod
     def safe_execute(func, error_message):

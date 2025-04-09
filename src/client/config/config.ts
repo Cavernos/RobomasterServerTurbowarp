@@ -89,14 +89,14 @@ export const config = {
                         sn: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'sn',
-                            defaultValue: 'XF00',
+                            defaultValue: language.getMessage('sn')[0],
                         },
                     }
                 ),
                 new Block('stop', Scratch.BlockType.COMMAND),
             ],
             menus: {
-                sn: ['XF00'],
+                sn: language.getMessage('sn'),
             },
         },
         Armor: {

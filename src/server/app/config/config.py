@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-from app import robomaster_server
 from lib.Router import Route, Router
 
 ENV = os.environ['ENV'] if "ENV" in os.environ else "production" # Runing environment (production or developpment)

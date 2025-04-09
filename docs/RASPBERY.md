@@ -55,7 +55,7 @@ python -m pip install --upgrade pip
 
 
 # ffmpeg package for wav file in robots
-sudo apt-get install ffmpeg git nginx -y
+sudo apt-get install espeak-ng ffmpeg git nginx -y
 
 # NODE JS
 # Download and install fnm:

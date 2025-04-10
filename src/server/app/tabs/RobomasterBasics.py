@@ -31,6 +31,7 @@ class RobomasterBasics(Tab):
         data = request.get_json()
         session[request.remote_addr] = SN[int(data.get("sn"))-1]
         response = self.robot_connection.connect(SN[int(data.get("sn"))-1])
+        super().ep_robot = self.robot_connection.get_robot(SN[int(data.get("sn"))-1])
         return jsonify({"start": response})
 
     def _stop(self):

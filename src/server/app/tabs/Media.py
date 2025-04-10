@@ -68,6 +68,6 @@ class Media(Tab):
                 engine.runAndWait()
                 subprocess.run([ "ffmpeg", "-i", nom_fichier, "-ar", "48000", "-ac",  "2", "-c:a", "pcm_s16le", f"{word}.wav" ])
                 os.remove(nom_fichier)
-            self.robot_connection.get_robot().play_audio(filename=f"{word}.wav").wait_for_completed()
+            self.ep_robot.play_audio(filename=f"{word}.wav").wait_for_completed()
         print("Lecture terminée.")
         return jsonify({"saying": data.get("say")})

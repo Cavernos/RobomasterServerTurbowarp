@@ -10,7 +10,6 @@ class Tab:
 
     def __init__(self, robot_connection):
         self.robot_connection = robot_connection
-        self.ep_robot = self.robot_connection.get_robot()
         class_name = self.__class__.__name__.lower()
         for method_name in self.__class__.__dict__.keys():
 

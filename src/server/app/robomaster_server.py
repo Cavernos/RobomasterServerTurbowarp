@@ -28,7 +28,6 @@ class RoboMasterServer:
         """
         self.app = Flask(__name__)
         self.app.secret_key = APP_KEY
-        self.app.config.update(SESSION_COOKIE_SAMESITE="None", SESSION_COOKIE_SECURE=True)
         CORS(self.app, supports_credentials=True)
         Talisman(self.app)
         self.robot_connection = ConnectionMode()

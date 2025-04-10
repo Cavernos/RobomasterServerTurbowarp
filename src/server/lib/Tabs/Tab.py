@@ -7,6 +7,7 @@ class Tab:
     """
     Generical class for represent a Tab
     """
+    robot_user_table = {}
 
     def __init__(self, robot_connection):
         self.robot_connection = robot_connection

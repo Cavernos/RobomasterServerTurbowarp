@@ -84,6 +84,7 @@ export class Block {
                 {
                     method: request_method,
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
                     body: request_body
                         ? JSON.stringify(request_body)
                         : JSON.stringify({}),

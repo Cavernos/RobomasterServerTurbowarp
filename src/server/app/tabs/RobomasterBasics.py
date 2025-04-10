@@ -1,8 +1,4 @@
-import logging
-
-from robomaster import robot
 from flask import jsonify, request, session
-import re
 
 import app.tabs
 from app.config import ROUTER
@@ -31,10 +27,10 @@ class RobomasterBasics(Tab):
         data = request.get_json()
         ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
         if ip_addr in self.__class__.robot_user_table.keys():
-            self.ep_robot = self.robot_connection.get_robot(self.__class__.robot_user_table.get(ip_addr))
+            self.ep_robot = self.robot_connection.get_robot(self.__class__.robot_user_table[ip_addr])
             response = True
         else:
-            session[ip_addr] = SN[int(data.get("sn"))-1]
+            self.__class__.robot_user_table[ip_addr] = SN[int(data.get("sn"))-1]
             response = self.robot_connection.connect(SN[int(data.get("sn"))-1])
             self.ep_robot = self.robot_connection.get_robot(SN[int(data.get("sn"))-1])
         return jsonify({"start": response})
@@ -46,7 +42,7 @@ class RobomasterBasics(Tab):
         ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
         close = False
         if ip_addr in self.__class__.robot_user_table.keys():
-            close = self.robot_connection.close(self.__class__.robot_user_table.get(ip_addr))
+            close = self.robot_connection.close(self.__class__.robot_user_table[ip_addr])
             del self.__class__.robot_user_table[ip_addr]
         return jsonify({"stop": close})
 

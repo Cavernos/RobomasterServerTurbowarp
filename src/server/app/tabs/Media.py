@@ -42,7 +42,7 @@ class Media(Tab):
     def _say(self):
         print(session)
         if request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr) in self.__class__.robot_user_table.keys():
-            self.ep_robot = self.robot_connection.get_robot(self.__class__.robot_user_table.get(request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)))
+            self.ep_robot = self.robot_connection.get_robot(self.__class__.robot_user_table[request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)])
         else:
             return jsonify({"error": "Error in say function"})
         data = request.get_json()

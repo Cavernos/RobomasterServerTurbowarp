@@ -43,10 +43,10 @@ export const config = {
          * @type {string}
          * */
         //host: 'localhost',
-        env: 'dev',
+        env: 'production',
         host: function () {
             if (this.env === 'production') {
-                return '10.42.0.1'
+                return '172.16.245.150' // '10.42.0.1'
             } else {
                 return 'localhost'
             }
@@ -58,7 +58,7 @@ export const config = {
          * */
         port: function () {
             if (this.env === 'production') {
-                return 443
+                return 8000 // 443
             } else {
                 return 8000
             }

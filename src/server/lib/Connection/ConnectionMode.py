@@ -33,5 +33,5 @@ class ConnectionMode:
         
     def get_robot(self, sn):
         if sn in self.__class__.robot_dict.keys():
-            if isinstance(self.robot_dict[sn], robot.Robot):
-                return self.robot_dict[sn]
+            if isinstance(self.__class__.robot_dict[sn], robot.Robot):
+                return self.__class__.robot_dict[sn]

@@ -6,12 +6,12 @@ import re
 import subprocess
 
 from lib.Connection import ConnectionMode
-from app.config import ENV,HOST, PORT, APP_DIR, ROUTER, ASSETS_DIR
+from app.config import ENV,HOST, PORT, APP_DIR, ROUTER, ASSETS_DIR, APP_KEY
 from app.tabs import RobomasterBasics, LedEffects, Chassis, ExtensionModule, Armor, Media, Sensor, SensorAdapter, Smart
 from flask import Flask, send_from_directory, jsonify, request,render_template,url_for
 from flask_cors import CORS
 from flask_talisman import Talisman
-
+from flask_session import Session
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 
@@ -28,8 +28,11 @@ class RoboMasterServer:
         Initialize the RoboMaster Flask server.
         """
         self.app = Flask(__name__)
+        self.app.secret_key = APP_KEY
+        self.app.config['SESSION_TYPE'] = 'filesystem'
         CORS(self.app)
         Talisman(self.app)
+        Session(self.app)
         self.robot_connection = ConnectionMode()
         self.tabs = [
             RobomasterBasics(self.robot_connection),

@@ -6,6 +6,7 @@ from lib.Router import Route, Router
 ENV = os.environ['ENV'] if "ENV" in os.environ else "production" # Runing environment (production or developpment)
 APP_DIR = Path(os.path.abspath(os.path.dirname(__file__))).parent
 ASSETS_DIR = os.path.join(APP_DIR, "assets")
+APP_KEY = "MY KEY"
 HOST = "0.0.0.0"
 PORT = 8000
 STATIC_ROUTES = [

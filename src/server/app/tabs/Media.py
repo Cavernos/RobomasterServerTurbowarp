@@ -3,7 +3,7 @@ from app.config import ASSETS_DIR
 import pyttsx3
 import os
 import subprocess
-from flask import jsonify, request
+from flask import jsonify, request, session
 
 class Media(Tab):
     def __init__(self, robot_connection):
@@ -40,6 +40,11 @@ class Media(Tab):
 
 
     def _say(self):
+        print(session)
+        if request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr) in session.keys():
+            self.ep_robot = self.robot_connection.get_robot()
+        else:
+            return jsonify({"error": "Error in say function"})
         data = request.get_json()
         engine = pyttsx3.init()
         texte = data.get("say").lower()

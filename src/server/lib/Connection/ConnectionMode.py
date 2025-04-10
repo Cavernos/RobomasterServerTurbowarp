@@ -16,8 +16,6 @@ class ConnectionMode:
     def connect(self, sn: str) -> bool:
         if sn not in self.robot_dict.keys():
             self.robot_dict[sn] =  robot.Robot()
-        else:
-            return False
         try:
                 # Example "3JKCK7E0030BMR"
                 self.robot_dict[sn].initialize(conn_type=self.conn_type, sn=sn)
@@ -34,4 +32,5 @@ class ConnectionMode:
         else:
             return False
     def get_robot(self, sn):
-        return self.robot_dict[sn]
+        if sn in self.robot_dict.keys():
+            return self.robot_dict[sn]

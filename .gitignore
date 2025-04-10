@@ -8,3 +8,4 @@ node_modules
 dist
 *.egg-info
 *.wav
+flask_session/

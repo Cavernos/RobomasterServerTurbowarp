@@ -43,6 +43,7 @@ class RobomasterBasics(Tab):
         close = False
         if ip_addr in self.__class__.robot_user_table.keys():
             close = self.robot_connection.close(self.__class__.robot_user_table[ip_addr])
-            del self.__class__.robot_user_table[ip_addr]
+            if close:
+                del self.__class__.robot_user_table[ip_addr]
         return jsonify({"stop": close})
 

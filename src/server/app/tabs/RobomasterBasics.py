@@ -28,11 +28,12 @@ class RobomasterBasics(Tab):
         """
         Internal method to initialize connection.
         """
+        session.permanent = True
         print(session)
         data = request.get_json()
         ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
         if ip_addr in session.keys():
-            self.ep_robot = self.robot_connection.get_robot(session[ip_addr])
+            self.ep_robot = self.robot_connection.get_robot(session.get(ip_addr))
             response = True
         else:
             session[ip_addr] = SN[int(data.get("sn"))-1]
@@ -48,7 +49,7 @@ class RobomasterBasics(Tab):
         ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
         close = False
         if ip_addr in session.keys():
-            close = self.robot_connection.close(session[ip_addr])
-            del session[ip_addr]
+            close = self.robot_connection.close(session.get(ip_addr))
+            session.pop(ip_addr, "None")
         return jsonify({"stop": close})
 

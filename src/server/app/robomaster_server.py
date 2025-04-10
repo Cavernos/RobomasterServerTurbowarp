@@ -8,11 +8,10 @@ import subprocess
 from lib.Connection import ConnectionMode
 from app.config import ENV,HOST, PORT, APP_DIR, ROUTER, ASSETS_DIR, APP_KEY
 from app.tabs import RobomasterBasics, LedEffects, Chassis, ExtensionModule, Armor, Media, Sensor, SensorAdapter, Smart
-from flask import Flask, send_from_directory, jsonify, request,render_template,url_for
+from flask import Flask, session, send_from_directory, jsonify, request,render_template,url_for
 from flask_cors import CORS
 from flask_talisman import Talisman
-from flask_session import Session
-from werkzeug.middleware.proxy_fix import ProxyFix
+#from werkzeug.middleware.proxy_fix import ProxyFix
 
 
 
@@ -29,10 +28,9 @@ class RoboMasterServer:
         """
         self.app = Flask(__name__)
         self.app.secret_key = APP_KEY
-        self.app.config['SESSION_TYPE'] = 'filesystem'
-        CORS(self.app)
+        self.app.config.update(SESSION_COOKIE_SAMESITE="None", SESSION_COOKIE_SECURE=True)
+        CORS(self.app, supports_credentials=True)
         Talisman(self.app)
-        Session(self.app)
         self.robot_connection = ConnectionMode()
         self.tabs = [
             RobomasterBasics(self.robot_connection),
@@ -56,8 +54,8 @@ class RoboMasterServer:
         Start the RoboMaster Flask server.
         """
         if ENV == "production":
-            self.app.wsgi_app = ProxyFix(self.app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
-            self.app.run(ssl_context="adhoc", host=self.host, port=self.port)
+            #self.app.wsgi_app = ProxyFix(self.app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+            self.app.run(ssl_context=('/home/robomaster/ssl-certificate/cert.pem', '/home/robomaster/ssl-certificate/key.pem'), host=self.host, port=self.port)
         else:
             self.app.run(debug=True, port=self.port)
 

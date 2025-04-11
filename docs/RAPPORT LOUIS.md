@@ -522,6 +522,8 @@ sudo systemctl start api
 // Propagation de la variable de connection des robots dans les différents onglets python
 Liste non exhaustive
 
+## Ce qui pourrait être fait
+
 
 # Conclusion
 

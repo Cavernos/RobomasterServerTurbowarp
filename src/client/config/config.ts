@@ -44,7 +44,7 @@ export const config = {
          * */
         //host: 'localhost',
 
-        env: 'production',
+        env: 'dev',
         host: function () {
             if (this.env === 'production') {
                 return '10.42.0.1'

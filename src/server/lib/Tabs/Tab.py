@@ -1,5 +1,5 @@
 import re
-from flask import jsonify
+from flask import jsonify, request
 
 from app.config import ROUTER
 
@@ -11,6 +11,7 @@ class Tab:
 
     def __init__(self, robot_connection):
         self.robot_connection = robot_connection
+        self.ep_robot = None
         class_name = self.__class__.__name__.lower()
         for method_name in self.__class__.__dict__.keys():
 
@@ -39,3 +40,9 @@ class Tab:
         except Exception as e:
             print(f"{error_message}: {e}")
             return jsonify({"error": error_message, "details": str(e)})
+        
+    def check_robot(self):
+        ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+        if ip_addr in self.__class__.robot_user_table.keys():
+            self.ep_robot = self.robot_connection.get_robot(self.__class__.robot_user_table[ip_addr])
+           

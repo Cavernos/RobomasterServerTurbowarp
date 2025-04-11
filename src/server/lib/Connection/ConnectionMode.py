@@ -1,6 +1,7 @@
 import logging
 
 from flask import request, session
+from app.config import ENV
 from robomaster import robot
 
 class ConnectionMode:
@@ -10,7 +11,7 @@ class ConnectionMode:
     robot_dict = {}
     def __init__(self):
         self.sn = ""
-        self.conn_type = "sta"
+        self.conn_type = "sta" if ENV == "production" else "sta"
 
     def connect(self, sn: str) -> bool:
         if sn not in self.robot_dict.keys():

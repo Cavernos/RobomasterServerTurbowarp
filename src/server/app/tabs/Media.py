@@ -1,5 +1,5 @@
 from lib.Tabs import Tab
-from app.config import ASSETS_DIR
+from app.config import ASSETS_DIR, APP_DIR
 import pyttsx3
 import os
 import subprocess
@@ -40,11 +40,9 @@ class Media(Tab):
 
 
     def _say(self):
-        ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
-        if ip_addr in self.__class__.robot_user_table.keys():
-            self.ep_robot = self.robot_connection.get_robot(self.__class__.robot_user_table[ip_addr])
-        else:
-            return jsonify({"error": "Error in say function"})
+        self.check_robot()
+        if self.ep_robot is None:
+             return jsonify({"error": "Error in say function"})
         data = request.get_json()
         engine = pyttsx3.init()
         texte = data.get("say").lower()
@@ -70,9 +68,12 @@ class Media(Tab):
                 nom_fichier = f"_{word}.wav"
                 os.chdir(os.path.join(ASSETS_DIR, "audio", "say"))
                 engine.save_to_file(word, nom_fichier)
+                os.chdir(APP_DIR)
                 engine.runAndWait()
                 subprocess.run([ "ffmpeg", "-i", nom_fichier, "-ar", "48000", "-ac",  "2", "-c:a", "pcm_s16le", f"{word}.wav" ])
                 os.remove(nom_fichier)
+            os.chdir(os.path.join(ASSETS_DIR, "audio", "say"))
             self.ep_robot.play_audio(filename=f"{word}.wav").wait_for_completed()
+            os.chdir(APP_DIR)
         print("Lecture terminée.")
         return jsonify({"saying": data.get("say")})

@@ -1,0 +1,51 @@
+diff --git a/docs/RAPPORT LOUIS.md b/docs/RAPPORT LOUIS.md
+index 1262756..46447a0 100644
+--- a/docs/RAPPORT LOUIS.md	
++++ b/docs/RAPPORT LOUIS.md	
+@@ -81,10 +81,11 @@ if __name__ == "__main__":
+          ep_robot.close()
+     ep_robot.close()
+ ```
+-<p class="center caption">Code 1 Equivalent python du programme du dessus</p>
++<p class="center caption">Code 1 Equivalent python du programme du dessus
++</p>
+ 
+ Une fois cette étape réalisée nous avons pu comprendre comment le robot transcrivait les blocks en instruction compréhensible par lui. Cela était possible grâce un sdk python disponible sur le site des développeurs du robot disponible à l’adresse suivante : [Robomaster SDK](http://robomaster-dev.readthedocs.io/en/latest/). Nous avons donc suivi les premières étapes du tutoriel de ce lien que nous allons récapituler dans la section suivante.
+-
++`
+ ## ROADMAP du projet
+ // schéma option 2 + explication brève du projet
+ 
+@@ -160,10 +161,31 @@ Dans le cas où vous utiliseriez une autre distribution linux, veuillez vous ré
+ 
+ ### Création de l'environnement virtuel (A ajouter dans la table des matières)
+ 
+-// PARLER du VENV
++Une fois python installé, nous allons pouvoir commencer à travailler avec et pour ce faire, nous avons d'abord créer un environnement virtuel. Cette environnement virtuel nous permet de créer une instance de python locale et empaqueté dans le dossier de notre projet. Cela nous permet d'isoler notre projet de notre installation de python. Pour créer cet environnement virtuel on exécute la commande suivante :  
+ ```shell
+ python -m venv venv
+ ```
++Une fois l'environnement de développement créé, il nous faut l'activer en tapant la commande suivante sur Windows :
++```shell
++.\venv\Scripts\activate
++```
++et celle-ci sur Linux et MacOs : 
++```shell
++source venv/bin/activate
++```
++Si l'environnement virtuel est bien actif, votre terminal ressemble normalement à ceci:
++ 
++![Image de l'environnement virtuel actif](image/figure_2.png)
++
++Pour désactiver l'environnement virtuel, il vous suffit maintenant de taper la commande suivante sur Windows:
++```shell
++.\venv\Scripts\deactivate
++```
++et celle-ci sur Linux et MacOs:
++```shell
++deactivate
++```
++Une fois l'environnement virtuel créé, il est très pratique d'installer un IDE pour pouvoir éditer le code.
+ 
+ ## Installation de l'IDE
+ // Introduction sur à quoi sert l'IDE et expliquer que les solutions ci-après ne sont que des exemples et que techniquement on peut coder sur un blocnote

@@ -3,6 +3,7 @@
 import { Block } from '#robomaster_turbowarp_extension/Block.ts'
 import { name, version } from '#package' with { type: 'json' }
 import { Language } from '#robomaster_turbowarp_extension/locales/Language.ts'
+
 /**
  * Config module is the define variable for application configuration
  * @author Cavernos
@@ -44,26 +45,14 @@ export const config = {
          * */
         //host: 'localhost',
 
-        env: 'dev',
-        host: function () {
-            if (this.env === 'production') {
-                return '10.42.0.1'
-            } else {
-                return 'localhost'
-            }
-        },
+        env: import.meta.env.MODE,
+        host: import.meta.env.VITE_HOST,
         /**
          * port
          * api port like :8000
-         * @type {int}
+         * @type {string}
          * */
-        port: function () {
-            if (this.env === 'production') {
-                return 443
-            } else {
-                return 8000
-            }
-        },
+        port: import.meta.env.VITE_PORT,
     },
     /**
      * Tabs

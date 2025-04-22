@@ -7,13 +7,15 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "tsc": "tsc -b",
-        "vite": "vite build",
-        "build": "npm-run-all --parallel tsc vite",
-        "minify": "npx esbuild build/extension.js --minify --outfile=build/extension.js --allow-overwrite",
+        "vite-dev": "vite build -d --mode development",
+        "vite-prod": "vite build --mode production",
+        "minify": "npx esbuild build/extension-production.js --minify --outfile=build/extension-production.js --allow-overwrite",
         "lint": "npx eslint . --fix",
         "pretty": "npx prettier . --write",
         "format-and-pretty": "npm run pretty && npm run lint",
-        "build-prod": "npm run format-and-pretty && npm run build && npm run minify"
+        "build-dev": "npm-run-all --parallel tsc vite-dev",
+        "build-prod": "npm run format-and-pretty && npm-run-all --parallel tsc vite-prod && npm run minify",
+        "build": "npm run build-dev && npm run build-prod"
     },
     "author": {
         "name": "Louis DUBOIS",

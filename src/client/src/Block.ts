@@ -36,34 +36,41 @@ export class Block {
     text: string | string[]
 
     /**
-     * HTTP Method of the server (GET | POST)
-     * @property {string} serve_method
-     * */
-    serve_method: string
-
-    /**
      * Supplementaries arguments for the block
      * For  more information on arguments
      * @see {@link Scratch.ArgumentType}
-     * @property {undefined | object} arguments
+     * @property {{ [key: string]: object } | object} arguments
      */
-    arguments: { [key: string]: object } | undefined
+    arguments: { [key: string]: object } | object
 
+    /**
+     * Block Terminal
+     * @property {boolean | undefined}
+     */
+    isTerminal: boolean | undefined
+    /**
+     * 
+     * @param opcode 
+     * @param blockType 
+     * @param text 
+     * @param args 
+     * @param isTerminal 
+     */
     constructor(
         opcode: string,
         blockType: string,
         text: string = '',
-        serve_method: string = 'POST',
-        args: { [key: string]: object } | undefined = undefined
+        args?: { [key: string]: object } | object | undefined,
+        isTerminal?: boolean | undefined
     ) {
         this.opcode = opcode
         this.blockType = blockType
+        this.isTerminal = isTerminal? isTerminal : false 
         this.text =
             language.getMessage(this.opcode) === 'NoTranslation'
                 ? text
                 : language.getMessage(this.opcode)
-        this.serve_method = serve_method
-        this.arguments = args
+        this.arguments = args? args : {}
     }
 
     /**
@@ -74,7 +81,6 @@ export class Block {
      */
     async requestHandler(
         url: string,
-        request_method: string = 'POST',
         request_body: undefined | object = undefined
     ) {
         //...
@@ -82,7 +88,7 @@ export class Block {
             const response = await fetch(
                 `http${config.robomaster_api.env === 'production' ? 's' : ''}://${config.robomaster_api.host}:${config.robomaster_api.port}/${url}`,
                 {
-                    method: request_method,
+                    method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
                     body: request_body
@@ -108,7 +114,6 @@ export class Block {
     async run(tabName: string, args: object | undefined) {
         return await this.requestHandler(
             `${tabName}/${this.opcode}`,
-            this.serve_method,
             args
         )
     }

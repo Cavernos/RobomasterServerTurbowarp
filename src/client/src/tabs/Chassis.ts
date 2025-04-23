@@ -6,7 +6,10 @@ import { language } from '#config'
 export const Chassis = {
             color: '#651FFF',
             blocks: [
-                new Block('move', Scratch.BlockType.COMMAND, '', 'POST', {
+                new Block('move', 
+                    Scratch.BlockType.COMMAND, 
+                    'Move to [x] m [y] m [z] m at [speed] m/s', 
+                      {
                     x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
 
                     y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
@@ -18,17 +21,22 @@ export const Chassis = {
                         defaultValue: 0.5,
                     },
                 }),
-                new Block('rotate', Scratch.BlockType.COMMAND, '', 'POST', {
+                new Block(
+                    'rotate', 
+                    Scratch.BlockType.COMMAND, 
+                    'Rotate [angle] °', 
+                      {
                     angle: {
                         type: Scratch.ArgumentType.NUMBER,
                         defaultValue: 90,
                     },
-                }),
+                }
+            ),
                 new Block(
                     'setPwmValue',
                     Scratch.BlockType.COMMAND,
                     'set [pwm] output to [value]%',
-                    'POST',
+                     
                     {
                         pwm: {
                             type: Scratch.ArgumentType.STRING,
@@ -45,7 +53,7 @@ export const Chassis = {
                     'enableStickOverlay',
                     Scratch.BlockType.COMMAND,
                     '[status] chassis acceleration',
-                    'POST',
+                     
                     {
                         status: {
                             type: Scratch.ArgumentType.STRING,
@@ -58,7 +66,7 @@ export const Chassis = {
                     'setFollowGimbalOffset',
                     Scratch.BlockType.COMMAND,
                     'set chassis to follow gimbal at [degree]°',
-                    'POST',
+                     
                     {
                         degree: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -70,7 +78,7 @@ export const Chassis = {
                     'setTransSpeed',
                     Scratch.BlockType.COMMAND,
                     'set chassis translation speed to [speed]m/s',
-                    'POST',
+                     
                     {
                         speed: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -82,7 +90,7 @@ export const Chassis = {
                     'setRotateSpeed',
                     Scratch.BlockType.COMMAND,
                     'set chassis rotation speed to [speed]°/s',
-                    'POST',
+                     
                     {
                         speed: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -94,7 +102,7 @@ export const Chassis = {
                     'setWheelSpeed',
                     Scratch.BlockType.COMMAND,
                     'set wheel rotation speed (rpm) to front-left [fl] front-right [fr] rear-left [rl] rear-right [rr]',
-                    'POST',
+                     
                     {
                         fl: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -118,7 +126,7 @@ export const Chassis = {
                     'move',
                     Scratch.BlockType.COMMAND,
                     'set chassis to translate at [degree]°',
-                    'POST',
+                     
                     {
                         degree: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -130,7 +138,7 @@ export const Chassis = {
                     'moveWithTime',
                     Scratch.BlockType.COMMAND,
                     'set chassis to translate at [degree]° for [time]s',
-                    'POST',
+                     
                     {
                         degree: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -146,7 +154,7 @@ export const Chassis = {
                     'moveWithDistance',
                     Scratch.BlockType.COMMAND,
                     'set chassis to translate at [degree]° for [distance]m',
-                    'POST',
+                     
                     {
                         degree: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -162,7 +170,7 @@ export const Chassis = {
                     'moveDegreeWithSpeed',
                     Scratch.BlockType.COMMAND,
                     'set chassis to translate [degree]° at [speed]m/s',
-                    'POST',
+                     
                     {
                         degree: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -175,23 +183,10 @@ export const Chassis = {
                     }
                 ),
                 new Block(
-                    'rotate',
-                    Scratch.BlockType.COMMAND,
-                    'set chassis to rotate [direction]',
-                    'POST',
-                    {
-                        direction: {
-                            type: Scratch.ArgumentType.STRING,
-                            menu: 'direction',
-                            defaultValue: 'right',
-                        },
-                    }
-                ),
-                new Block(
                     'rotateWithTime',
                     Scratch.BlockType.COMMAND,
                     'set chassis to rotate [direction] for [time]s',
-                    'POST',
+                     
                     {
                         direction: {
                             type: Scratch.ArgumentType.STRING,
@@ -208,7 +203,7 @@ export const Chassis = {
                     'rotateWithDegree',
                     Scratch.BlockType.COMMAND,
                     'set chassis to rotate [direction] for [degree]°',
-                    'POST',
+                     
                     {
                         direction: {
                             type: Scratch.ArgumentType.STRING,
@@ -225,7 +220,7 @@ export const Chassis = {
                     'moveAndRotate',
                     Scratch.BlockType.COMMAND,
                     'set robot to translate towards chassis front at [degree]° and rotate [direction]',
-                    'POST',
+                     
                     {
                         degree: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -242,7 +237,7 @@ export const Chassis = {
                     'moveWithSpeed',
                     Scratch.BlockType.COMMAND,
                     'set robot to translate at [xspeed]m/s along X axis and [yspeed] along Y axis and rotate along Z axis at [rotation]°/s',
-                    'POST',
+                     
                     {
                         xspeed: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -262,13 +257,13 @@ export const Chassis = {
                     'stop',
                     Scratch.BlockType.COMMAND,
                     'set chassis to stop moving',
-                    'POST'
+                    {},
+                    true
                 ),
                 new Block(
                     'getAttitude',
                     Scratch.BlockType.REPORTER,
                     'chassis [attitude] axis attitude angle',
-                    'POST',
                     {
                         attitude: {
                             type: Scratch.ArgumentType.STRING,
@@ -281,7 +276,6 @@ export const Chassis = {
                     'getPositionBasePowerOn',
                     Scratch.BlockType.REPORTER,
                     'current chassis position [action]',
-                    'POST',
                     {
                         action: {
                             type: Scratch.ArgumentType.STRING,
@@ -294,13 +288,11 @@ export const Chassis = {
                     'chassisImpactDetection',
                     Scratch.BlockType.EVENT,
                     'when chassis hits an obstacle',
-                    'POST'
                 ),
                 new Block(
                     'isImpact',
                     Scratch.BlockType.BOOLEAN,
                     'chassis hits an obstacle',
-                    'POST'
                 ),
             ],
             menus: {

@@ -7,10 +7,6 @@
         "message": "Start [sn]",
         "description": "text on block"
     },
-    "stop": {
-        "message": "Stop",
-        "description": "text on block"
-    },
     "sn": {
         "message": [
             "1",

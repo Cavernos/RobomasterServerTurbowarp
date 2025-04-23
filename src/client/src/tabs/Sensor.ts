@@ -10,7 +10,7 @@ export const Sensor = {
             'setInfraredSensor',
             Scratch.BlockType.COMMAND,
             'capteur de distance infrarouge [status] fonctions de mesures [sensor]',
-            'POST',
+              
             {
                 sensor: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -27,7 +27,7 @@ export const Sensor = {
             'whenInfraredDistance',
             Scratch.BlockType.EVENT,
             'quand le capteur de distance infrarouge [sensor] détecte une distance de [operator] [value] cm',
-            'POST',
+              
             {
                 sensor: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -48,7 +48,7 @@ export const Sensor = {
             'waitUntilInfraredDistance',
             Scratch.BlockType.COMMAND,
             'attendez que la valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]',
-            'POST',
+              
             {
                 operator: {
                     type: Scratch.ArgumentType.STRING,
@@ -69,7 +69,7 @@ export const Sensor = {
             'isInfraredDistance',
             Scratch.BlockType.BOOLEAN,
             'valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]',
-            'POST',
+              
             {
                 operator: {
                     type: Scratch.ArgumentType.STRING,
@@ -90,7 +90,7 @@ export const Sensor = {
             'getInfraredDistance',
             Scratch.BlockType.REPORTER,
             'capteur de distance infrarouge [sensor] valeur de distance',
-            'POST',
+              
             {
                 sensor: {
                     type: Scratch.ArgumentType.NUMBER,

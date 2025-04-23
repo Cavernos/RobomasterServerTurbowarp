@@ -6,14 +6,14 @@ import { language } from '#config'
 export const ExtensionModule = {
             color: '#F24A88',
             blocks: [
-                new Block('arm', Scratch.BlockType.COMMAND, '', 'POST', {
+                new Block('arm', Scratch.BlockType.COMMAND, '', {
                     position: {
                         type: Scratch.ArgumentType.STRING,
                         menu: 'armPositions',
                         defaultValue: language.getMessage('armPositions')[0],
                     },
                 }),
-                new Block('grabber', Scratch.BlockType.COMMAND, '', 'POST', {
+                new Block('grabber', Scratch.BlockType.COMMAND, '',  {
                     action: {
                         type: Scratch.ArgumentType.STRING,
                         menu: 'gripperActions',
@@ -24,7 +24,6 @@ export const ExtensionModule = {
                     'setGripper',
                     Scratch.BlockType.COMMAND,
                     'set gripper to [action]',
-                    'POST',
                     {
                         action: {
                             type: Scratch.ArgumentType.STRING,
@@ -38,7 +37,7 @@ export const ExtensionModule = {
                     'armMove',
                     Scratch.BlockType.COMMAND,
                     'move arm [direction] distance:[distance]mm',
-                    'POST',
+               
                     {
                         direction: {
                             type: Scratch.ArgumentType.STRING,
@@ -56,7 +55,6 @@ export const ExtensionModule = {
                     'armMoveTo',
                     Scratch.BlockType.COMMAND,
                     'move arm to (X:[x] Y:[y])',
-                    'POST',
                     {
                         x: {
                             type: Scratch.ArgumentType.NUMBER,

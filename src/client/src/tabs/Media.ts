@@ -6,7 +6,7 @@ import { language } from '#config'
 export const Media = {
     color: '#67AD5B',
     blocks: [
-        new Block('say', Scratch.BlockType.COMMAND, '', 'POST', {
+        new Block('say', Scratch.BlockType.COMMAND, '',    {
             say: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'Hello',
@@ -16,7 +16,7 @@ export const Media = {
             'playNote',
             Scratch.BlockType.COMMAND,
             'jouer la note [note]',
-            'POST',
+              
             {
                 note: {
                     type: Scratch.ArgumentType.STRING,
@@ -29,7 +29,7 @@ export const Media = {
             'playSoundEffect',
             Scratch.BlockType.COMMAND,
             'jouer un effet sonore pour [effect]',
-            'POST',
+              
             {
                 effect: {
                     type: Scratch.ArgumentType.STRING,
@@ -42,7 +42,7 @@ export const Media = {
             'playSoundEffectUntilDone',
             Scratch.BlockType.COMMAND,
             "jouer l'effet sonore [effect] jusqu'à la fin",
-            'POST',
+              
             {
                 effect: {
                     type: Scratch.ArgumentType.STRING,
@@ -55,7 +55,7 @@ export const Media = {
             'playCustomAudio',
             Scratch.BlockType.COMMAND,
             'Lire audio personnalisé [audio]',
-            'POST',
+              
             {
                 audio: {
                     type: Scratch.ArgumentType.STRING,
@@ -68,7 +68,7 @@ export const Media = {
             'playCustomAudioUntilDone',
             Scratch.BlockType.COMMAND,
             "Lire audio personnalisé [audio] jusqu'à la fin",
-            'POST',
+              
             {
                 audio: {
                     type: Scratch.ArgumentType.STRING,
@@ -81,13 +81,13 @@ export const Media = {
             'takePhoto',
             Scratch.BlockType.COMMAND,
             'prendre une photo',
-            'POST'
+               
         ),
         new Block(
             'startVideoRecording',
             Scratch.BlockType.COMMAND,
             "[action] l'enregistrement vidéo",
-            'POST',
+              
             {
                 action: {
                     type: Scratch.ArgumentType.STRING,

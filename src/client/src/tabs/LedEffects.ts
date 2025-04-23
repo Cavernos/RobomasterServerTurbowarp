@@ -10,12 +10,12 @@ export const LedEffects = {
                     'setFlash',
                     Scratch.BlockType.COMMAND,
                     'set [led] LED flash rate to [frequency]Hz',
-                    'POST',
+                      
                     {
                         led: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'armorFlash',
-                            defaultValue: 'all',
+                            defaultValue: language.getMessage("armorFlash")[0],
                         },
                         frequency: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -27,22 +27,22 @@ export const LedEffects = {
                     'setBottomLed',
                     Scratch.BlockType.COMMAND,
                     'set chassis [led] LED color to [color] and effect to [effect]',
-                    'POST',
+                      
                     {
                         led: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'armorBottomLed',
-                            defaultValue: 'front',
+                            defaultValue: language.getMessage('armorBottomLed')[0],
                         },
                         color: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'color',
-                            defaultValue: 'blue',
+                            defaultValue: language.getMessage('color')[0],
                         },
                         effect: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'effect',
-                            defaultValue: 'solid',
+                            defaultValue: language.getMessage('effect')[0],
                         },
                     }
                 ),
@@ -50,22 +50,22 @@ export const LedEffects = {
                     'setTopLed',
                     Scratch.BlockType.COMMAND,
                     'set gimbal [led] LED color to [color] and effect to [effect]',
-                    'POST',
+                      
                     {
                         led: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'armorTopLed',
-                            defaultValue: 'top',
+                            defaultValue: language.getMessage('armorTopLed')[0],
                         },
                         color: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'color',
-                            defaultValue: 'blue',
+                            defaultValue: language.getMessage('color')[0],
                         },
                         effect: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'effect',
-                            defaultValue: 'solid',
+                            defaultValue: language.getMessage('effect')[0],
                         },
                     }
                 ),
@@ -73,12 +73,12 @@ export const LedEffects = {
                     'setSignleLed',
                     Scratch.BlockType.COMMAND,
                     'set gimbal [led] LED sequence to [index] and effect to [effect]',
-                    'POST',
+                      
                     {
                         led: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'armorTopLed',
-                            defaultValue: 'bottomall',
+                            defaultValue: language.getMessage('armorTopLed')[0],
                         },
                         index: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -87,7 +87,7 @@ export const LedEffects = {
                         effect: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'effect',
-                            defaultValue: 'solid',
+                            defaultValue: language.getMessage('effect')[0],
                         },
                     }
                 ),
@@ -95,23 +95,23 @@ export const LedEffects = {
                     'turnOff',
                     Scratch.BlockType.COMMAND,
                     'set gimbal [led] LED color to [color]',
-                    'POST',
+                      
                     {
                         led: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'armorTopLed',
-                            defaultValue: 'top',
+                            defaultValue: language.getMessage('armorTopLed')[0],
                         },
                         color: {
                             type: Scratch.ArgumentType.STRING,
                             menu: 'color',
-                            defaultValue: 'blue',
+                            defaultValue: language.getMessage('color')[0],
                         },
                     }
                 ),
             ],
             menus: {
-                armorFlash: [
+                armorFlash: language.getMessage('armorFlash') === "NoTranslation" ? [
                     'all',
                     'bottom front',
                     'bottom back',
@@ -119,16 +119,16 @@ export const LedEffects = {
                     'bottom right',
                     'top left',
                     'top right',
-                ],
-                armorBottomLed: [
+                ] : language.getMessage('armorFlash'),
+                armorBottomLed: language.getMessage('armorBottomLed') === "NoTranslation" ? [
                     'bottom all',
                     'bottom front',
                     'bottom back',
                     'bottom left',
                     'bottom right',
-                ],
-                armorTopLed: ['top all', 'top left', 'top right'],
-                color: [
+                ] : language.getMessage('armorBottomLed'),
+                armorTopLed: language.getMessage('armorTopLed') === "NoTranslation" ? ['top all', 'top left', 'top right']: language.getMessage('armorTopLed'),
+                color: language.getMessage('color') === "NoTranslation" ? [
                     'red',
                     'green',
                     'blue',
@@ -136,7 +136,7 @@ export const LedEffects = {
                     'cyan',
                     'purple',
                     'white',
-                ],
-                effect: ['solid', 'breath', 'flash', 'off'],
+                ]:language.getMessage('color'),
+                effect: language.getMessage('effect') === "NoTranslation" ? ['solid', 'breath', 'flash', 'off'] : language.getMessage('effect'),
             },
 }

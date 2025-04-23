@@ -9,8 +9,7 @@ export const RobomasterBasics = {
             new Block(
                 'start',
                 Scratch.BlockType.COMMAND,
-                'Start [sn]',
-                'POST',
+                'Connect to robot [sn]',
                 {
                     sn: {
                         type: Scratch.ArgumentType.STRING,
@@ -19,7 +18,7 @@ export const RobomasterBasics = {
                     },
                 }
             ),
-            new Block('stop', Scratch.BlockType.COMMAND),
+            new Block('stop', Scratch.BlockType.COMMAND, 'Disconnect', {}, true),
         ],
         menus: {
             sn: language.getMessage('sn'),

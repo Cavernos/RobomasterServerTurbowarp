@@ -9,8 +9,8 @@ export const Armor = {
                     new Block(
                         'setArmorSensitivity',
                         Scratch.BlockType.COMMAND,
-                        "définir la sensibilité de l'armure à [sensitivity]",
-                        'POST',
+                        "Define armor sensitivity to [sensitivity]",
+                          
                         {
                             sensitivity: {
                                 type: Scratch.ArgumentType.NUMBER,
@@ -19,84 +19,65 @@ export const Armor = {
                         }
                     ),
                     new Block(
-                        'armorHit',
+                        'isArmorHit',
                         Scratch.BlockType.EVENT,
-                        "quand l'armure [armor] est touchée",
-                        'POST',
+                        "When armor [armor] is hits ?",
+                          
                         {
                             armor: {
                                 type: Scratch.ArgumentType.STRING,
                                 menu: 'armorPosition',
-                                defaultValue: 'aléatoire',
+                                defaultValue: language.getMessage("armorPosition")[0],
                             },
                         }
                     ),
                     new Block(
                         'getLastHitArmor',
                         Scratch.BlockType.REPORTER,
-                        '[info] de la dernière armure touchée',
-                        'POST',
+                        '[info] of last armor hit',
+                          
                         {
                             info: {
                                 type: Scratch.ArgumentType.STRING,
                                 menu: 'armorInfo',
-                                defaultValue: 'ID',
-                            },
-                        }
-                    ),
-                    new Block(
-                        'isArmorHit',
-                        Scratch.BlockType.BOOLEAN,
-                        'armure [armor] touchée',
-                        'POST',
-                        {
-                            armor: {
-                                type: Scratch.ArgumentType.STRING,
-                                menu: 'armorPosition',
-                                defaultValue: 'aléatoire',
+                                defaultValue: language.getMessage('armorInfo')[0],
                             },
                         }
                     ),
                     new Block(
                         'waitUntilArmorHit',
                         Scratch.BlockType.COMMAND,
-                        "attendre un impact sur l'armure [armor]",
-                        'POST',
+                        "Wait until armor [armor] hits ?",
+                          
                         {
                             armor: {
                                 type: Scratch.ArgumentType.STRING,
                                 menu: 'armorPosition',
-                                defaultValue: 'aléatoire',
+                                defaultValue: language.getMessage('armorPosition')[0],
                             },
                         }
                     ),
                     new Block(
                         'irHit',
                         Scratch.BlockType.EVENT,
-                        "Lorsqu'un robot est touché par un faisceau infrarouge",
-                        'POST'
-                    ),
-                    new Block(
-                        'isIrHit',
-                        Scratch.BlockType.BOOLEAN,
-                        'robot touché par un faisceau infrarouge',
-                        'POST'
+                        "When robot is touched by IR",
+                           
                     ),
                     new Block(
                         'waitUntilIrHit',
                         Scratch.BlockType.COMMAND,
-                        'Attendez que le robot soit touché par un faisceau infrarouge',
-                        'POST'
+                        'Wait until robot is touched by IR',
+                           
                     ),
                 ],
                 menus: {
-                    armorPosition: [
-                        'aléatoire',
-                        'avant',
-                        'arrière',
-                        'gauche',
-                        'droite',
-                    ],
-                    armorInfo: ['ID', 'temps'],
+                    armorPosition: language.getMessage('armorInfo') === "NoTranslation" ? [
+                        'random',
+                        'front',
+                        'back',
+                        'left',
+                        'right',
+                    ] : language.getMessage('armorInfo'),
+                    armorInfo: language.getMessage('armorInfo') === "NoTranslation" ? ['ID', 'time'] : language.getMessage('armorInfo'),
                 },
 }

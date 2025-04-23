@@ -66,10 +66,7 @@ export class Block {
         this.opcode = opcode
         this.blockType = blockType
         this.isTerminal = isTerminal ? isTerminal : false
-        this.text =
-            language.getMessage(this.opcode) === 'NoTranslation'
-                ? text
-                : language.getMessage(this.opcode)
+        this.text = language.getMessage(this.opcode, text)
         this.arguments = args ? args : {}
     }
 

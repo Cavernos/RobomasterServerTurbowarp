@@ -112,38 +112,28 @@ export const LedEffects = {
     ],
     menus: {
         armorFlash:
-            language.getMessage('armorFlash') === 'NoTranslation'
-                ? [
-                      'all',
-                      'bottom front',
-                      'bottom back',
-                      'bottom left',
-                      'bottom right',
-                      'top left',
-                      'top right',
-                  ]
-                : language.getMessage('armorFlash'),
+            language.getMessage('armorFlash', [
+                'all',
+                'bottom front',
+                'bottom back',
+                'bottom left',
+                'bottom right',
+                'top left',
+                'top right',
+            ]),
         armorBottomLed:
-            language.getMessage('armorBottomLed') === 'NoTranslation'
-                ? [
-                      'bottom all',
-                      'bottom front',
-                      'bottom back',
-                      'bottom left',
-                      'bottom right',
-                  ]
-                : language.getMessage('armorBottomLed'),
+            language.getMessage('armorBottomLed', [
+                'bottom all',
+                'bottom front',
+                'bottom back',
+                'bottom left',
+                'bottom right',
+            ]),
         armorTopLed:
-            language.getMessage('armorTopLed') === 'NoTranslation'
-                ? ['top all', 'top left', 'top right']
-                : language.getMessage('armorTopLed'),
+            language.getMessage('armorTopLed', ['top all', 'top left', 'top right']),
         color:
-            language.getMessage('color') === 'NoTranslation'
-                ? ['red', 'green', 'blue', 'yellow', 'cyan', 'purple', 'white']
-                : language.getMessage('color'),
+            language.getMessage('color', ['red', 'green', 'blue', 'yellow', 'cyan', 'purple', 'white']),
         effect:
-            language.getMessage('effect') === 'NoTranslation'
-                ? ['solid', 'breath', 'flash', 'off']
-                : language.getMessage('effect'),
+            language.getMessage('effect', ['solid', 'breath', 'flash', 'off'])
     },
 }

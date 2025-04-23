@@ -293,7 +293,7 @@ export const Chassis = {
         ),
     ],
     menus: {
-        pwm_port: language.getMessage('pwm_port') === "NoTranslation" ? [
+        pwm_port: language.getMessage('pwm_port', [
             "PWP_all",
             "PWP_1",
             "PWP_2",
@@ -301,15 +301,15 @@ export const Chassis = {
             "PWP_4",
             "PWP_5",
             "PWP_6"
-        ]: language.getMessage('pwm_port'),
-        status: language.getMessage('status') === "NoTranslation" ? ["Enable", "Disable"] : language.getMessage('status'),
-        direction: language.getMessage('direction') === "NoTranslation" ? ["right", "left"]: language.getMessage('direction'),
-        attitude: language.getMessage('attitude') === "NoTranslation" ? ["yaw", "pitch", "roll"]: language.getMessage('attitude'),
-        action: language.getMessage('action') === "NoTranslation" ? [
+        ]),
+        status: language.getMessage('status', ["Enable", "Disable"]),
+        direction: language.getMessage('direction', ["right", "left"]),
+        attitude: language.getMessage('attitude', ["yaw", "pitch", "roll"]),
+        action: language.getMessage('action', [
             "orientation",
             "X coordinate",
             "Y coordinate",
             "Z coordinate"
-        ]: language.getMessage('action')
+        ])
     },
 }

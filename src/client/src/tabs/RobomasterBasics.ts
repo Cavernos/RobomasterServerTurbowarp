@@ -16,7 +16,7 @@ export const RobomasterBasics = {
         new Block('stop', Scratch.BlockType.COMMAND, 'Disconnect', {}, true),
     ],
     menus: {
-        sn: language.getMessage('sn') === "NoTranslation" ?  [
+        sn: language.getMessage('sn', [
             "1",
             "2",
             "3",
@@ -33,6 +33,6 @@ export const RobomasterBasics = {
             "14",
             "15",
             "16"
-        ]: language.getMessage('sn'),
+        ]),
     },
 }

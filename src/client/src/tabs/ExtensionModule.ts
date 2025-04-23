@@ -7,7 +7,7 @@ export const ExtensionModule = {
     color: '#F24A88',
     blocks: [
         new Block('arm', Scratch.BlockType.COMMAND, 
-            'Set arm to position [position]', 
+            'set arm to position [position]', 
             {
             position: {
                 type: Scratch.ArgumentType.STRING,
@@ -70,8 +70,8 @@ export const ExtensionModule = {
         ),
     ],
     menus: {
-        gripperActions: language.getMessage('gripperActions') === "NoTranslation" ? ["open", "close", "stop"] : language.getMessage('gripperActions'),
-        armPositions: language.getMessage('armPositions') === "NoTranslation" ? ["up", "down"] : language.getMessage('armPositions'),
-        armDirection: language.getMessage('armDirection') === "NoTranslation" ?  ["forward", "backward", "up", "bottom"]: language.getMessage('gripperActions'),
+        gripperActions: language.getMessage('gripperActions', ["open", "close", "stop"]),
+        armPositions: language.getMessage('armPositions', ["up", "down"]),
+        armDirection: language.getMessage('armDirection', ["forward", "backward", "up", "bottom"]),
     },
 }

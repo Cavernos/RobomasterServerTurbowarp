@@ -68,12 +68,7 @@ export const Armor = {
     ],
     menus: {
         armorPosition:
-            language.getMessage('armorInfo') === 'NoTranslation'
-                ? ['random', 'front', 'back', 'left', 'right']
-                : language.getMessage('armorInfo'),
-        armorInfo:
-            language.getMessage('armorInfo') === 'NoTranslation'
-                ? ['ID', 'time']
-                : language.getMessage('armorInfo'),
+            language.getMessage('armorPosition', ['random', 'front', 'back', 'left', 'right']),
+        armorInfo: language.getMessage('armorInfo', ['ID', 'time'])
     },
 }

@@ -15,85 +15,85 @@ export const Media = {
         new Block(
             'playNote',
             Scratch.BlockType.COMMAND,
-            'jouer la note [note]',
+            'play note [note]',
 
             {
                 note: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'notes',
-                    defaultValue: '1C',
+                    defaultValue: language.getMessage('notes')[0],
                 },
             }
         ),
         new Block(
             'playSoundEffect',
             Scratch.BlockType.COMMAND,
-            'jouer un effet sonore pour [effect]',
+            'play sound effect [effect]',
 
             {
                 effect: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'soundEffects',
-                    defaultValue: 'impact',
+                    defaultValue: language.getMessage("soundEffects")[0],
                 },
             }
         ),
         new Block(
             'playSoundEffectUntilDone',
             Scratch.BlockType.COMMAND,
-            "jouer l'effet sonore [effect] jusqu'à la fin",
+            "play sound effect [effect] until done",
 
             {
                 effect: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'soundEffects',
-                    defaultValue: 'impact',
+                    defaultValue: language.getMessage("soundEffects")[0],
                 },
             }
         ),
         new Block(
             'playCustomAudio',
             Scratch.BlockType.COMMAND,
-            'Lire audio personnalisé [audio]',
+            'play custom audio [audio]',
 
             {
                 audio: {
                     type: Scratch.ArgumentType.STRING,
-                    menu: 'customAudio',
-                    defaultValue: 'audio1',
+                    defaultValue: "file name",
                 },
             }
         ),
         new Block(
             'playCustomAudioUntilDone',
             Scratch.BlockType.COMMAND,
-            "Lire audio personnalisé [audio] jusqu'à la fin",
+            "play custom audio [audio] until done",
 
             {
                 audio: {
                     type: Scratch.ArgumentType.STRING,
-                    menu: 'customAudio',
-                    defaultValue: 'audio1',
+                    defaultValue: "file name",
                 },
             }
         ),
-        new Block('takePhoto', Scratch.BlockType.COMMAND, 'prendre une photo'),
+        new Block('takePhoto', Scratch.BlockType.COMMAND, 
+            'take a photo'
+        ),
         new Block(
             'startVideoRecording',
             Scratch.BlockType.COMMAND,
-            "[action] l'enregistrement vidéo",
+            "[action] register audio",
 
             {
                 action: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'recordingActions',
-                    defaultValue: 'start',
+                    defaultValue: language.getMessage("recordingActions")[0],
                 },
             }
         ),
     ],
     menus: {
-        notes: [
+        notes: language.getMessage('note', [
             '1C',
             '1D',
             '1E',
@@ -115,9 +115,8 @@ export const Media = {
             '3G',
             '3A',
             '3B',
-        ],
-        soundEffects: ['impact', 'hit', 'explosion', 'alert'],
-        customAudio: ['audio1', 'audio2', 'audio3'],
-        recordingActions: ['start', 'stop'],
+        ] ),
+        soundEffects: language.getMessage('soundEffects', ['impact', 'hit', 'explosion', 'alert']),
+        recordingActions: language.getMessage('recordingActions', ['start', 'stop'] )
     },
 }

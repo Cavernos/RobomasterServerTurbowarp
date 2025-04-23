@@ -9,7 +9,7 @@ export const Sensor = {
         new Block(
             'setInfraredSensor',
             Scratch.BlockType.COMMAND,
-            'capteur de distance infrarouge [status] fonctions de mesures [sensor]',
+            'ir distance captor [status] mesurement function [sensor]',
 
             {
                 sensor: {
@@ -19,14 +19,14 @@ export const Sensor = {
                 status: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'sensorStatus',
-                    defaultValue: 'activer',
+                    defaultValue: language.getMessage("sensorStatus")[0],
                 },
             }
         ),
         new Block(
             'whenInfraredDistance',
             Scratch.BlockType.EVENT,
-            'quand le capteur de distance infrarouge [sensor] détecte une distance de [operator] [value] cm',
+            'when ir captor [sensor] distance [operator] [value] cm',
 
             {
                 sensor: {
@@ -36,7 +36,7 @@ export const Sensor = {
                 operator: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'operators',
-                    defaultValue: '>=',
+                    defaultValue: language.getMessage('operators')[0],
                 },
                 value: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -47,13 +47,13 @@ export const Sensor = {
         new Block(
             'waitUntilInfraredDistance',
             Scratch.BlockType.COMMAND,
-            'attendez que la valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]',
+            'wait until [operator] [value] cm with ir captor [sensor]',
 
             {
                 operator: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'operators',
-                    defaultValue: '>=',
+                    defaultValue: language.getMessage('operators')[0],
                 },
                 value: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -68,13 +68,13 @@ export const Sensor = {
         new Block(
             'isInfraredDistance',
             Scratch.BlockType.BOOLEAN,
-            'valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]',
+            'distance [operator] [value] cm from ir captor [sensor]',
 
             {
                 operator: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'operators',
-                    defaultValue: '>=',
+                    defaultValue: language.getMessage('operators')[0],
                 },
                 value: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -89,7 +89,7 @@ export const Sensor = {
         new Block(
             'getInfraredDistance',
             Scratch.BlockType.REPORTER,
-            'capteur de distance infrarouge [sensor] valeur de distance',
+            'get ir distance [sensor] from ir captor',
 
             {
                 sensor: {
@@ -100,7 +100,7 @@ export const Sensor = {
         ),
     ],
     menus: {
-        sensorStatus: ['activer', 'désactiver'],
-        operators: ['>=', '<=', '='],
+        sensorStatus: language.getMessage('sensorStatus', ['enable', 'disable']),
+        operators: language.getMessage('operators', ['>=', '<=', '=']),
     },
 }

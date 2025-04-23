@@ -46,7 +46,7 @@ export class Language {
      * @param {string[] | string} entry
      * @returns {string} the result of the translation
      */
-    getMessage(entry: string): string | string[] {
+    getMessage(entry: string, defaultValue?: string | string[]): string | string[] {
         // Get the message and stranslate it, if the message is defined in src/locales
         for (const [tabKey, tab] of Object.entries(this.translations)){
             if (tabKey === entry){
@@ -64,6 +64,6 @@ export class Language {
                 }
             }
         }
-        return 'NoTranslation'
+        return defaultValue || "NoTranslation"
     }
 }

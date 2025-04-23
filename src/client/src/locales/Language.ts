@@ -1,6 +1,5 @@
 import en from './en/messages.json' with { type: 'json' }
 import fr from './fr/messages.json' with { type: 'json' }
-import { config } from '#config'
 import { LanguageObject } from '#types/locales/Language.d.ts'
 /**
  * Get new language
@@ -57,10 +56,11 @@ export class Language {
     /**
      * @returns {void} - Generate new message template in json file
      */
+    /*
     generate_template(): void {
         // Generate new message template in json file
         const translations_template: LanguageObject = {}
-        for (const [tabKey, tab] of Object.entries(config.tabs)) {
+        for (const [tabKey, tab] of Object.entries({...libTabs})) {
             translations_template[tabKey] = {
                 message: this.getMessage(tabKey),
                 description: 'name of tab',
@@ -97,5 +97,5 @@ export class Language {
             translations_template,
             `messages.${this.lang}.template`
         )
-    }
+    }*/
 }

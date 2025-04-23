@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
-import { Block } from "#robomaster_turbowarp_extension/Block.ts";
+import { Block } from '#robomaster_turbowarp_extension/Block.ts'
 import { language } from '#config'
 
 export const Smart = {
@@ -22,7 +22,7 @@ export const Smart = {
             'setExposureValue',
             Scratch.BlockType.COMMAND,
             "définir la valeur d'exposition à [exposure]",
-              
+
             {
                 exposure: {
                     type: Scratch.ArgumentType.STRING,
@@ -35,7 +35,7 @@ export const Smart = {
             'whenRobotIdentifies',
             Scratch.BlockType.EVENT,
             'quand le robot identifie [target]',
-              
+
             {
                 target: {
                     type: Scratch.ArgumentType.STRING,
@@ -48,7 +48,7 @@ export const Smart = {
             'whenRobotIdentifiesClaps',
             Scratch.BlockType.EVENT,
             'quand le robot identifie [claps]',
-              
+
             {
                 claps: {
                     type: Scratch.ArgumentType.STRING,
@@ -61,7 +61,7 @@ export const Smart = {
             'enableIdentification',
             Scratch.BlockType.COMMAND,
             "[action] l'identification de [feature]",
-              
+
             {
                 action: {
                     type: Scratch.ArgumentType.STRING,
@@ -79,7 +79,7 @@ export const Smart = {
             'setMarkerIdentificationDistance',
             Scratch.BlockType.COMMAND,
             "définir la distance d'identification des marqueurs visuels à [distance] m",
-              
+
             {
                 distance: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -91,7 +91,7 @@ export const Smart = {
             'setMarkerColor',
             Scratch.BlockType.COMMAND,
             "définir [color] comme couleur d'identification du marqueur visuel",
-              
+
             {
                 color: {
                     type: Scratch.ArgumentType.STRING,
@@ -104,7 +104,7 @@ export const Smart = {
             'setLineColor',
             Scratch.BlockType.COMMAND,
             "définir le [color] comme la couleur d'identification de la ligne",
-              
+
             {
                 color: {
                     type: Scratch.ArgumentType.STRING,
@@ -116,14 +116,13 @@ export const Smart = {
         new Block(
             'getMarkerInfo',
             Scratch.BlockType.REPORTER,
-            'infos sur le marqueur visuel identifié',
-               
+            'infos sur le marqueur visuel identifié'
         ),
         new Block(
             'getPersonInfo',
             Scratch.BlockType.REPORTER,
             'infos sur [target] identifié(e)',
-              
+
             {
                 target: {
                     type: Scratch.ArgumentType.STRING,
@@ -135,38 +134,33 @@ export const Smart = {
         new Block(
             'getGestureInfo',
             Scratch.BlockType.REPORTER,
-            'infos sur le geste identifié',
-               
+            'infos sur le geste identifié'
         ),
         new Block(
             'getLineInfo',
             Scratch.BlockType.REPORTER,
-            'infos sur la ligne identifiée',
-               
+            'infos sur la ligne identifiée'
         ),
         new Block(
             'getLinesInfo',
             Scratch.BlockType.REPORTER,
-            'infos sur les lignes identifiées',
-               
+            'infos sur les lignes identifiées'
         ),
         new Block(
             'getCurrentBrightness',
             Scratch.BlockType.REPORTER,
-            'luminosité actuelle',
-               
+            'luminosité actuelle'
         ),
         new Block(
             'getAimingPosition',
             Scratch.BlockType.REPORTER,
-            'position de visée',
-               
+            'position de visée'
         ),
         new Block(
             'waitUntilIdentifies',
             Scratch.BlockType.COMMAND,
             "attendre jusqu'à l'identification de [target]",
-              
+
             {
                 target: {
                     type: Scratch.ArgumentType.STRING,
@@ -179,7 +173,7 @@ export const Smart = {
             'waitUntilClaps',
             Scratch.BlockType.COMMAND,
             "attendre jusqu'à l'identification de [claps]",
-              
+
             {
                 claps: {
                     type: Scratch.ArgumentType.STRING,
@@ -192,22 +186,14 @@ export const Smart = {
     menus: {
         exposureValues: ['élevée', 'moyenne', 'basse'],
         targetTypes: ['coeur rouge', 'cercle bleu', 'triangle vert'],
-        identificationTargets: [
-            'personnes',
-            'marqueurs visuels',
-            'gestes',
-        ],
+        identificationTargets: ['personnes', 'marqueurs visuels', 'gestes'],
         clapTypes: [
             '2 applaudissements',
             '1 applaudissement',
             '3 applaudissements',
         ],
         actionTypes: ['activer', 'désactiver'],
-        featureTypes: [
-            'marqueurs visuels',
-            'lignes',
-            'applaudissements',
-        ],
+        featureTypes: ['marqueurs visuels', 'lignes', 'applaudissements'],
         markerColors: ['rouge', 'vert', 'bleu', 'jaune'],
         lineColors: ['bleu', 'rouge', 'vert', 'jaune'],
         personTypes: ['personnes', 'robots S1'],

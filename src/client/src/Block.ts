@@ -49,12 +49,12 @@ export class Block {
      */
     isTerminal: boolean | undefined
     /**
-     * 
-     * @param opcode 
-     * @param blockType 
-     * @param text 
-     * @param args 
-     * @param isTerminal 
+     *
+     * @param opcode
+     * @param blockType
+     * @param text
+     * @param args
+     * @param isTerminal
      */
     constructor(
         opcode: string,
@@ -65,12 +65,12 @@ export class Block {
     ) {
         this.opcode = opcode
         this.blockType = blockType
-        this.isTerminal = isTerminal? isTerminal : false 
+        this.isTerminal = isTerminal ? isTerminal : false
         this.text =
             language.getMessage(this.opcode) === 'NoTranslation'
                 ? text
                 : language.getMessage(this.opcode)
-        this.arguments = args? args : {}
+        this.arguments = args ? args : {}
     }
 
     /**
@@ -88,7 +88,7 @@ export class Block {
             const response = await fetch(
                 `http${config.robomaster_api.env === 'production' ? 's' : ''}://${config.robomaster_api.host}:${config.robomaster_api.port}/${url}`,
                 {
-                    method: "POST",
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
                     body: request_body
@@ -112,9 +112,6 @@ export class Block {
      *
      */
     async run(tabName: string, args: object | undefined) {
-        return await this.requestHandler(
-            `${tabName}/${this.opcode}`,
-            args
-        )
+        return await this.requestHandler(`${tabName}/${this.opcode}`, args)
     }
 }

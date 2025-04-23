@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
-import { Block } from "#robomaster_turbowarp_extension/Block.ts";
+import { Block } from '#robomaster_turbowarp_extension/Block.ts'
 import { language } from '#config'
 
 export const Media = {
     color: '#67AD5B',
     blocks: [
-        new Block('say', Scratch.BlockType.COMMAND, '',    {
+        new Block('say', Scratch.BlockType.COMMAND, '', {
             say: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'Hello',
@@ -16,7 +16,7 @@ export const Media = {
             'playNote',
             Scratch.BlockType.COMMAND,
             'jouer la note [note]',
-              
+
             {
                 note: {
                     type: Scratch.ArgumentType.STRING,
@@ -29,7 +29,7 @@ export const Media = {
             'playSoundEffect',
             Scratch.BlockType.COMMAND,
             'jouer un effet sonore pour [effect]',
-              
+
             {
                 effect: {
                     type: Scratch.ArgumentType.STRING,
@@ -42,7 +42,7 @@ export const Media = {
             'playSoundEffectUntilDone',
             Scratch.BlockType.COMMAND,
             "jouer l'effet sonore [effect] jusqu'à la fin",
-              
+
             {
                 effect: {
                     type: Scratch.ArgumentType.STRING,
@@ -55,7 +55,7 @@ export const Media = {
             'playCustomAudio',
             Scratch.BlockType.COMMAND,
             'Lire audio personnalisé [audio]',
-              
+
             {
                 audio: {
                     type: Scratch.ArgumentType.STRING,
@@ -68,7 +68,7 @@ export const Media = {
             'playCustomAudioUntilDone',
             Scratch.BlockType.COMMAND,
             "Lire audio personnalisé [audio] jusqu'à la fin",
-              
+
             {
                 audio: {
                     type: Scratch.ArgumentType.STRING,
@@ -77,17 +77,12 @@ export const Media = {
                 },
             }
         ),
-        new Block(
-            'takePhoto',
-            Scratch.BlockType.COMMAND,
-            'prendre une photo',
-               
-        ),
+        new Block('takePhoto', Scratch.BlockType.COMMAND, 'prendre une photo'),
         new Block(
             'startVideoRecording',
             Scratch.BlockType.COMMAND,
             "[action] l'enregistrement vidéo",
-              
+
             {
                 action: {
                     type: Scratch.ArgumentType.STRING,

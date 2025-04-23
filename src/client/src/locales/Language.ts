@@ -1,6 +1,7 @@
 import en from './en/messages.json' with { type: 'json' }
 import fr from './fr/messages.json' with { type: 'json' }
 import { LanguageObject } from '#types/locales/Language.d.ts'
+// @ts-nocheck
 /**
  * Get new language
  * @class Language
@@ -42,60 +43,27 @@ export class Language {
 
     /**
      *
-     * @param {string[] | string} message
+     * @param {string[] | string} entry
      * @returns {string} the result of the translation
      */
-    getMessage(message: string): string | string[] {
+    getMessage(entry: string): string | string[] {
         // Get the message and stranslate it, if the message is defined in src/locales
-        if (message in this.translations) {
-            return this.translations[message].message
+        for (const [tabKey, tab] of Object.entries(this.translations)){
+            if (tabKey === entry){
+                return this.translations[entry].name
+            } else {
+                for (const blockName of Object.keys(tab.blocks)){
+                    if (blockName === entry){
+                        return this.translations[tabKey].blocks[blockName].text
+                    }
+                }
+                for (const menuName of Object.keys(tab.menus)){
+                    if (menuName === entry){
+                        return this.translations[tabKey].menus[menuName].message
+                    }
+                }
+            }
         }
         return 'NoTranslation'
     }
-
-    /**
-     * @returns {void} - Generate new message template in json file
-     */
-    /*
-    generate_template(): void {
-        // Generate new message template in json file
-        const translations_template: LanguageObject = {}
-        for (const [tabKey, tab] of Object.entries({...libTabs})) {
-            translations_template[tabKey] = {
-                message: this.getMessage(tabKey),
-                description: 'name of tab',
-            }
-            if (tab.blocks.length !== 0) {
-                for (const block of tab.blocks) {
-                    translations_template[block.opcode] = {
-                        message: block.text,
-                        description: 'text on block',
-                    }
-                }
-            }
-            if ('menus' in tab) {
-                for (const [menu_name, menu] of Object.entries(tab.menus)) {
-                    translations_template[menu_name] = {
-                        message: menu,
-                        description: 'text in menu',
-                    }
-                }
-            }
-        }
-        const JSONToFile = (obj: LanguageObject, filename: string): void => {
-            const blob = new Blob([JSON.stringify(obj, null, 2)], {
-                type: 'application/json',
-            })
-            const url: string = URL.createObjectURL(blob)
-            const a: HTMLAnchorElement = document.createElement('a')
-            a.href = url
-            a.download = `${filename}.json`
-            a.click()
-            URL.revokeObjectURL(url)
-        }
-        return JSONToFile(
-            translations_template,
-            `messages.${this.lang}.template`
-        )
-    }*/
 }

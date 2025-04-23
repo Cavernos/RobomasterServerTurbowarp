@@ -1,270 +1,625 @@
 {
-    "RobomasterBasics": {
-        "message": "RobomasterBasics",
-        "description": "name of tab"
-    },
-    "start": {
-        "message": "Start [sn]",
+  "Armor": {
+    "name": "Armor",
+    "description": "name of tab",
+    "blocks": {
+      "setArmorSensitivity": {
+        "text": "Define armor sensitivity to [sensitivity]",
         "description": "text on block"
+      },
+      "isArmorHit": {
+        "text": "When armor [armor] is hits ?",
+        "description": "text on block"
+      },
+      "getLastHitArmor": {
+        "text": "[info] of last armor hit",
+        "description": "text on block"
+      },
+      "waitUntilArmorHit": {
+        "text": "Wait until armor [armor] hits ?",
+        "description": "text on block"
+      },
+      "irHit": {
+        "text": "When robot is touched by IR",
+        "description": "text on block"
+      },
+      "waitUntilIrHit": {
+        "text": "Wait until robot is touched by IR",
+        "description": "text on block"
+      }
     },
-    "sn": {
+    "menus": {
+      "armorPosition": {
         "message": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16"
+          "ID",
+          "time"
         ],
         "description": "text in menu"
-    },
-    "Armor": {
-        "message": "Armor",
-        "description": "name of tab"
-    },
-    "Chassis": {
-        "message": "Chassis",
-        "description": "name of tab"
-    },
-    "move": {
-        "message": "Move x: [x]m y: [y]m z: [z]m speed: [speed]m/s",
-        "description": "text on block"
-    },
-    "rotate": {
-        "message": "Rotate angle: [angle]°",
-        "description": "text on block"
-    },
-    "setPwmValue": {
-        "message": "set [pwm] output to [value]%",
-        "description": "text on block"
-    },
-    "enableStickOverlay": {
-        "message": "[status] chassis acceleration",
-        "description": "text on block"
-    },
-    "setFollowGimbalOffset": {
-        "message": "set chassis to follow gimbal at [degree]°",
-        "description": "text on block"
-    },
-    "setTransSpeed": {
-        "message": "set chassis translation speed to [speed]m/s",
-        "description": "text on block"
-    },
-    "setRotateSpeed": {
-        "message": "set chassis rotation speed to [speed]°/s",
-        "description": "text on block"
-    },
-    "setWheelSpeed": {
-        "message": "set wheel rotation speed (rpm) to front-left [fl] front-right [fr] rear-left [rl] rear-right [rr]",
-        "description": "text on block"
-    },
-    "moveWithTime": {
-        "message": "set chassis to translate at [degree]° for [time]s",
-        "description": "text on block"
-    },
-    "moveWithDistance": {
-        "message": "set chassis to translate at [degree]° for [distance]m",
-        "description": "text on block"
-    },
-    "moveDegreeWithSpeed": {
-        "message": "set chassis to translate [degree]° at [speed]m/s",
-        "description": "text on block"
-    },
-    "rotateWithTime": {
-        "message": "set chassis to rotate [direction] for [time]s",
-        "description": "text on block"
-    },
-    "rotateWithDegree": {
-        "message": "set chassis to rotate [direction] for [degree]°",
-        "description": "text on block"
-    },
-    "moveAndRotate": {
-        "message": "set robot to translate towards chassis front at [degree]° and rotate [direction]",
-        "description": "text on block"
-    },
-    "moveWithSpeed": {
-        "message": "set robot to translate at [xspeed]m/s along X axis and [yspeed] along Y axis and rotate along Z axis at [rotation]°/s",
-        "description": "text on block"
-    },
-    "getAttitude": {
-        "message": "chassis [attitude] axis attitude angle",
-        "description": "text on block"
-    },
-    "getPositionBasePowerOn": {
-        "message": "current chassis position [action]",
-        "description": "text on block"
-    },
-    "chassisImpactDetection": {
-        "message": "when chassis hits an obstacle",
-        "description": "text on block"
-    },
-    "isImpact": {
-        "message": "chassis hits an obstacle",
-        "description": "text on block"
-    },
-    "pwm_port": {
+      },
+      "armorInfo": {
         "message": [
-            "PWP_all",
-            "PWP_1",
-            "PWP_2",
-            "PWP_3",
-            "PWP_4",
-            "PWP_5",
-            "PWP_6"
+          "ID",
+          "time"
         ],
         "description": "text in menu"
-    },
-    "status": {
-        "message": ["Enable", "Disable"],
-        "description": "text in menu"
-    },
-    "direction": {
-        "message": ["right", "left"],
-        "description": "text in menu"
-    },
-    "attitude": {
-        "message": ["yaw", "pitch", "roll"],
-        "description": "text in menu"
-    },
-    "action": {
-        "message": [
-            "orientation",
-            "X coordinate",
-            "Y coordinate",
-            "Z coordinate"
-        ],
-        "description": "text in menu"
-    },
-    "ExtensionModule": {
-        "message": "ExtensionModule",
-        "description": "name of tab"
-    },
-    "arm": {
-        "message": "Move arm to [position]",
-        "description": "text on block"
-    },
-    "grabber": {
-        "message": "Grabber [action]",
-        "description": "text on block"
-    },
-    "setGripper": {
-        "message": "set gripper to [action]",
-        "description": "text on block"
-    },
-    "armMove": {
-        "message": "move arm [direction] distance:[distance]mm",
-        "description": "text on block"
-    },
-    "armMoveTo": {
-        "message": "move arm to (X:[x] Y:[y])",
-        "description": "text on block"
-    },
-    "gripperActions": {
-        "message": ["open", "close", "stop"],
-        "description": "text in menu"
-    },
-    "armPositions": {
-        "message": ["up", "down"],
-        "description": "text in menu"
-    },
-    "armDirection": {
-        "message": ["forward", "backward", "up", "bottom"],
-        "description": "text in menu"
-    },
-    "LedEffects": {
-        "message": "LedEffects",
-        "description": "name of tab"
-    },
-    "setFlash": {
-        "message": "set [led] LED flash rate to [frequency]Hz",
-        "description": "text on block"
-    },
-    "setBottomLed": {
-        "message": "set chassis [led] LED color to [color] and effect to [effect]",
-        "description": "text on block"
-    },
-    "setTopLed": {
-        "message": "set gimbal [led] LED color to [color] and effect to [effect]",
-        "description": "text on block"
-    },
-    "setSignleLed": {
-        "message": "set gimbal [led] LED sequence to [index] and effect to [effect]",
-        "description": "text on block"
-    },
-    "turnOff": {
-        "message": "set gimbal [led] LED color to [color]",
-        "description": "text on block"
-    },
-    "armorFlash": {
-        "message": [
-            "all",
-            "bottom front",
-            "bottom back",
-            "bottom left",
-            "bottom right",
-            "top left",
-            "top right"
-        ],
-        "description": "text in menu"
-    },
-    "armorBottomLed": {
-        "message": [
-            "bottom all",
-            "bottom front",
-            "bottom back",
-            "bottom left",
-            "bottom right"
-        ],
-        "description": "text in menu"
-    },
-    "armorTopLed": {
-        "message": ["top all", "top left", "top right"],
-        "description": "text in menu"
-    },
-    "color": {
-        "message": [
-            "red",
-            "green",
-            "blue",
-            "yellow",
-            "cyan",
-            "purple",
-            "white"
-        ],
-        "description": "text in menu"
-    },
-    "effect": {
-        "message": ["solid", "breath", "flash", "off"],
-        "description": "text in menu"
-    },
-    "Media": {
-        "message": "Media",
-        "description": "name of tab"
-    },
-    "say": {
-        "message": "Say [say]",
-        "description": "text on block"
-    },
-    "Sensor": {
-        "message": "Sensor",
-        "description": "name of tab"
-    },
-    "SensorAdapter": {
-        "message": "SensorAdapter",
-        "description": "name of tab"
-    },
-    "Smart": {
-        "message": "Smart",
-        "description": "name of tab"
+      }
     }
+  },
+  "Chassis": {
+    "name": "Chassis",
+    "description": "name of tab",
+    "blocks": {
+      "move": {
+        "text": "set chassis to translate at [degree]°",
+        "description": "text on block"
+      },
+      "rotate": {
+        "text": "Rotate [angle] °",
+        "description": "text on block"
+      },
+      "setPwmValue": {
+        "text": "set [pwm] output to [value]%",
+        "description": "text on block"
+      },
+      "enableStickOverlay": {
+        "text": "[status] chassis acceleration",
+        "description": "text on block"
+      },
+      "setFollowGimbalOffset": {
+        "text": "set chassis to follow gimbal at [degree]°",
+        "description": "text on block"
+      },
+      "setTransSpeed": {
+        "text": "set chassis translation speed to [speed]m/s",
+        "description": "text on block"
+      },
+      "setRotateSpeed": {
+        "text": "set chassis rotation speed to [speed]°/s",
+        "description": "text on block"
+      },
+      "setWheelSpeed": {
+        "text": "set wheel rotation speed (rpm) to front-left [fl] front-right [fr] rear-left [rl] rear-right [rr]",
+        "description": "text on block"
+      },
+      "moveWithTime": {
+        "text": "set chassis to translate at [degree]° for [time]s",
+        "description": "text on block"
+      },
+      "moveWithDistance": {
+        "text": "set chassis to translate at [degree]° for [distance]m",
+        "description": "text on block"
+      },
+      "moveDegreeWithSpeed": {
+        "text": "set chassis to translate [degree]° at [speed]m/s",
+        "description": "text on block"
+      },
+      "rotateWithTime": {
+        "text": "set chassis to rotate [direction] for [time]s",
+        "description": "text on block"
+      },
+      "rotateWithDegree": {
+        "text": "set chassis to rotate [direction] for [degree]°",
+        "description": "text on block"
+      },
+      "moveAndRotate": {
+        "text": "set robot to translate towards chassis front at [degree]° and rotate [direction]",
+        "description": "text on block"
+      },
+      "moveWithSpeed": {
+        "text": "set robot to translate at [xspeed]m/s along X axis and [yspeed] along Y axis and rotate along Z axis at [rotation]°/s",
+        "description": "text on block"
+      },
+      "stop": {
+        "text": "set chassis to stop moving",
+        "description": "text on block"
+      },
+      "getAttitude": {
+        "text": "chassis [attitude] axis attitude angle",
+        "description": "text on block"
+      },
+      "getPositionBasePowerOn": {
+        "text": "current chassis position [action]",
+        "description": "text on block"
+      },
+      "chassisImpactDetection": {
+        "text": "when chassis hits an obstacle",
+        "description": "text on block"
+      },
+      "isImpact": {
+        "text": "chassis hits an obstacle",
+        "description": "text on block"
+      }
+    },
+    "menus": {
+      "pwm_port": {
+        "message": [
+          "PWP_all",
+          "PWP_1",
+          "PWP_2",
+          "PWP_3",
+          "PWP_4",
+          "PWP_5",
+          "PWP_6"
+        ],
+        "description": "text in menu"
+      },
+      "status": {
+        "message": [
+          "Enable",
+          "Disable"
+        ],
+        "description": "text in menu"
+      },
+      "direction": {
+        "message": [
+          "right",
+          "left"
+        ],
+        "description": "text in menu"
+      },
+      "attitude": {
+        "message": [
+          "yaw",
+          "pitch",
+          "roll"
+        ],
+        "description": "text in menu"
+      },
+      "action": {
+        "message": [
+          "orientation",
+          "X coordinate",
+          "Y coordinate",
+          "Z coordinate"
+        ],
+        "description": "text in menu"
+      }
+    }
+  },
+  "ExtensionModule": {
+    "name": "ExtensionModule",
+    "description": "name of tab",
+    "blocks": {
+      "arm": {
+        "text": "",
+        "description": "text on block"
+      },
+      "grabber": {
+        "text": "",
+        "description": "text on block"
+      },
+      "setGripper": {
+        "text": "set gripper to [action]",
+        "description": "text on block"
+      },
+      "armMove": {
+        "text": "move arm [direction] distance:[distance]mm",
+        "description": "text on block"
+      },
+      "armMoveTo": {
+        "text": "move arm to (X:[x] Y:[y])",
+        "description": "text on block"
+      }
+    },
+    "menus": {
+      "gripperActions": {
+        "message": [
+          "open",
+          "close",
+          "stop"
+        ],
+        "description": "text in menu"
+      },
+      "armPositions": {
+        "message": [
+          "up",
+          "down"
+        ],
+        "description": "text in menu"
+      },
+      "armDirection": {
+        "message": [
+          "forward",
+          "backward",
+          "up",
+          "bottom"
+        ],
+        "description": "text in menu"
+      }
+    }
+  },
+  "LedEffects": {
+    "name": "LedEffects",
+    "description": "name of tab",
+    "blocks": {
+      "setFlash": {
+        "text": "set [led] LED flash rate to [frequency]Hz",
+        "description": "text on block"
+      },
+      "setBottomLed": {
+        "text": "set chassis [led] LED color to [color] and effect to [effect]",
+        "description": "text on block"
+      },
+      "setTopLed": {
+        "text": "set gimbal [led] LED color to [color] and effect to [effect]",
+        "description": "text on block"
+      },
+      "setSignleLed": {
+        "text": "set gimbal [led] LED sequence to [index] and effect to [effect]",
+        "description": "text on block"
+      },
+      "turnOff": {
+        "text": "set gimbal [led] LED color to [color]",
+        "description": "text on block"
+      }
+    },
+    "menus": {
+      "armorFlash": {
+        "message": [
+          "all",
+          "bottom front",
+          "bottom back",
+          "bottom left",
+          "bottom right",
+          "top left",
+          "top right"
+        ],
+        "description": "text in menu"
+      },
+      "armorBottomLed": {
+        "message": [
+          "bottom all",
+          "bottom front",
+          "bottom back",
+          "bottom left",
+          "bottom right"
+        ],
+        "description": "text in menu"
+      },
+      "armorTopLed": {
+        "message": [
+          "top all",
+          "top left",
+          "top right"
+        ],
+        "description": "text in menu"
+      },
+      "color": {
+        "message": [
+          "red",
+          "green",
+          "blue",
+          "yellow",
+          "cyan",
+          "purple",
+          "white"
+        ],
+        "description": "text in menu"
+      },
+      "effect": {
+        "message": [
+          "solid",
+          "breath",
+          "flash",
+          "off"
+        ],
+        "description": "text in menu"
+      }
+    }
+  },
+  "Media": {
+    "name": "Media",
+    "description": "name of tab",
+    "blocks": {
+      "say": {
+        "text": "",
+        "description": "text on block"
+      },
+      "playNote": {
+        "text": "jouer la note [note]",
+        "description": "text on block"
+      },
+      "playSoundEffect": {
+        "text": "jouer un effet sonore pour [effect]",
+        "description": "text on block"
+      },
+      "playSoundEffectUntilDone": {
+        "text": "jouer l'effet sonore [effect] jusqu'à la fin",
+        "description": "text on block"
+      },
+      "playCustomAudio": {
+        "text": "Lire audio personnalisé [audio]",
+        "description": "text on block"
+      },
+      "playCustomAudioUntilDone": {
+        "text": "Lire audio personnalisé [audio] jusqu'à la fin",
+        "description": "text on block"
+      },
+      "takePhoto": {
+        "text": "prendre une photo",
+        "description": "text on block"
+      },
+      "startVideoRecording": {
+        "text": "[action] l'enregistrement vidéo",
+        "description": "text on block"
+      }
+    },
+    "menus": {
+      "notes": {
+        "message": [
+          "1C",
+          "1D",
+          "1E",
+          "1F",
+          "1G",
+          "1A",
+          "1B",
+          "2C",
+          "2D",
+          "2E",
+          "2F",
+          "2G",
+          "2A",
+          "2B",
+          "3C",
+          "3D",
+          "3E",
+          "3F",
+          "3G",
+          "3A",
+          "3B"
+        ],
+        "description": "text in menu"
+      },
+      "soundEffects": {
+        "message": [
+          "impact",
+          "hit",
+          "explosion",
+          "alert"
+        ],
+        "description": "text in menu"
+      },
+      "customAudio": {
+        "message": [
+          "audio1",
+          "audio2",
+          "audio3"
+        ],
+        "description": "text in menu"
+      },
+      "recordingActions": {
+        "message": [
+          "start",
+          "stop"
+        ],
+        "description": "text in menu"
+      }
+    }
+  },
+  "RobomasterBasics": {
+    "name": "RobomasterBasics",
+    "description": "name of tab",
+    "blocks": {
+      "start": {
+        "text": "Connect to robot [sn]",
+        "description": "text on block"
+      },
+      "stop": {
+        "text": "set chassis to stop moving",
+        "description": "text on block"
+      }
+    },
+    "menus": {
+      "sn": {
+        "message": "NoTranslation",
+        "description": "text in menu"
+      }
+    }
+  },
+  "Sensor": {
+    "name": "Sensor",
+    "description": "name of tab",
+    "blocks": {
+      "setInfraredSensor": {
+        "text": "capteur de distance infrarouge [status] fonctions de mesures [sensor]",
+        "description": "text on block"
+      },
+      "whenInfraredDistance": {
+        "text": "quand le capteur de distance infrarouge [sensor] détecte une distance de [operator] [value] cm",
+        "description": "text on block"
+      },
+      "waitUntilInfraredDistance": {
+        "text": "attendez que la valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]",
+        "description": "text on block"
+      },
+      "isInfraredDistance": {
+        "text": "valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]",
+        "description": "text on block"
+      },
+      "getInfraredDistance": {
+        "text": "capteur de distance infrarouge [sensor] valeur de distance",
+        "description": "text on block"
+      }
+    },
+    "menus": {
+      "sensorStatus": {
+        "message": [
+          "activer",
+          "désactiver"
+        ],
+        "description": "text in menu"
+      },
+      "operators": {
+        "message": [
+          ">=",
+          "<=",
+          "="
+        ],
+        "description": "text in menu"
+      }
+    }
+  },
+  "SensorAdapter": {
+    "name": "SensorAdapter",
+    "description": "name of tab",
+    "blocks": {},
+    "menus": {}
+  },
+  "Smart": {
+    "name": "Smart",
+    "description": "name of tab",
+    "blocks": {
+      "setClapsDetection": {
+        "text": "[status] la détection des applaudissements",
+        "description": "text on block"
+      },
+      "setExposureValue": {
+        "text": "définir la valeur d'exposition à [exposure]",
+        "description": "text on block"
+      },
+      "whenRobotIdentifies": {
+        "text": "quand le robot identifie [target]",
+        "description": "text on block"
+      },
+      "whenRobotIdentifiesClaps": {
+        "text": "quand le robot identifie [claps]",
+        "description": "text on block"
+      },
+      "enableIdentification": {
+        "text": "[action] l'identification de [feature]",
+        "description": "text on block"
+      },
+      "setMarkerIdentificationDistance": {
+        "text": "définir la distance d'identification des marqueurs visuels à [distance] m",
+        "description": "text on block"
+      },
+      "setMarkerColor": {
+        "text": "définir [color] comme couleur d'identification du marqueur visuel",
+        "description": "text on block"
+      },
+      "setLineColor": {
+        "text": "définir le [color] comme la couleur d'identification de la ligne",
+        "description": "text on block"
+      },
+      "getMarkerInfo": {
+        "text": "infos sur le marqueur visuel identifié",
+        "description": "text on block"
+      },
+      "getPersonInfo": {
+        "text": "infos sur [target] identifié(e)",
+        "description": "text on block"
+      },
+      "getGestureInfo": {
+        "text": "infos sur le geste identifié",
+        "description": "text on block"
+      },
+      "getLineInfo": {
+        "text": "infos sur la ligne identifiée",
+        "description": "text on block"
+      },
+      "getLinesInfo": {
+        "text": "infos sur les lignes identifiées",
+        "description": "text on block"
+      },
+      "getCurrentBrightness": {
+        "text": "luminosité actuelle",
+        "description": "text on block"
+      },
+      "getAimingPosition": {
+        "text": "position de visée",
+        "description": "text on block"
+      },
+      "waitUntilIdentifies": {
+        "text": "attendre jusqu'à l'identification de [target]",
+        "description": "text on block"
+      },
+      "waitUntilClaps": {
+        "text": "attendre jusqu'à l'identification de [claps]",
+        "description": "text on block"
+      }
+    },
+    "menus": {
+      "exposureValues": {
+        "message": [
+          "élevée",
+          "moyenne",
+          "basse"
+        ],
+        "description": "text in menu"
+      },
+      "targetTypes": {
+        "message": [
+          "coeur rouge",
+          "cercle bleu",
+          "triangle vert"
+        ],
+        "description": "text in menu"
+      },
+      "identificationTargets": {
+        "message": [
+          "personnes",
+          "marqueurs visuels",
+          "gestes"
+        ],
+        "description": "text in menu"
+      },
+      "clapTypes": {
+        "message": [
+          "2 applaudissements",
+          "1 applaudissement",
+          "3 applaudissements"
+        ],
+        "description": "text in menu"
+      },
+      "actionTypes": {
+        "message": [
+          "activer",
+          "désactiver"
+        ],
+        "description": "text in menu"
+      },
+      "featureTypes": {
+        "message": [
+          "marqueurs visuels",
+          "lignes",
+          "applaudissements"
+        ],
+        "description": "text in menu"
+      },
+      "markerColors": {
+        "message": [
+          "rouge",
+          "vert",
+          "bleu",
+          "jaune"
+        ],
+        "description": "text in menu"
+      },
+      "lineColors": {
+        "message": [
+          "bleu",
+          "rouge",
+          "vert",
+          "jaune"
+        ],
+        "description": "text in menu"
+      },
+      "personTypes": {
+        "message": [
+          "personnes",
+          "robots S1"
+        ],
+        "description": "text in menu"
+      },
+      "waitTargets": {
+        "message": [
+          "personnes",
+          "marqueurs visuels",
+          "gestes"
+        ],
+        "description": "text in menu"
+      }
+    }
+  }
 }

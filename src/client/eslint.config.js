@@ -16,5 +16,5 @@ export default defineConfig([
     globalIgnores(['**/node_modules/', '**/build/', '**/out/']),
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
-    eslintPluginPrettierRecommended
+    eslintPluginPrettierRecommended,
 ])

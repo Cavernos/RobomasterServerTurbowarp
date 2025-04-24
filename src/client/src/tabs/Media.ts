@@ -34,20 +34,20 @@ export const Media = {
                 effect: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'soundEffects',
-                    defaultValue: language.getMessage("soundEffects")[0],
+                    defaultValue: language.getMessage('soundEffects')[0],
                 },
             }
         ),
         new Block(
             'playSoundEffectUntilDone',
             Scratch.BlockType.COMMAND,
-            "play sound effect [effect] until done",
+            'play sound effect [effect] until done',
 
             {
                 effect: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'soundEffects',
-                    defaultValue: language.getMessage("soundEffects")[0],
+                    defaultValue: language.getMessage('soundEffects')[0],
                 },
             }
         ),
@@ -59,35 +59,33 @@ export const Media = {
             {
                 audio: {
                     type: Scratch.ArgumentType.STRING,
-                    defaultValue: "file name",
+                    defaultValue: 'file name',
                 },
             }
         ),
         new Block(
             'playCustomAudioUntilDone',
             Scratch.BlockType.COMMAND,
-            "play custom audio [audio] until done",
+            'play custom audio [audio] until done',
 
             {
                 audio: {
                     type: Scratch.ArgumentType.STRING,
-                    defaultValue: "file name",
+                    defaultValue: 'file name',
                 },
             }
         ),
-        new Block('takePhoto', Scratch.BlockType.COMMAND, 
-            'take a photo'
-        ),
+        new Block('takePhoto', Scratch.BlockType.COMMAND, 'take a photo'),
         new Block(
             'startVideoRecording',
             Scratch.BlockType.COMMAND,
-            "[action] register audio",
+            '[action] register audio',
 
             {
                 action: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'recordingActions',
-                    defaultValue: language.getMessage("recordingActions")[0],
+                    defaultValue: language.getMessage('recordingActions')[0],
                 },
             }
         ),
@@ -115,8 +113,16 @@ export const Media = {
             '3G',
             '3A',
             '3B',
-        ] ),
-        soundEffects: language.getMessage('soundEffects', ['impact', 'hit', 'explosion', 'alert']),
-        recordingActions: language.getMessage('recordingActions', ['start', 'stop'] )
+        ]),
+        soundEffects: language.getMessage('soundEffects', [
+            'impact',
+            'hit',
+            'explosion',
+            'alert',
+        ]),
+        recordingActions: language.getMessage('recordingActions', [
+            'start',
+            'stop',
+        ]),
     },
 }

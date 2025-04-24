@@ -67,8 +67,13 @@ export const Armor = {
         ),
     ],
     menus: {
-        armorPosition:
-            language.getMessage('armorPosition', ['random', 'front', 'back', 'left', 'right']),
-        armorInfo: language.getMessage('armorInfo', ['ID', 'time'])
+        armorPosition: language.getMessage('armorPosition', [
+            'random',
+            'front',
+            'back',
+            'left',
+            'right',
+        ]),
+        armorInfo: language.getMessage('armorInfo', ['ID', 'time']),
     },
 }

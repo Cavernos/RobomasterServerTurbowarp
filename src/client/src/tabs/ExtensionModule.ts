@@ -6,18 +6,19 @@ import { language } from '#config'
 export const ExtensionModule = {
     color: '#F24A88',
     blocks: [
-        new Block('arm', Scratch.BlockType.COMMAND, 
-            'set arm to position [position]', 
+        new Block(
+            'arm',
+            Scratch.BlockType.COMMAND,
+            'set arm to position [position]',
             {
-            position: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'armPositions',
-                defaultValue: language.getMessage('armPositions')[0],
-            },
-        }),
-        new Block('grabber', Scratch.BlockType.COMMAND, 
-            '[action] arm', 
-            {
+                position: {
+                    type: Scratch.ArgumentType.STRING,
+                    menu: 'armPositions',
+                    defaultValue: language.getMessage('armPositions')[0],
+                },
+            }
+        ),
+        new Block('grabber', Scratch.BlockType.COMMAND, '[action] arm', {
             action: {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'gripperActions',
@@ -70,8 +71,17 @@ export const ExtensionModule = {
         ),
     ],
     menus: {
-        gripperActions: language.getMessage('gripperActions', ["open", "close", "stop"]),
-        armPositions: language.getMessage('armPositions', ["up", "down"]),
-        armDirection: language.getMessage('armDirection', ["forward", "backward", "up", "bottom"]),
+        gripperActions: language.getMessage('gripperActions', [
+            'open',
+            'close',
+            'stop',
+        ]),
+        armPositions: language.getMessage('armPositions', ['up', 'down']),
+        armDirection: language.getMessage('armDirection', [
+            'forward',
+            'backward',
+            'up',
+            'bottom',
+        ]),
     },
 }

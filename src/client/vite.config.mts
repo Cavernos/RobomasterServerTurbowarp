@@ -17,9 +17,9 @@ export default ({ mode }) => {
             manifest: true,
             minify: true,
             lib: {
-                name: 'RobomasterScratchExtension',
+                name: 'RobomasterTurbowarpExtension',
                 entry: 'main.ts',
-                fileName: `extension-${mode}`,
+                fileName: `${process.env.npm_package_name}_${mode}-${process.env.npm_package_version}`,
                 formats: ['es'],
             },
             watch: null,

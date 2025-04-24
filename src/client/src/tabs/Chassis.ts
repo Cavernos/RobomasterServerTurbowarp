@@ -188,7 +188,7 @@ export const Chassis = {
                 direction: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'direction',
-                    defaultValue: language.getMessage("direction")[0],
+                    defaultValue: language.getMessage('direction')[0],
                 },
                 time: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -205,7 +205,7 @@ export const Chassis = {
                 direction: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'direction',
-                    defaultValue: language.getMessage("direction")[0],
+                    defaultValue: language.getMessage('direction')[0],
                 },
                 degree: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -226,7 +226,7 @@ export const Chassis = {
                 direction: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'direction',
-                    defaultValue: language.getMessage("direction")[0],
+                    defaultValue: language.getMessage('direction')[0],
                 },
             }
         ),
@@ -294,22 +294,22 @@ export const Chassis = {
     ],
     menus: {
         pwm_port: language.getMessage('pwm_port', [
-            "PWP_all",
-            "PWP_1",
-            "PWP_2",
-            "PWP_3",
-            "PWP_4",
-            "PWP_5",
-            "PWP_6"
+            'PWP_all',
+            'PWP_1',
+            'PWP_2',
+            'PWP_3',
+            'PWP_4',
+            'PWP_5',
+            'PWP_6',
         ]),
-        status: language.getMessage('status', ["Enable", "Disable"]),
-        direction: language.getMessage('direction', ["right", "left"]),
-        attitude: language.getMessage('attitude', ["yaw", "pitch", "roll"]),
+        status: language.getMessage('status', ['Enable', 'Disable']),
+        direction: language.getMessage('direction', ['right', 'left']),
+        attitude: language.getMessage('attitude', ['yaw', 'pitch', 'roll']),
         action: language.getMessage('action', [
-            "orientation",
-            "X coordinate",
-            "Y coordinate",
-            "Z coordinate"
-        ])
+            'orientation',
+            'X coordinate',
+            'Y coordinate',
+            'Z coordinate',
+        ]),
     },
 }

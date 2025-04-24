@@ -111,29 +111,41 @@ export const LedEffects = {
         ),
     ],
     menus: {
-        armorFlash:
-            language.getMessage('armorFlash', [
-                'all',
-                'bottom front',
-                'bottom back',
-                'bottom left',
-                'bottom right',
-                'top left',
-                'top right',
-            ]),
-        armorBottomLed:
-            language.getMessage('armorBottomLed', [
-                'bottom all',
-                'bottom front',
-                'bottom back',
-                'bottom left',
-                'bottom right',
-            ]),
-        armorTopLed:
-            language.getMessage('armorTopLed', ['top all', 'top left', 'top right']),
-        color:
-            language.getMessage('color', ['red', 'green', 'blue', 'yellow', 'cyan', 'purple', 'white']),
-        effect:
-            language.getMessage('effect', ['solid', 'breath', 'flash', 'off'])
+        armorFlash: language.getMessage('armorFlash', [
+            'all',
+            'bottom front',
+            'bottom back',
+            'bottom left',
+            'bottom right',
+            'top left',
+            'top right',
+        ]),
+        armorBottomLed: language.getMessage('armorBottomLed', [
+            'bottom all',
+            'bottom front',
+            'bottom back',
+            'bottom left',
+            'bottom right',
+        ]),
+        armorTopLed: language.getMessage('armorTopLed', [
+            'top all',
+            'top left',
+            'top right',
+        ]),
+        color: language.getMessage('color', [
+            'red',
+            'green',
+            'blue',
+            'yellow',
+            'cyan',
+            'purple',
+            'white',
+        ]),
+        effect: language.getMessage('effect', [
+            'solid',
+            'breath',
+            'flash',
+            'off',
+        ]),
     },
 }

@@ -19,7 +19,7 @@ export const Sensor = {
                 status: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'sensorStatus',
-                    defaultValue: language.getMessage("sensorStatus")[0],
+                    defaultValue: language.getMessage('sensorStatus')[0],
                 },
             }
         ),
@@ -100,7 +100,10 @@ export const Sensor = {
         ),
     ],
     menus: {
-        sensorStatus: language.getMessage('sensorStatus', ['enable', 'disable']),
+        sensorStatus: language.getMessage('sensorStatus', [
+            'enable',
+            'disable',
+        ]),
         operators: language.getMessage('operators', ['>=', '<=', '=']),
     },
 }

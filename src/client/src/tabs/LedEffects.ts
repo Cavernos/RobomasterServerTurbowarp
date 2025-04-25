@@ -1,14 +1,13 @@
 import { Block } from '#robomaster_turbowarp_extension/Block.ts'
 import { language } from '#config'
 
-
 export const LedEffects = {
     color: '#58C0A6',
     blocks: [
         new Block(
             'setFlash',
             Scratch.BlockType.COMMAND,
-            'set [led] LED flash rate to [frequency]Hz',
+            'Set [led] LED flash rate to [frequency]Hz',
 
             {
                 led: {
@@ -25,7 +24,7 @@ export const LedEffects = {
         new Block(
             'setBottomLed',
             Scratch.BlockType.COMMAND,
-            'set chassis [led] LED color to [color] and effect to [effect]',
+            'Set chassis [led] LED color to [color] and effect to [effect]',
 
             {
                 led: {
@@ -48,7 +47,7 @@ export const LedEffects = {
         new Block(
             'setTopLed',
             Scratch.BlockType.COMMAND,
-            'set gimbal [led] LED color to [color] and effect to [effect]',
+            'Set gimbal [led] LED color to [color] and effect to [effect]',
 
             {
                 led: {
@@ -71,7 +70,7 @@ export const LedEffects = {
         new Block(
             'setSignleLed',
             Scratch.BlockType.COMMAND,
-            'set gimbal [led] LED sequence to [index] and effect to [effect]',
+            'Set gimbal [led] LED sequence to [index] and effect to [effect]',
 
             {
                 led: {
@@ -93,7 +92,7 @@ export const LedEffects = {
         new Block(
             'turnOff',
             Scratch.BlockType.COMMAND,
-            'set gimbal [led] LED color to [color]',
+            'Set gimbal [led] LED color to [color]',
 
             {
                 led: {

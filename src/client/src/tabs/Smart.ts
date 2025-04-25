@@ -19,7 +19,7 @@ export const Smart = {
         new Block(
             'setExposureValue',
             Scratch.BlockType.COMMAND,
-            'set exposure value to [exposure]',
+            'Set exposure value to [exposure]',
 
             {
                 exposure: {
@@ -32,7 +32,7 @@ export const Smart = {
         new Block(
             'whenRobotIdentifies',
             Scratch.BlockType.EVENT,
-            'when [target] identified',
+            'When [target] identified',
 
             {
                 target: {
@@ -47,7 +47,7 @@ export const Smart = {
         new Block(
             'whenRobotIdentifiesClaps',
             Scratch.BlockType.EVENT,
-            'when robot identifies [claps]',
+            'When robot identifies [claps]',
 
             {
                 claps: {
@@ -78,7 +78,7 @@ export const Smart = {
         new Block(
             'setMarkerIdentificationDistance',
             Scratch.BlockType.COMMAND,
-            'define visual marks distance to [distance] m',
+            'Define visual marks distance to [distance] m',
 
             {
                 distance: {
@@ -90,7 +90,7 @@ export const Smart = {
         new Block(
             'setMarkerColor',
             Scratch.BlockType.COMMAND,
-            'define [color] to identification color for visual marks',
+            'Define [color] to identification color for visual marks',
 
             {
                 color: {
@@ -103,7 +103,7 @@ export const Smart = {
         new Block(
             'setLineColor',
             Scratch.BlockType.COMMAND,
-            'define [color] to identification color of line',
+            'Define [color] to identification color of line',
 
             {
                 color: {
@@ -116,12 +116,12 @@ export const Smart = {
         new Block(
             'getMarkerInfo',
             Scratch.BlockType.REPORTER,
-            'infos about identified marks'
+            'Infos about identified marks'
         ),
         new Block(
             'getPersonInfo',
             Scratch.BlockType.REPORTER,
-            'infos about identified [target]',
+            'Infos about identified [target]',
 
             {
                 target: {
@@ -134,27 +134,27 @@ export const Smart = {
         new Block(
             'getGestureInfo',
             Scratch.BlockType.REPORTER,
-            'infos on identified gesture'
+            'Infos on identified gesture'
         ),
         new Block(
             'getLineInfo',
             Scratch.BlockType.REPORTER,
-            'infos on identified line'
+            'Infos on identified line'
         ),
         new Block(
             'getLinesInfo',
             Scratch.BlockType.REPORTER,
-            'infos on identified lines'
+            'Infos on identified lines'
         ),
         new Block(
             'getCurrentBrightness',
             Scratch.BlockType.REPORTER,
-            'get current brightness'
+            'Get current brightness'
         ),
         new Block(
             'waitUntilIdentifies',
             Scratch.BlockType.COMMAND,
-            'wait until identification of [target]',
+            'Wait until identification of [target]',
 
             {
                 target: {
@@ -167,13 +167,13 @@ export const Smart = {
         new Block(
             'waitUntilClaps',
             Scratch.BlockType.COMMAND,
-            'wait until [claps] identification',
+            'Wait until [claps] identification',
 
             {
                 claps: {
                     type: Scratch.ArgumentType.STRING,
                     menu: 'clapTypes',
-                    defaultValue: language.getMessage('clapTypes'),
+                    defaultValue: language.getMessage('clapTypes')[0],
                 },
             }
         ),

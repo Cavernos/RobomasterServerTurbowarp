@@ -7,7 +7,7 @@ export const Sensor = {
         new Block(
             'setInfraredSensor',
             Scratch.BlockType.COMMAND,
-            'ir distance captor [status] mesurement function [sensor]',
+            'IR distance captor [status] mesurement function [sensor]',
 
             {
                 sensor: {
@@ -24,7 +24,7 @@ export const Sensor = {
         new Block(
             'whenInfraredDistance',
             Scratch.BlockType.EVENT,
-            'when ir captor [sensor] distance [operator] [value] cm',
+            'When IR captor [sensor] distance [operator] [value] cm',
 
             {
                 sensor: {
@@ -45,7 +45,7 @@ export const Sensor = {
         new Block(
             'waitUntilInfraredDistance',
             Scratch.BlockType.COMMAND,
-            'wait until [operator] [value] cm with ir captor [sensor]',
+            'Wait until [operator] [value] cm with IR captor [sensor]',
 
             {
                 operator: {
@@ -66,7 +66,7 @@ export const Sensor = {
         new Block(
             'isInfraredDistance',
             Scratch.BlockType.BOOLEAN,
-            'distance [operator] [value] cm from ir captor [sensor]',
+            'Distance [operator] [value] cm from IR captor [sensor]',
 
             {
                 operator: {
@@ -87,7 +87,7 @@ export const Sensor = {
         new Block(
             'getInfraredDistance',
             Scratch.BlockType.REPORTER,
-            'get ir distance [sensor] from ir captor',
+            'Get IR distance [sensor] from IR captor',
 
             {
                 sensor: {

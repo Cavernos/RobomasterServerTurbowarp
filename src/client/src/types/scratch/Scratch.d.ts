@@ -1,4 +1,84 @@
 declare namespace Scratch {
+     // TW
+  const vm: VM;
+  const renderer: RenderWebGL;
+  // Permission requests here always return a promise, but the security manager methods themselves
+  // can return either a boolean or promise.
+  function fetch(url: string, options?: RequestInit): Promise<Response>;
+  function canFetch(url: string): Promise<boolean>;
+  function openWindow(url: string, features?: string): Promise<Window | null>;
+  function canOpenWindow(url: string): Promise<boolean>;
+  function redirect(url: string): Promise<void>;
+  function canRedirect(url: string): Promise<boolean>;
+  function canRecordAudio(): Promise<boolean>;
+  function canRecordVideo(): Promise<boolean>;
+  function canReadClipboard(): Promise<boolean>;
+  function canNotify(): Promise<boolean>;
+  function canEmbed(): Promise<boolean>;
+  function canDownload(url: string, name: string): Promise<boolean>;
+  function download(url: string, name: string): Promise<void>;
+  namespace Cast {
+    function toNumber(value: unknown): number;
+    function toString(value: unknown): string;
+    function toBoolean(value: unknown): boolean;
+    /**
+     * @returns 0 if a == b, less than 0 if b is greater, greater than 0 if a is greater.
+     * Do not compare to 1 or -1! You must always use === 0, < 0, or > 0.
+     */
+    function compare(a: unknown, b: unknown): number;
+    /**
+     * @returns all channels 0-255
+     */
+    function toRgbColorList(value: unknown): [number, number, number];
+    /**
+     * @returns all channels 0-255
+     */
+    function toRgbColorObject(value: unknown): {r: number, g: number, b: number, a: number};
+    /**
+     * note: for compatibility with a Scratch bug this returns false for tab characters ('\t')
+     */
+    function isWhiteSpace(value: unknown): boolean;
+    function isInt(value: unknown): boolean;
+    const LIST_INVALID = 'INVALID';
+    const LIST_ALL = 'ALL';
+    function toListIndex(index: unknown, length: number, acceptAll: false): number | 'INVALID';
+    function toListIndex(index: unknown, length: number, acceptAll: true): number | 'INVALID' | 'ALL';
+    function toListIndex(index: unknown, length: number, acceptAll: boolean): number | 'INVALID' | 'ALL';
+  }
+  type TranslatableString = string | {
+    id?: string;
+    default: string;
+    description?: string;
+  }
+  function translate(string: TranslatableString, variables?: Record<string, string>): string;
+  namespace translate {
+    function setup(translations: Record<string, Record<string, string>>): void;
+    /** Current language. May change while the project runs. Possible values: "en", "es", "it", etc. */
+    let language: string;
+  }
+  /**
+   * Only available when run in a scratch-gui environment (website, desktop app).
+   * In other environments (packager), will be undefined.
+   */
+  namespace gui {
+    /**
+     * Lazily get the internal ScratchBlocks object when it becomes available. It may never be
+     * available if, for example, the user never enters the editor.
+     *
+     * ScratchBlocks becoming available does not necessarily mean the user is in the editor due
+     * to getBlocklyEagerly() also existing.
+     */
+    function getBlockly(): Promise<ScratchBlocks.RealBlockly>;
+    /**
+     * Get the internal ScratchBlocks object as soon as possible. This lets you access it even
+     * if the user never enters the editor.
+     *
+     * This method is VERY SLOW and will cause A LOT OF CPU AND NETWORK ACTIVITY because it
+     * downloads and evaluates all of scratch-blocks, a multi-megabyte JavaScript bundle.
+     */
+    function getBlocklyEagerly(): Promise<ScratchBlocks.RealBlockly>;
+  }
+  
     // Note that the 'B' in the BOOLEAN enums are capitalized in Scratch. It is not a typo in this file.
 
     namespace ArgumentType {

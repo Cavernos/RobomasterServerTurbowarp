@@ -30,7 +30,7 @@ export const Chassis = {
         new Block(
             'setPwmValue',
             Scratch.BlockType.COMMAND,
-            'set [pwm] output to [value]%',
+            'Set [pwm] output to [value]%',
 
             {
                 pwm: {
@@ -60,7 +60,7 @@ export const Chassis = {
         new Block(
             'setFollowGimbalOffset',
             Scratch.BlockType.COMMAND,
-            'set chassis to follow gimbal at [degree]°',
+            'Set chassis to follow gimbal at [degree]°',
 
             {
                 degree: {
@@ -72,7 +72,7 @@ export const Chassis = {
         new Block(
             'setTransSpeed',
             Scratch.BlockType.COMMAND,
-            'set chassis translation speed to [speed]m/s',
+            'Set chassis translation speed to [speed]m/s',
 
             {
                 speed: {
@@ -84,7 +84,7 @@ export const Chassis = {
         new Block(
             'setRotateSpeed',
             Scratch.BlockType.COMMAND,
-            'set chassis rotation speed to [speed]°/s',
+            'Set chassis rotation speed to [speed]°/s',
 
             {
                 speed: {
@@ -96,7 +96,7 @@ export const Chassis = {
         new Block(
             'setWheelSpeed',
             Scratch.BlockType.COMMAND,
-            'set wheel rotation speed (rpm) to front-left [fl] front-right [fr] rear-left [rl] rear-right [rr]',
+            'Set wheel rotation speed (rpm) to front-left [fl] front-right [fr] rear-left [rl] rear-right [rr]',
 
             {
                 fl: {
@@ -118,9 +118,9 @@ export const Chassis = {
             }
         ),
         new Block(
-            'move',
+            'moveForward',
             Scratch.BlockType.COMMAND,
-            'set chassis to translate at [degree]°',
+            'Set chassis to translate at [degree]°',
 
             {
                 degree: {
@@ -132,7 +132,7 @@ export const Chassis = {
         new Block(
             'moveWithTime',
             Scratch.BlockType.COMMAND,
-            'set chassis to translate at [degree]° for [time]s',
+            'Set chassis to translate at [degree]° for [time]s',
 
             {
                 degree: {
@@ -148,7 +148,7 @@ export const Chassis = {
         new Block(
             'moveWithDistance',
             Scratch.BlockType.COMMAND,
-            'set chassis to translate at [degree]° for [distance]m',
+            'Set chassis to translate at [degree]° for [distance]m',
 
             {
                 degree: {
@@ -164,7 +164,7 @@ export const Chassis = {
         new Block(
             'moveDegreeWithSpeed',
             Scratch.BlockType.COMMAND,
-            'set chassis to translate [degree]° at [speed]m/s',
+            'Set chassis to translate [degree]° at [speed]m/s',
 
             {
                 degree: {
@@ -180,7 +180,7 @@ export const Chassis = {
         new Block(
             'rotateWithTime',
             Scratch.BlockType.COMMAND,
-            'set chassis to rotate [direction] for [time]s',
+            'Set chassis to rotate [direction] for [time]s',
 
             {
                 direction: {
@@ -197,7 +197,7 @@ export const Chassis = {
         new Block(
             'rotateWithDegree',
             Scratch.BlockType.COMMAND,
-            'set chassis to rotate [direction] for [degree]°',
+            'Set chassis to rotate [direction] for [degree]°',
 
             {
                 direction: {
@@ -214,7 +214,7 @@ export const Chassis = {
         new Block(
             'moveAndRotate',
             Scratch.BlockType.COMMAND,
-            'set robot to translate towards chassis front at [degree]° and rotate [direction]',
+            'Set robot to translate towards chassis front at [degree]° and rotate [direction]',
 
             {
                 degree: {
@@ -231,7 +231,7 @@ export const Chassis = {
         new Block(
             'moveWithSpeed',
             Scratch.BlockType.COMMAND,
-            'set robot to translate at [xspeed]m/s along X axis and [yspeed] along Y axis and rotate along Z axis at [rotation]°/s',
+            'Set robot to translate at [xspeed]m/s along X axis and [yspeed] along Y axis and rotate along Z axis at [rotation]°/s',
 
             {
                 xspeed: {
@@ -251,14 +251,12 @@ export const Chassis = {
         new Block(
             'stop',
             Scratch.BlockType.COMMAND,
-            'set chassis to stop moving',
-            {},
-            true
+            'Set chassis to stop moving'
         ),
         new Block(
             'getAttitude',
             Scratch.BlockType.REPORTER,
-            'chassis [attitude] axis attitude angle',
+            'Chassis [attitude] axis attitude angle',
             {
                 attitude: {
                     type: Scratch.ArgumentType.STRING,
@@ -270,7 +268,7 @@ export const Chassis = {
         new Block(
             'getPositionBasePowerOn',
             Scratch.BlockType.REPORTER,
-            'current chassis position [action]',
+            'Current chassis position [action]',
             {
                 action: {
                     type: Scratch.ArgumentType.STRING,
@@ -282,12 +280,12 @@ export const Chassis = {
         new Block(
             'chassisImpactDetection',
             Scratch.BlockType.EVENT,
-            'when chassis hits an obstacle'
+            'When chassis hits an obstacle'
         ),
         new Block(
             'isImpact',
             Scratch.BlockType.BOOLEAN,
-            'chassis hits an obstacle'
+            'Chassis hits an obstacle'
         ),
     ],
     menus: {

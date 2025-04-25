@@ -4,7 +4,7 @@ import { language } from '#config'
 export const Media = {
     color: '#67AD5B',
     blocks: [
-        new Block('say', Scratch.BlockType.COMMAND, '', {
+        new Block('say', Scratch.BlockType.COMMAND, 'Say [say]', {
             say: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'Hello',
@@ -13,7 +13,7 @@ export const Media = {
         new Block(
             'playNote',
             Scratch.BlockType.COMMAND,
-            'play note [note]',
+            'Play note [note]',
 
             {
                 note: {
@@ -26,7 +26,7 @@ export const Media = {
         new Block(
             'playSoundEffect',
             Scratch.BlockType.COMMAND,
-            'play sound effect [effect]',
+            'Play sound effect [effect]',
 
             {
                 effect: {
@@ -39,7 +39,7 @@ export const Media = {
         new Block(
             'playSoundEffectUntilDone',
             Scratch.BlockType.COMMAND,
-            'play sound effect [effect] until done',
+            'Play sound effect [effect] until done',
 
             {
                 effect: {
@@ -52,7 +52,7 @@ export const Media = {
         new Block(
             'playCustomAudio',
             Scratch.BlockType.COMMAND,
-            'play custom audio [audio]',
+            'Play custom audio [audio]',
 
             {
                 audio: {
@@ -64,7 +64,7 @@ export const Media = {
         new Block(
             'playCustomAudioUntilDone',
             Scratch.BlockType.COMMAND,
-            'play custom audio [audio] until done',
+            'Play custom audio [audio] until done',
 
             {
                 audio: {

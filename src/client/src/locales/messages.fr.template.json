@@ -30,7 +30,7 @@
         },
         "menus": {
             "armorPosition": {
-                "message": ["ID", "time"],
+                "message": ["random", "front", "back", "left", "right"],
                 "description": "text in menu"
             },
             "armorInfo": {
@@ -165,11 +165,11 @@
         "description": "name of tab",
         "blocks": {
             "arm": {
-                "text": "",
+                "text": "set arm to position [position]",
                 "description": "text on block"
             },
             "grabber": {
-                "text": "",
+                "text": "[action] arm",
                 "description": "text on block"
             },
             "setGripper": {
@@ -275,35 +275,35 @@
         "description": "name of tab",
         "blocks": {
             "say": {
-                "text": "",
+                "text": "NoTranslation",
                 "description": "text on block"
             },
             "playNote": {
-                "text": "jouer la note [note]",
+                "text": "play note [note]",
                 "description": "text on block"
             },
             "playSoundEffect": {
-                "text": "jouer un effet sonore pour [effect]",
+                "text": "play sound effect [effect]",
                 "description": "text on block"
             },
             "playSoundEffectUntilDone": {
-                "text": "jouer l'effet sonore [effect] jusqu'à la fin",
+                "text": "play sound effect [effect] until done",
                 "description": "text on block"
             },
             "playCustomAudio": {
-                "text": "Lire audio personnalisé [audio]",
+                "text": "play custom audio [audio]",
                 "description": "text on block"
             },
             "playCustomAudioUntilDone": {
-                "text": "Lire audio personnalisé [audio] jusqu'à la fin",
+                "text": "play custom audio [audio] until done",
                 "description": "text on block"
             },
             "takePhoto": {
-                "text": "prendre une photo",
+                "text": "take a photo",
                 "description": "text on block"
             },
             "startVideoRecording": {
-                "text": "[action] l'enregistrement vidéo",
+                "text": "[action] register audio",
                 "description": "text on block"
             }
         },
@@ -338,10 +338,6 @@
                 "message": ["impact", "hit", "explosion", "alert"],
                 "description": "text in menu"
             },
-            "customAudio": {
-                "message": ["audio1", "audio2", "audio3"],
-                "description": "text in menu"
-            },
             "recordingActions": {
                 "message": ["start", "stop"],
                 "description": "text in menu"
@@ -363,7 +359,24 @@
         },
         "menus": {
             "sn": {
-                "message": "NoTranslation",
+                "message": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16"
+                ],
                 "description": "text in menu"
             }
         }
@@ -373,29 +386,29 @@
         "description": "name of tab",
         "blocks": {
             "setInfraredSensor": {
-                "text": "capteur de distance infrarouge [status] fonctions de mesures [sensor]",
+                "text": "ir distance captor [status] mesurement function [sensor]",
                 "description": "text on block"
             },
             "whenInfraredDistance": {
-                "text": "quand le capteur de distance infrarouge [sensor] détecte une distance de [operator] [value] cm",
+                "text": "when ir captor [sensor] distance [operator] [value] cm",
                 "description": "text on block"
             },
             "waitUntilInfraredDistance": {
-                "text": "attendez que la valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]",
+                "text": "wait until [operator] [value] cm with ir captor [sensor]",
                 "description": "text on block"
             },
             "isInfraredDistance": {
-                "text": "valeur de distance [operator] [value] cm du capteur de distance infrarouge [sensor]",
+                "text": "distance [operator] [value] cm from ir captor [sensor]",
                 "description": "text on block"
             },
             "getInfraredDistance": {
-                "text": "capteur de distance infrarouge [sensor] valeur de distance",
+                "text": "get ir distance [sensor] from ir captor",
                 "description": "text on block"
             }
         },
         "menus": {
             "sensorStatus": {
-                "message": ["activer", "désactiver"],
+                "message": ["enable", "disable"],
                 "description": "text in menu"
             },
             "operators": {
@@ -415,117 +428,109 @@
         "description": "name of tab",
         "blocks": {
             "setClapsDetection": {
-                "text": "[status] la détection des applaudissements",
+                "text": "[status] applause detection",
                 "description": "text on block"
             },
             "setExposureValue": {
-                "text": "définir la valeur d'exposition à [exposure]",
+                "text": "set exposure value to [exposure]",
                 "description": "text on block"
             },
             "whenRobotIdentifies": {
-                "text": "quand le robot identifie [target]",
+                "text": "when [target] identified",
                 "description": "text on block"
             },
             "whenRobotIdentifiesClaps": {
-                "text": "quand le robot identifie [claps]",
+                "text": "when robot identifies [claps]",
                 "description": "text on block"
             },
             "enableIdentification": {
-                "text": "[action] l'identification de [feature]",
+                "text": "[action] identification of [feature]",
                 "description": "text on block"
             },
             "setMarkerIdentificationDistance": {
-                "text": "définir la distance d'identification des marqueurs visuels à [distance] m",
+                "text": "define visual marks distance to [distance] m",
                 "description": "text on block"
             },
             "setMarkerColor": {
-                "text": "définir [color] comme couleur d'identification du marqueur visuel",
+                "text": "define [color] to identification color for visual marks",
                 "description": "text on block"
             },
             "setLineColor": {
-                "text": "définir le [color] comme la couleur d'identification de la ligne",
+                "text": "define [color] to identification color of line",
                 "description": "text on block"
             },
             "getMarkerInfo": {
-                "text": "infos sur le marqueur visuel identifié",
+                "text": "infos about identified marks",
                 "description": "text on block"
             },
             "getPersonInfo": {
-                "text": "infos sur [target] identifié(e)",
+                "text": "infos about identified [target]",
                 "description": "text on block"
             },
             "getGestureInfo": {
-                "text": "infos sur le geste identifié",
+                "text": "infos on identified gesture",
                 "description": "text on block"
             },
             "getLineInfo": {
-                "text": "infos sur la ligne identifiée",
+                "text": "infos on identified line",
                 "description": "text on block"
             },
             "getLinesInfo": {
-                "text": "infos sur les lignes identifiées",
+                "text": "infos on identified lines",
                 "description": "text on block"
             },
             "getCurrentBrightness": {
-                "text": "luminosité actuelle",
-                "description": "text on block"
-            },
-            "getAimingPosition": {
-                "text": "position de visée",
+                "text": "get current brightness",
                 "description": "text on block"
             },
             "waitUntilIdentifies": {
-                "text": "attendre jusqu'à l'identification de [target]",
+                "text": "wait until identification of [target]",
                 "description": "text on block"
             },
             "waitUntilClaps": {
-                "text": "attendre jusqu'à l'identification de [claps]",
+                "text": "wait until [claps] identification",
                 "description": "text on block"
             }
         },
         "menus": {
             "exposureValues": {
-                "message": ["élevée", "moyenne", "basse"],
+                "message": ["high", "mean", "low"],
                 "description": "text in menu"
             },
             "targetTypes": {
-                "message": ["coeur rouge", "cercle bleu", "triangle vert"],
+                "message": ["red heart", "blue circle", "green triangle"],
                 "description": "text in menu"
             },
             "identificationTargets": {
-                "message": ["personnes", "marqueurs visuels", "gestes"],
+                "message": ["persons", "visual marks", "gestures"],
                 "description": "text in menu"
             },
             "clapTypes": {
-                "message": [
-                    "2 applaudissements",
-                    "1 applaudissement",
-                    "3 applaudissements"
-                ],
+                "message": ["1 applause", "2 applause", "3 applause"],
                 "description": "text in menu"
             },
             "actionTypes": {
-                "message": ["activer", "désactiver"],
+                "message": ["activate", "desactivate"],
                 "description": "text in menu"
             },
             "featureTypes": {
-                "message": ["marqueurs visuels", "lignes", "applaudissements"],
+                "message": ["visual marks", "lines", "applause"],
                 "description": "text in menu"
             },
             "markerColors": {
-                "message": ["rouge", "vert", "bleu", "jaune"],
+                "message": ["red", "green", "blue", "yellow"],
                 "description": "text in menu"
             },
             "lineColors": {
-                "message": ["bleu", "rouge", "vert", "jaune"],
+                "message": ["blue", "red", "green", "yellow"],
                 "description": "text in menu"
             },
             "personTypes": {
-                "message": ["personnes", "robots S1"],
+                "message": ["persons", "robots S1"],
                 "description": "text in menu"
             },
             "waitTargets": {
-                "message": ["personnes", "marqueurs visuels", "gestes"],
+                "message": ["persons", "visual marks", "gestures"],
                 "description": "text in menu"
             }
         }

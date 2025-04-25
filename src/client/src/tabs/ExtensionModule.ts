@@ -1,14 +1,13 @@
 import { Block } from '#robomaster_turbowarp_extension/Block.ts'
 import { language } from '#config'
 
-
 export const ExtensionModule = {
     color: '#F24A88',
     blocks: [
         new Block(
             'arm',
             Scratch.BlockType.COMMAND,
-            'set arm to position [position]',
+            'Set arm to position [position]',
             {
                 position: {
                     type: Scratch.ArgumentType.STRING,
@@ -27,7 +26,7 @@ export const ExtensionModule = {
         new Block(
             'setGripper',
             Scratch.BlockType.COMMAND,
-            'set gripper to [action]',
+            'Set gripper to [action]',
             {
                 action: {
                     type: Scratch.ArgumentType.STRING,
@@ -39,7 +38,7 @@ export const ExtensionModule = {
         new Block(
             'armMove',
             Scratch.BlockType.COMMAND,
-            'move arm [direction] distance:[distance]mm',
+            'Move arm [direction] distance:[distance]mm',
 
             {
                 direction: {
@@ -56,7 +55,7 @@ export const ExtensionModule = {
         new Block(
             'armMoveTo',
             Scratch.BlockType.COMMAND,
-            'move arm to (X:[x] Y:[y])',
+            'Move arm to (X:[x] Y:[y])',
             {
                 x: {
                     type: Scratch.ArgumentType.NUMBER,

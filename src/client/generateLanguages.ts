@@ -1,15 +1,13 @@
 import * as libTabs from '#robomaster_turbowarp_extension/tabs/index.ts'
 import { LanguageObject } from '#types/locales/Language.d.ts'
 import { Language } from '#robomaster_turbowarp_extension/locales/Language.ts'
-import * as fs from 'fs'
 
 /**
  * @returns {void} - Generate new message template in json file
  */
-
 function generate_template(): void {
     // Generate new message template in json file
-    const language = new Language()
+    const language = new Language('fr')
     const translations_template: LanguageObject = {}
     for (const [tabKey, tab] of Object.entries(libTabs)) {
         translations_template[tabKey] = {
@@ -38,8 +36,7 @@ function generate_template(): void {
             }
         }
     }
-    fs.writeFileSync('./test.json', JSON.stringify(translations_template))
-    /*
+
     const JSONToFile = (obj: LanguageObject, filename: string): void => {
         const blob = new Blob([JSON.stringify(obj, null, 2)], {
             type: 'application/json',
@@ -55,6 +52,5 @@ function generate_template(): void {
         translations_template,
         `messages.${language.lang}.template`
     )
-        */
 }
 generate_template()

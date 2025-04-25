@@ -13,11 +13,11 @@ export default ({ mode }) => {
 
         build: {
             outDir: 'build',
-            emptyOutDir: false,
+            emptyOutDir: true,
             manifest: true,
             minify: true,
             lib: {
-                name: 'RobomasterTurbowarpExtension',
+                name: `${process.env.npm_package_name}`,
                 entry: 'main.ts',
                 fileName: `${process.env.npm_package_name}_${mode}-${process.env.npm_package_version}`,
                 formats: ['es'],

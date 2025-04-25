@@ -1,7 +1,7 @@
 import en from './en/messages.json' with { type: 'json' }
 import fr from './fr/messages.json' with { type: 'json' }
 import { LanguageObject } from '#types/locales/Language.d.ts'
-// @ts-nocheck
+
 /**
  * Get new language
  * @class Language

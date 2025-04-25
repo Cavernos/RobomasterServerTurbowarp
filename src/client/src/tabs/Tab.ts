@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import * as _ from 'lodash-es'
 import { Block } from '#robomaster_turbowarp_extension/Block.ts'
 /**
@@ -14,7 +12,7 @@ import { Block } from '#robomaster_turbowarp_extension/Block.ts'
  * For more information with Tab see below
  *
  **/
-export class Tab implements Scratch.Extension {
+export class Tab {
     /**
      * ID of the tab
      * @property {string} id
@@ -37,7 +35,7 @@ export class Tab implements Scratch.Extension {
      * A list of block(s) having in the tab
      * @property {list} blocks
      */
-    blocks: (Block | Scratch.Separator)[]
+    blocks: (Scratch.Block | Scratch.Separator)[]
 
     /**
      * Define tab's menu (side bar)
@@ -48,7 +46,7 @@ export class Tab implements Scratch.Extension {
     constructor(
         name = 'NoName',
         color = '#000000',
-        blocks: never[] | Block[] = [],
+        blocks: never[] | (Scratch.Block | Scratch.Separator)[] = [],
         menus = {}
     ) {
         // Define this tab properties

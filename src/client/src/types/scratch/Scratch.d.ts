@@ -1,5 +1,3 @@
-import { Block as MyBlock } from '../../Block.ts'
-
 declare namespace Scratch {
     // Note that the 'B' in the BOOLEAN enums are capitalized in Scratch. It is not a typo in this file.
 
@@ -175,6 +173,7 @@ declare namespace Scratch {
         branchCount?: number
     }
     type Block =
+        | AbstractBlock
         | BooleanBlock
         | ButtonBlock
         | CommandBlock
@@ -183,7 +182,6 @@ declare namespace Scratch {
         | HatBlock
         | ReporterBlock
         | LoopBlock
-        | MyBlock
 
     type Separator = '---'
 

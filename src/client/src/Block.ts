@@ -11,7 +11,7 @@ import { config, language } from '#config'
  * @see {@link Scratch.BlockType}
  *
  * */
-export class Block {
+export class Block implements Scratch.AbstractBlock {
     /**
      * Opcode (equivalent of id) of the block
      * @property {string} opcode

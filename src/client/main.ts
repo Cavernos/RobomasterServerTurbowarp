@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { language } from '#config'
 import { Tab } from '#robomaster_turbowarp_extension/tabs/Tab.ts'
+import * as libTabs from '#robomaster_turbowarp_extension/tabs/index.ts'
 
 /**
  * Extension's list

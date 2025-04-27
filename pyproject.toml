@@ -45,5 +45,5 @@ Repository = "https://github.com/GueuleDeL0up/robomaster-extension-for-scratch.g
 robomaster-cli = "app.main:main_cli"
 
 [tool.setuptools.packages.find]
-where = ["src/server/"]
+where = ["src"]
 exclude = ["tests*"]

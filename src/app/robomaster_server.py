@@ -45,7 +45,7 @@ class RoboMasterServer:
         self.app_dir = APP_DIR
         self.host = HOST
         self.port = PORT
-        ROUTER.route_generator(self.app)
+        ROUTER.route_generator(self)
 
 
     def run(self):

@@ -1,4 +1,3 @@
-from app import robomaster_server
 from lib.Router import Route
 
 
@@ -36,13 +35,13 @@ class Router:
         """
         self.routes.append(Route(path, name, callback, {**params, "http_method": "POST"}))
 
-    def route_generator(self, app):
+    def route_generator(self, server):
         """Generate all route and open them
             Args:
                 app (Flask) flask app
         """
         for route in self.routes:
             if isinstance(route.callback, str):
-                app.add_url_rule(route.path, route.name, getattr(robomaster_server.RoboMasterServer, route.callback), methods=[route.params['http_method']])
+                server.app.add_url_rule(route.path, route.name, getattr(server, route.callback), methods=[route.params['http_method']])
             else:
-                app.add_url_rule(route.path, route.name, route.callback, methods=[route.params['http_method']])
+                server.app.add_url_rule(route.path, route.name, route.callback, methods=[route.params['http_method']])
